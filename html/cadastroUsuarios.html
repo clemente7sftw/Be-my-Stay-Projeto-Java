@@ -3,20 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Be my Stay | Cadastro</title>
+    <link rel="stylesheet" href="../css/cadastroUsuarios.css">
+    <link rel="icon" type="image/png" href="../assets/icone_web.png">
 </head>
 <body>
-    <form action="">
-        <label for="nome">Nome</label>
+    <main>
+        <form action="">
+            <label for="nome">Nome</label>
+            <input type="text" name="" id="">
+            <label for="email">Email</label>
+            <input type="text" name="" id="">
+            <label for="senha">Senha</label>
+            <input type="password" name="" id="">
+            <label for="senha">Confirmar senha</label>
+            <input type="password" name="" id="">
+            <button id="btnContinuar">Continuar</button>           
+        </form>
+    </main>
+
+    <form class="form_add" id="form_add" action="">
+        <label for="username">Username</label>
         <input type="text" name="" id="">
-        <label for="email">Email</label>
-        <input type="email" name="" id="">
-        <label for="cpf">Cpf</label>
-        <input type="number">
-        <label for="fone">Telefone</label>
-        <input type="number" name="" id="">
-        <label for="senha">Senha</label>
-        <input type="password">
+        <label for="telefone">Número de Celular</label>
+        <input type="text">
+        <label for="cpf">CPF</label>
+        <input type="text" name="" id="">
+        <button><a href="telaInicial.html">Cadastrar</a></button>
     </form>
+    <!-- <script>
+        const btn = document.getElementById("btnContinuar");
+        const formAdd = document.getElementById("form_add");
+      
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+      
+          formAdd.style.display = "block"; 
+          btn.style.display = "none";    
+        });
+      </script> -->
+      
 </body>
 </html>
