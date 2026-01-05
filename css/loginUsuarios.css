@@ -50,9 +50,6 @@ main{
         background-color: #121212;
         cursor: pointer;
     }
-    button a{
-        color: white;
-    }
     .redesSociais{
         margin-top: 50px;
         text-align: center; 
