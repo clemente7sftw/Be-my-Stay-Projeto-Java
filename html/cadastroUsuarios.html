@@ -28,7 +28,7 @@
                 <input type="password" required> <br>
                 <label for="">Confirmar senha</label> <br>
                 <input type="password" required> <br>
-                <button><a href="telaInicial.html">Continuar</a></button>
+                <button type="button" id="continuar_btn">Continuar</button>
             </form>
             <div class="redesSociais">
                 <p>ou continue com</p>
@@ -44,6 +44,63 @@
         <h1 class="asideH1">Be my stay</h1>
         <p class="asideP">Descubra onde se sentir em casa</p>
     </aside>
+    <div id="blur" class="overlay hidden">
+        <div class="modal" id="extra_form">
+            
+            <nav class="progresso_bar">
+                <button class="check"><img src="../assets/check.png" alt=""></button> <p>Informações iniciais </p> >
+                <button class="ativo">2</button> <p>Cadastro</p> >
+                <button>3</button> <p>Be my Stay</p>
+            </nav>   
+    
+            <form class="form_esc">
+                <label for="username">Username</label> <br>
+                <input type="text"> <br>
+
+                <label for="telefone">Número de Celular</label> <br>
+                <input type="text" name="" id=""> <br>
+
+                <label>CPF</label> <br>
+                <input type="text"> <br>
+    
+                <label>Data de nascimento</label> <br>
+                <input type="date"> <br>
+    
+                <button class="btn_voltar" type="submit">Voltar</button>
+                <button class="btn_cad">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const overlay = document.getElementById("blur");
+        const modal = document.getElementById("extra_form");
+        const openBtn = document.getElementById("continuar_btn");
+        
+        const formInputs = document.querySelectorAll("main form input");
+        
+        openBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+        
+            const preenchidos = Array.from(formInputs).every(input =>
+                input.value.trim() !== ""
+            );
+        
+            if (!preenchidos) {
+                alert("Preencha todos os campos antes de continuar");
+                return;
+            }
+        
+            overlay.classList.remove("hidden");
+        });
+        
+        overlay.addEventListener("click", (e) => {
+            if (!modal.contains(e.target)) {
+                overlay.classList.add("hidden");
+            }
+        });
+        </script>
+        
+        
 </body>
 
 </html>
