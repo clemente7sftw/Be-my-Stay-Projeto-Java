@@ -4,7 +4,6 @@ import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -15,9 +14,6 @@ public class UsuarioService {
         this.repository = repository;
     }
 
-    public List<Usuario> listarTodos() {
-        return repository.findAll();
-    }
 
     public Usuario salvar(Usuario usuario) {
         return repository.save(usuario);
@@ -26,8 +22,9 @@ public class UsuarioService {
     public Usuario buscarPorId(Long id) {
         return repository.findById(id).orElse(null);
     }
-
-    public void excluir(Long id) {
-        repository.deleteById(id);
+    public Usuario buscarPorEmail(String email) {
+        return repository.findByEmail(email).orElse(null);
     }
+
+
 }
