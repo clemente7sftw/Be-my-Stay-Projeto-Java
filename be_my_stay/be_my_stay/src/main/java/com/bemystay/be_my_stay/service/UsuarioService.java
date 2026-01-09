@@ -1,6 +1,8 @@
 package com.bemystay.be_my_stay.service;
 
+import com.bemystay.be_my_stay.model.Cargo;
 import com.bemystay.be_my_stay.model.Usuario;
+import com.bemystay.be_my_stay.repository.CargoRepository;
 import com.bemystay.be_my_stay.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -8,22 +10,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioService {
 
-    private final UsuarioRepository repository;
+    private final UsuarioRepository usuarioRepository;
+    private final CargoRepository cargoRepository;
 
-    public UsuarioService(UsuarioRepository repository) {
-        this.repository = repository;
+    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository) {
+        this.usuarioRepository = usuarioRepository;
+        this.cargoRepository = cargoRepository;
     }
 
 
     public Usuario salvar(Usuario usuario) {
-        return repository.save(usuario);
+        Cargo cargoUser = cargoRepository.findByNome("hóspede")
+                .orElseThrow(() -> new RuntimeException("."));
+
+        usuario.getCargos().add(cargoUser);
+
+        return usuarioRepository.save(usuario);
     }
 
     public Usuario buscarPorId(Long id) {
-        return repository.findById(id).orElse(null);
+        return usuarioRepository.findById(id).orElse(null);
     }
     public Usuario buscarPorEmail(String email) {
-        return repository.findByEmail(email).orElse(null);
+        return usuarioRepository.findByEmail(email).orElse(null);
     }
 
 

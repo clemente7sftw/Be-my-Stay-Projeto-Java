@@ -20,6 +20,7 @@ public class UsuarioController {
 
     @GetMapping("/cadastro")
     public String novo(Model model) {
+
         model.addAttribute("usuario", new Usuario());
         return "usuarios/cadastro";
     }
