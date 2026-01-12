@@ -31,14 +31,14 @@ public class Usuario {
             joinColumns = @JoinColumn(name = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_cargo")
     )
-    private Set<Cargo> cargos = new HashSet<>();
+    private Set<Cargo> cargo = new HashSet<>();
 
-    public Set<Cargo> getCargos() {
-        return cargos;
+    public Set<Cargo> getCargo() {
+        return cargo;
     }
 
     public void setCargos(Set<Cargo> cargos) {
-        this.cargos = cargos;
+        this.cargo = cargo;
     }
 
     public Long getId() {

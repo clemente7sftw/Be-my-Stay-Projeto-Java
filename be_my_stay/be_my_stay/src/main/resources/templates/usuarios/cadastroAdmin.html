@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        .container {
+            width: 400px;
+            margin: 80px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 12px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            background: #1f2937;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #111827;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cadastro de Administrador</h2>
+
+    <form th:action="@{/usuarios/cadastrarAdmin}" th:object="${usuario}" method="post">
+
+        <h2 class="mainH2">Cadastro</h2>
+
+        <label>Nome</label><br>
+        <input type="text" th:field="*{nome}" required><br>
+
+        <label>Email</label><br>
+        <input type="email" th:field="*{email}" required><br>
+
+        <label>Senha</label><br>
+        <input type="password" th:field="*{senhaHash}" required><br>
+
+        <label>Username</label><br>
+        <input type="text" th:field="*{userName}" required><br>
+
+        <label>Número de Celular</label><br>
+        <input type="text" th:field="*{telefone}"><br>
+
+        <label>CPF</label><br>
+        <input type="text" th:field="*{cpf}"><br>
+
+        <label>Data de nascimento</label><br>
+        <input type="date" th:field="*{dataNasc}"><br>
+
+        <button type="submit" id="continuar_btn">Continuar</button>
+    </form>
+</div>
+
+</body>
+</html>

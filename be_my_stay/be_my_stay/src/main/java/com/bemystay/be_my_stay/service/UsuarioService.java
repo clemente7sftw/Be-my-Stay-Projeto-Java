@@ -18,15 +18,25 @@ public class UsuarioService {
         this.cargoRepository = cargoRepository;
     }
 
+    public Usuario cadastrarHospede(Usuario usuario) {
+        return salvarComCargo(usuario, "hóspede");
+    }
 
-    public Usuario salvar(Usuario usuario) {
-        Cargo cargoUser = cargoRepository.findByNome("hóspede")
-                .orElseThrow(() -> new RuntimeException("."));
 
-        usuario.getCargos().add(cargoUser);
+    public Usuario cadastrarAdmin(Usuario usuario) {
+        return salvarComCargo(usuario, "admin");
+    }
+    private Usuario salvarComCargo(Usuario usuario, String nomeCargo) {
+
+        Cargo cargo = cargoRepository.findByNome(nomeCargo)
+                .orElseThrow(() -> new RuntimeException("Cargo não encontrado"));
+
+        usuario.getCargo().add(cargo);
 
         return usuarioRepository.save(usuario);
     }
+
+
 
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElse(null);
