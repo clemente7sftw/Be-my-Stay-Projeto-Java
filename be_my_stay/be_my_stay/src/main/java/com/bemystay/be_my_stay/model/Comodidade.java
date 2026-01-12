@@ -12,6 +12,10 @@ public class Comodidade {
     private String nome;
     private String icone;
 
+    @Column(nullable = false)
+    private Boolean ativo = true;
+
+
     public Long getId() {
         return id;
     }
@@ -35,4 +39,12 @@ public class Comodidade {
     public void setIcone(String icone) {
         this.icone = icone;
     }
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
 }

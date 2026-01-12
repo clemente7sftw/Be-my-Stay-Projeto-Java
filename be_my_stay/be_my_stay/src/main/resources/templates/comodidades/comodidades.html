@@ -8,13 +8,21 @@
 <a href="/comodidades/nova">Adicionar</a>
 
 
-<div class="grid">
 
     <div class="card" th:each="c : ${comodidades}">
         <img th:src="@{/uploads/{img}(img=${c.icone})}" alt="Ícone">
         <h3 th:text="${c.nome}"></h3>
+
+        <form th:action="@{/comodidades/deletar/{id}(id=${c.id})}" method="post">
+            <button type="submit"><img th:src="@{/assets/file-remove.png}" alt="deletar"></button>
+        </form>
+
+        <a th:href="@{/comodidades/editar/{id}(id=${c.id})}">
+            <img th:src="@{/assets/file-edit.png}" alt="editar">
+        </a>
+
+
     </div>
 
-</div>
 </body>
 </html>
