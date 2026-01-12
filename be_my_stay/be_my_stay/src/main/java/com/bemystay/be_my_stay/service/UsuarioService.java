@@ -28,8 +28,7 @@ public class UsuarioService {
     }
     private Usuario salvarComCargo(Usuario usuario, String nomeCargo) {
 
-        Cargo cargo = cargoRepository.findByNome(nomeCargo)
-                .orElseThrow(() -> new RuntimeException("Cargo não encontrado"));
+        Cargo cargo = cargoRepository.findByNome(nomeCargo).orElseThrow(() -> new RuntimeException("Cargo não encontrado"));
 
         usuario.getCargo().add(cargo);
 

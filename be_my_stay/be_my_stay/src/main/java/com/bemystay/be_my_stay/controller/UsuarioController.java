@@ -21,10 +21,10 @@ public class UsuarioController {
         this.service = service;
     }
 
-    @GetMapping("/cadastro")
+    @GetMapping("/cadastroUsuario")
     public String novo(Model model) {
         model.addAttribute("usuario", new Usuario());
-        return "usuarios/cadastro";
+        return "usuarios/cadastroUsuario";
     }
 
 
@@ -90,9 +90,6 @@ public class UsuarioController {
                 return "redirect:/usuarios/telaAdmin";
 
             case "hóspede":
-                return "redirect:/usuarios/telaInicialHospede";
-
-            case "USER":
             default:
                 return "redirect:/usuarios/telaInicial";
         }

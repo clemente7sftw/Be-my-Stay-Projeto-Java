@@ -29,7 +29,8 @@ public class AdminController {
 
         Usuario usuarioLogado = service.cadastrarAdmin(usuario);
 
-        session.setAttribute("idUsuario", usuarioLogado.getId());
+        session.setAttribute("usuarioLogado", usuarioLogado);
+
         return "redirect:/usuarios/telaAdmin";
     }
 
@@ -46,4 +47,8 @@ public class AdminController {
 
         return "usuarios/telaAdmin";
     }
+
+
+
+
 }
