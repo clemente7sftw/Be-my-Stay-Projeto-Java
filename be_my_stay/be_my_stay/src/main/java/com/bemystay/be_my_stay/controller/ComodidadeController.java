@@ -26,11 +26,7 @@ public class ComodidadeController {
         model.addAttribute("comodidade", new Comodidade());
         return "comodidades/addComodidades";
     }
-    @GetMapping("/listar")
-    public String listar(Model model) {
-        model.addAttribute("comodidades", service.listar());
-        return "comodidades/comodidades";
-    }
+
     @PostMapping("/salvar")
     public String salvar(
             @ModelAttribute Comodidade comodidade,
@@ -47,6 +43,12 @@ public class ComodidadeController {
         }
 
         service.salvar(comodidade);
+        return "redirect:/comodidades/listar";
+
+    }
+    @GetMapping("/listar")
+    public String listar(Model model) {
+        model.addAttribute("comodidades", service.listar());
         return "comodidades/comodidades";
     }
 
