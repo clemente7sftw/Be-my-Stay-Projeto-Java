@@ -23,6 +23,10 @@ public class ComodidadeService {
     public List<Comodidade> listar() {
         return repository.findAtivas();
     }
+    public List<Comodidade> listarInativas() {
+        return repository.findInativas();
+    }
+
     public void desativar(Long id) {
         Comodidade c = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));
@@ -30,9 +34,27 @@ public class ComodidadeService {
         c.setAtivo(false);
         repository.save(c);
     }
+    public void ativar(Long id){
+        Comodidade c = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));
+
+        c.setAtivo(true);
+        repository.save(c);
+    }
     public Comodidade buscarPorId(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não encontrada"));
     }
+    public void editar(Long id, Comodidade dados) {
+
+        Comodidade c = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));
+
+        c.setNome(dados.getNome());
+        c.setIcone(dados.getIcone());
+
+        repository.save(c);
+    }
+
 
 }

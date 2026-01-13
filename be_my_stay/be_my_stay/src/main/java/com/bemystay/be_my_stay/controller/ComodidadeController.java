@@ -22,8 +22,8 @@ public class ComodidadeController {
     public ComodidadeController(ComodidadeService service) {
         this.service = service;
     }
-    @GetMapping("/nova")
-    public String nova(HttpSession session, Model model ) {
+    @GetMapping("/criar")
+    public String criar(HttpSession session, Model model ) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -57,6 +57,11 @@ public class ComodidadeController {
         service.desativar(id);
         return "redirect:/comodidades/listar";
     }
+    @PostMapping("/restaurar/{id}")
+    public String restaurar(@PathVariable Long id){
+        service.ativar(id);
+        return "redirect:/comodidades/listar";
+    }
 
     @GetMapping("/listar")
     public String listar(HttpSession session,  Model model) {
@@ -67,6 +72,30 @@ public class ComodidadeController {
         model.addAttribute("comodidades", service.listar());
         return "comodidades/comodidades";
     }
+
+    @GetMapping("/listarInativas")
+    public String listarInativas(HttpSession session,  Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("comodidades", service.listarInativas());
+        return "comodidades/restaurarComodidades";
+    }
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        Comodidade c = service.buscarPorId(id);
+        model.addAttribute("comodidade", c);
+        return "comodidades/editar";
+    }
+
+    @PostMapping("/salvarEdicao/{id}")
+    public String salvarEdicao(@PathVariable Long id,@ModelAttribute Comodidade comodidade) {
+
+        service.editar(id, comodidade);
+        return "redirect:/comodidades/listar";
+    }
+
 
 
 }

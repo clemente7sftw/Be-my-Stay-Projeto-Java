@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/comodidades/salvarEdicao/{id}(id=${comodidade.id})}"
+      th:object="${comodidade}"
+      method="post">
+
+    <input type="text" th:field="*{nome}">
+    <input type="text" th:field="*{icone}">
+
+    <button type="submit">Salvar</button>
+</form>
+
+</body>
+</html>

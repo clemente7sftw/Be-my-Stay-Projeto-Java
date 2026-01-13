@@ -6,7 +6,7 @@
 </head>
 <body>
 <a href="/comodidades/nova">Adicionar</a>
-
+<a href="/comodidades/listarInativas">Restaurar</a>
 
 
     <div class="card" th:each="c : ${comodidades}">
@@ -16,6 +16,7 @@
         <form th:action="@{/comodidades/deletar/{id}(id=${c.id})}" method="post">
             <button type="submit"><img th:src="@{/assets/file-remove.png}" alt="deletar"></button>
         </form>
+
 
         <a th:href="@{/comodidades/editar/{id}(id=${c.id})}">
             <img th:src="@{/assets/file-edit.png}" alt="editar">
