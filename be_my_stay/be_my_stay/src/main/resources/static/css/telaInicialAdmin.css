@@ -1,0 +1,183 @@
+*{
+    font-family: "Poppins", sans-serif;
+}
+body{
+    margin: 0;
+    display: flex;
+}
+
+aside{
+    background-color: #242424;
+    height: 100vh;
+    width: 300px;
+    a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    a img {
+        width: 40px;
+        height: 40px;
+    }
+
+    h1{
+        color: white;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .pMenu{
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        color: white;
+        font-size: x-large;
+    }
+
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 300px;
+    width: calc(100% - 300px);
+    height: 80px;
+    background-color: white;
+    z-index: 100;
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p{
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+    }
+    .p2{
+        color: #838383;
+    }
+    img{
+        width: 48px;
+    }
+
+    span{
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        font-size: 40px;
+    }
+    a{
+        text-decoration: none;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-style: normal;
+        color: black;
+    }
+    button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-style: none;
+        border-radius: 50px;
+        height: 70px;
+        width: 160px;
+        background-color: black;
+        a{
+            font-size: 15px;
+            color: white;
+        }
+    }
+}
+.header_direita, .header_esquerda{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header_direita{
+    margin-left: 1300px;
+}
+.header_esquerda{
+    gap: 10px;
+    margin-left: -45px;
+}
+nav{
+    margin-top: 50px;
+    .containers{
+        display: flex;
+        gap: 100px;
+        margin-left: 400px;
+    }
+    .container{
+        background-color: #242424;
+        width: 200px;
+        border-radius: 15px;
+        text-align: center;
+        color: white;
+    }
+    hr{
+        width: 100px;
+    }
+
+}
+.tabela {
+    width: 400px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1.5px solid #000;
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+  }
+
+  .tabela thead th {
+    background: #fff;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1.5px solid #000;
+  }
+
+  .tabela td {
+    padding: 12px;
+    text-align: center;
+  }
+
+  .tabela tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #000;
+  }
+
+  .tabela th:not(:last-child),
+  .tabela td:not(:last-child) {
+    border-right: 1px solid #000;
+  }
+
+  .tabela thead th:first-child {
+    border-top-left-radius: 12px;
+  }
+  .tabela thead th:last-child {
+    border-top-right-radius: 12px;
+  }
+
+  .tabela tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+  }
+  .tabela tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+  }
+  main{
+    margin-top: 300px;
+    margin-left: -1150px
+  }
