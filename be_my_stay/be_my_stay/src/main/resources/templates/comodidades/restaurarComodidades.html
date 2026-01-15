@@ -2,21 +2,48 @@
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Restaurar | Be my Stay Administradores</title>
+    <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
+    <link rel="stylesheet" th:href="@{/css/comodidades.css}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
 </head>
 <body>
-<a href="/comodidades/listar">Voltar</a>
 
-<div class="card" th:each="c : ${comodidades}">
-    <img th:src="@{/uploads/{img}(img=${c.icone})}" alt="Ícone">
-    <h3 th:text="${c.nome}"></h3>
-    <form th:action="@{/comodidades/restaurar/{id}(id=${c.id})}" method="post">
-        <button type="submit" class="btn-icon">
-            <img th:src="@{/assets/restore-bin.png}" alt="Restaurar">
-        </button>
-    </form>
 
-</div>
+<table class="tabela">
+    <thead>
+    <tr>
+        <th>Ícone</th>
+        <th>Comodidade</th>
+        <th>Restaurar</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="c : ${comodidades}">
+
+        <td>
+            <img th:src="@{/uploads/{img}(img=${c.icone})}" alt="Ícone" width="40">
+        </td>
+
+        <td th:text="${c.nome}"></td>
+
+        <td>
+            <form th:action="@{/comodidades/restaurar/{id}(id=${c.id})}" method="post">
+                <button type="submit" class="btn-icon">
+                    <img th:src="@{/assets/restore-bin.png}" alt="Restaurar">
+                </button>
+            </form>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

@@ -114,7 +114,7 @@ header{
     margin-left: -45px;
 }
 nav{
-    margin-top: 50px;
+    margin-top: 55px;
     .containers{
         display: flex;
         gap: 100px;
@@ -188,4 +188,9 @@ nav{
   main{
     margin-top: 300px;
     margin-left: -1150px
+  }
+  form button{
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
   }
