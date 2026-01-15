@@ -1,6 +1,7 @@
 package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.Comodidade;
+import com.bemystay.be_my_stay.repository.ComodidadeRepository;
 import com.bemystay.be_my_stay.service.ComodidadeService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ public class ComodidadeController {
     public ComodidadeController(ComodidadeService service) {
         this.service = service;
     }
+
     @GetMapping("/criar")
     public String criar(HttpSession session, Model model ) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -70,8 +72,12 @@ public class ComodidadeController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("comodidades", service.listar());
+        model.addAttribute("contarTotal", service.contarTotal());
+        model.addAttribute("ativas", service.contarAtivas());
+        model.addAttribute("inativas", service.contarInativas());
         return "comodidades/comodidades";
     }
+
 
     @GetMapping("/listarInativas")
     public String listarInativas(HttpSession session,  Model model) {

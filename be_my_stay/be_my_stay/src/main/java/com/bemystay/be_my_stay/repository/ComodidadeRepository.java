@@ -12,5 +12,6 @@ public interface ComodidadeRepository extends JpaRepository <Comodidade, Long > 
     List<Comodidade> findAtivas();
     @Query("SELECT c FROM Comodidade c WHERE c.ativo = false")
     List<Comodidade> findInativas();
-
+    long countByAtivoTrue();
+    long countByAtivoFalse();
 }

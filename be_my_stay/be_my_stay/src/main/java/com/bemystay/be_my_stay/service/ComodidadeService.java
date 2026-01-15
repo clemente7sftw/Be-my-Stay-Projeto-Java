@@ -26,6 +26,17 @@ public class ComodidadeService {
     public List<Comodidade> listarInativas() {
         return repository.findInativas();
     }
+    public long contarTotal() {
+        return repository.count();
+    }
+    public long contarAtivas() {
+        return repository.countByAtivoTrue();
+    }
+
+    public long contarInativas() {
+        return repository.countByAtivoFalse();
+    }
+
 
     public void desativar(Long id) {
         Comodidade c = repository.findById(id)
