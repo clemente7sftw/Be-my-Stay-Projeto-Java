@@ -20,15 +20,16 @@ public class ComodidadeService {
         repository.save(comodidade);
     }
 
-    public List<Comodidade> listar() {
-        return repository.findAtivas();
-    }
+    public List<Comodidade> listar() { return repository.findAtivas(); }
+
     public List<Comodidade> listarInativas() {
         return repository.findInativas();
     }
+
     public long contarTotal() {
         return repository.count();
     }
+
     public long contarAtivas() {
         return repository.countByAtivoTrue();
     }

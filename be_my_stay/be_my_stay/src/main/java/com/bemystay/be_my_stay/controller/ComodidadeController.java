@@ -59,16 +59,7 @@ public class ComodidadeController {
         return "redirect:/comodidades/listar";
 
     }
-    @PostMapping("/deletar/{id}")
-    public String deletar(@PathVariable Long id) {
-        service.desativar(id);
-        return "redirect:/comodidades/listar";
-    }
-    @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id){
-        service.ativar(id);
-        return "redirect:/comodidades/listar";
-    }
+
 
     @GetMapping("/listar")
     public String listar(HttpSession session,  Model model) {
@@ -92,6 +83,16 @@ public class ComodidadeController {
         }
         model.addAttribute("comodidades", service.listarInativas());
         return "comodidades/restaurarComodidades";
+    }
+    @PostMapping("/deletar/{id}")
+    public String deletar(@PathVariable Long id) {
+        service.desativar(id);
+        return "redirect:/comodidades/listar";
+    }
+    @PostMapping("/restaurar/{id}")
+    public String restaurar(@PathVariable Long id){
+        service.ativar(id);
+        return "redirect:/comodidades/listar";
     }
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {

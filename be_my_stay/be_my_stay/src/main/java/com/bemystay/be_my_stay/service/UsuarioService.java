@@ -15,6 +15,7 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final CargoRepository cargoRepository;
+
     private Usuario salvarComCargo(Usuario usuario, String nomeCargo) {
 
         Cargo cargo = cargoRepository.findByNome(nomeCargo).orElseThrow(() -> new RuntimeException("Cargo não encontrado"));
@@ -34,6 +35,7 @@ public class UsuarioService {
     public Usuario cadastrarHospede(Usuario usuario) {
         return salvarComCargo(usuario, "hóspede");
     }
+
     public Usuario cadastrarAdmin(Usuario usuario) {
         return salvarComCargo(usuario, "admin");
     }
@@ -41,11 +43,47 @@ public class UsuarioService {
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElse(null);
     }
+
     public Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email).orElse(null);
     }
-    public List<Usuario> listar(){
-        return usuarioRepository.findByAtivos();
+    public List<Usuario> listar(){ return usuarioRepository.findByAtivos(); }
+
+    public List<Usuario> listarInativas(){ return usuarioRepository.findInativos();}
+
+    public long contarTotal() {
+        return usuarioRepository.count();
+    }
+
+    public long contarAtivas() {
+        return usuarioRepository.countByAtivoTrue();
+    }
+
+    public long contarInativas() {
+        return usuarioRepository.countByAtivoFalse();
+    }
+
+
+    public void editar(Long id, Usuario dados) {
+
+        Usuario u = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
+
+        u.setNome(dados.getNome());
+        u.setEmail(dados.getEmail());
+
+        usuarioRepository.save(u);
+    }
+    public void desativar(Long id) {
+        Usuario u = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));
+
+        u.setAtivo(false);
+        usuarioRepository.save(u);
+    }
+    public void ativar(Long id){
+        Usuario u = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));
+
+        u.setAtivo(true);
+        usuarioRepository.save(u);
     }
 
 

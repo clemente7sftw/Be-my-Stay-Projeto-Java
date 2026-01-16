@@ -72,26 +72,26 @@
         <div class="container">
             <h4>Usuários</h4>
             <hr>
-            <p>0</p>
+            <p th:text="${contarTotal}"></p>
         </div>
 
         <div class="container">
             <h4>Usuários Ativos</h4>
             <hr>
-            <p>0</p>
+            <p th:text="${ativas}"></p>
         </div>
 
         <div class="container">
             <h4>Usuários Inativos</h4>
             <hr>
-            <p>0</p>
+            <p th:text="${inativas}"></p>
         </div>
     </div>
 </nav>
 
 <main>
-    <a class="aux" href="/comodidades/criar">Criar <img  th:src="@{/assets/add.png}"></a> <br>
-    <a class="aux" href="/comodidades/listarInativas">Restaurar <img  th:src="@{/assets/restore-bin.png}"></a>
+    <a class="aux" href="/usuarios/criar">Criar <img  th:src="@{/assets/add.png}"></a> <br>
+    <a class="aux" href="/usuarios/listarInativas">Restaurar <img  th:src="@{/assets/restore-bin.png}"></a>
 
 
     <table class="tabela">
@@ -101,7 +101,7 @@
             <th>Nome</th>
             <th>Email</th>
             <th>Editar</th>
-            <th>Excluir</th>
+            <th>Desativar</th>
         </tr>
         </thead>
 
@@ -115,17 +115,17 @@
             <td th:text="${u.email}"></td>
 
             <td>
-<!--                <a th:href="@{/comodidades/editar/{id}(id=${c.id})}">-->
-<!--                    <img th:src="@{/assets/file-edit.png}" alt="Editar">-->
-<!--                </a>-->
+                <a th:href="@{/usuarios/editar/{id}(id=${u.id})}">
+                    <img th:src="@{/assets/file-edit.png}" alt="Editar">
+                </a>
             </td>
 
             <td>
-<!--                <form th:action="@{/comodidades/deletar/{id}(id=${c.id})}" method="post">-->
-<!--                    <button type="submit">-->
-<!--                        <img th:src="@{/assets/file-remove.png}" alt="Excluir">-->
-<!--                    </button>-->
-<!--                </form>-->
+                <form th:action="@{/usuarios/deletar/{id}(id=${u.id})}" method="post">
+                    <button type="submit">
+                        <img th:src="@{/assets/file-remove.png}" alt="Excluir">
+                    </button>
+                </form>
             </td>
 
         </tr>

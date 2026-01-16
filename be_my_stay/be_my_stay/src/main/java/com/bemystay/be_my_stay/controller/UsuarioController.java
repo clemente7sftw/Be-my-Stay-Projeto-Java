@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
@@ -34,19 +35,21 @@ public class UsuarioController {
         Usuario usuarioLogado = service.cadastrarHospede(usuario);
 
         session.setAttribute("idUsuario", usuarioLogado.getId());
+
         return "redirect:/usuarios/telaInicial";
     }
-
 
     @GetMapping("/telaInicial")
     public String telaInicial(HttpSession session, Model model) {
 
         Long idUsuario = (Long) session.getAttribute("idUsuario");
+
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
 
         Usuario usuario = service.buscarPorId(idUsuario);
+
         model.addAttribute("usuarioLogado", usuario);
 
         return "usuarios/telaInicial";
@@ -60,10 +63,7 @@ public class UsuarioController {
     @PostMapping("/login")
     public String login(
             @RequestParam String email,
-            @RequestParam String senhaHash,
-            HttpSession session,
-            Model model
-    ) {
+            @RequestParam String senhaHash, HttpSession session, Model model) {
 
         Usuario usuario = service.buscarPorEmail(email);
 
@@ -100,7 +100,44 @@ public class UsuarioController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("usuarios", service.listar());
+        model.addAttribute("contarTotal", service.contarTotal());
+        model.addAttribute("ativas", service.contarAtivas());
+        model.addAttribute("inativas", service.contarInativas());
 
         return "usuarios/usuarios";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model){
+        Usuario u = service.buscarPorId(id);
+        model.addAttribute("usuario", u);
+        return "usuarios/editar";
+
+    }
+
+    @PostMapping("/salvarEdicao/{id}")
+        public String salvarEdicao (@PathVariable Long id,@ModelAttribute Usuario usuario){
+            service.editar(id, usuario);
+            return "redirect:/usuarios/listarUsuarios";
+        }
+
+    @GetMapping("/listarInativas")
+    public String listarInativas(HttpSession session,  Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("usuarios", service.listarInativas());
+        return "usuarios/restaurarUsuarios";
+    }
+    @PostMapping("/deletar/{id}")
+    public String deletar(@PathVariable Long id) {
+        service.desativar(id);
+        return "redirect:/usuarios/listarUsuarios";
+    }
+    @PostMapping("/restaurar/{id}")
+    public String restaurar(@PathVariable Long id){
+        service.ativar(id);
+        return "redirect:/usuarios/listarUsuarios";
     }
 }
