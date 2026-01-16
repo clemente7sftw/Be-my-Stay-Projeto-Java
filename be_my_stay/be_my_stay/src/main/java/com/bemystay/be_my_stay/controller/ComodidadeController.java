@@ -4,6 +4,7 @@ import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.repository.ComodidadeRepository;
 import com.bemystay.be_my_stay.service.ComodidadeService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/comodidades")
 public class ComodidadeController {
     private final ComodidadeService service;
+    @Autowired
+    private ComodidadeRepository comodidadeRepository;
 
     public ComodidadeController(ComodidadeService service) {
         this.service = service;
@@ -50,7 +53,9 @@ public class ComodidadeController {
             comodidade.setIcone("comodidades/" + nome);
         }
 
+
         service.salvar(comodidade);
+
         return "redirect:/comodidades/listar";
 
     }

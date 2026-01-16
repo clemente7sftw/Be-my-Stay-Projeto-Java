@@ -14,4 +14,5 @@ public interface ComodidadeRepository extends JpaRepository <Comodidade, Long > 
     List<Comodidade> findInativas();
     long countByAtivoTrue();
     long countByAtivoFalse();
+
 }

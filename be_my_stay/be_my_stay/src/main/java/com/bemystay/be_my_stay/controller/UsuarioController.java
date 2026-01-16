@@ -94,4 +94,13 @@ public class UsuarioController {
                 return "redirect:/usuarios/telaInicial";
         }
     }
+    @GetMapping("/listarUsuarios")public String listar(HttpSession session,  Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("usuarios", service.listar());
+
+        return "usuarios/usuarios";
+    }
 }

@@ -1,0 +1,121 @@
+*{
+    font-family: "Poppins", sans-serif;
+}
+body{
+    margin: 0;
+    display: flex;
+}
+
+aside{
+    background-color: #242424;
+    min-height: 100vh;
+    width: 300px;
+    a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    a img {
+        width: 40px;
+        height: 40px;
+    }
+
+    h1{
+        color: white;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .pMenu{
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        color: white;
+        font-size: x-large;
+    }
+
+}
+.aux{
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    color:black;
+    font-size:25px;
+}
+nav{
+    margin-top: 50px;
+    .containers{
+        display: flex;
+        gap: 100px;
+        margin-left: 400px;
+    }
+    .container{
+        background-color: #242424;
+        width: 200px;
+        border-radius: 15px;
+        text-align: center;
+        color: white;
+    }
+    hr{
+        width: 100px;
+    }
+
+}
+.tabela {
+    width: 400px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1.5px solid #000;
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.tabela thead th {
+    background: #fff;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1.5px solid #000;
+}
+
+.tabela td {
+    padding: 12px;
+    text-align: center;
+}
+
+.tabela tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #000;
+}
+
+.tabela th:not(:last-child),
+.tabela td:not(:last-child) {
+    border-right: 1px solid #000;
+}
+
+.tabela thead th:first-child {
+    border-top-left-radius: 12px;
+}
+.tabela thead th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.tabela tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+.tabela tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+main{
+    margin-top: 300px;
+    margin-left: -1150px
+}
