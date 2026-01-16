@@ -20,21 +20,21 @@ public class ComodidadeService {
         repository.save(comodidade);
     }
 
-    public List<Comodidade> listar() { return repository.findAtivas(); }
+    public List<Comodidade> listar() { return repository.findAtivos(); }
 
     public List<Comodidade> listarInativas() {
-        return repository.findInativas();
+        return repository.findInativos();
     }
 
     public long contarTotal() {
         return repository.count();
     }
 
-    public long contarAtivas() {
+    public long contarAtivos() {
         return repository.countByAtivoTrue();
     }
 
-    public long contarInativas() {
+    public long contarInativos() {
         return repository.countByAtivoFalse();
     }
 

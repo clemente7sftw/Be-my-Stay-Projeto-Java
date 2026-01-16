@@ -70,6 +70,10 @@ nav{
     }
 
 }
+main{
+    margin-top: 300px;
+    margin-left: -1150px
+}
 .tabela {
     width: 400px;
     border-collapse: separate;
@@ -115,7 +119,4 @@ nav{
 .tabela tbody tr:last-child td:last-child {
     border-bottom-right-radius: 12px;
 }
-main{
-    margin-top: 300px;
-    margin-left: -1150px
-}
+

@@ -15,10 +15,8 @@ import java.util.Set;
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
-
     private final UsuarioService service;
-
-    public UsuarioController(UsuarioService service) {
+        public UsuarioController(UsuarioService service) {
         this.service = service;
     }
 
@@ -101,8 +99,8 @@ public class UsuarioController {
         }
         model.addAttribute("usuarios", service.listar());
         model.addAttribute("contarTotal", service.contarTotal());
-        model.addAttribute("ativas", service.contarAtivas());
-        model.addAttribute("inativas", service.contarInativas());
+        model.addAttribute("ativas", service.contarAtivos());
+        model.addAttribute("inativas", service.contarInativos());
 
         return "usuarios/usuarios";
     }

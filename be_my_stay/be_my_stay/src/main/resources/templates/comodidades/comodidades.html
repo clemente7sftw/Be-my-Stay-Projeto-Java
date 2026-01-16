@@ -17,54 +17,7 @@
 
 <body>
 
-<aside>
-    <div class="logo">
-        <img class="logo_menu" th:src="@{/assets/logo_branca.png}">
-        <h1>Be my Stay</h1>
-    </div>
-
-    <p class="pMenu">Administradores</p>
-
-    <a href="">
-        <img th:src="@{/assets/dashboard-square-01.png}">
-        <span>Dashboard</span>
-    </a>
-
-    <a href="">
-        <img th:src="@{/assets/user-multiple.png}">
-        <span>Usuários</span>
-    </a>
-
-    <a href="">
-        <img th:src="@{/assets/house-04.svg}">
-        <span>Imóveis</span>
-    </a>
-
-    <a href="">
-        <img th:src="@{/assets/analytics-01.png}">
-        <span>Relatórios</span>
-    </a>
-
-    <a href="">
-        <img th:src="@{/assets/user-shield-01.png}">
-        <span>Moderadores</span>
-    </a>
-
-    <a href="/comodidades/listar">
-        <img th:src="@{/assets/star-circle.png}">
-        <span>Comodidades</span>
-    </a>
-
-    <a href="">
-        <img th:src="@{/assets/chart-line-data-01.png}">
-        <span>Tipo Imóveis</span>
-    </a>
-
-    <a href="">
-        <img th:src="@{/assets/logout-01.png}">
-        <span>Sair</span>
-    </a>
-</aside>
+<div th:replace="usuarios/telaAdmin :: aside"></div>
 
 <nav>
     <h2>Comodidades</h2>

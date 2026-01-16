@@ -43,38 +43,17 @@ aside{
     }
 
 }
-.aux{
-    text-align: center;
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    text-decoration: none;
-    color:black;
-    font-size:25px;
-}
-nav{
-    margin-top: 50px;
-    .containers{
-        display: flex;
-        gap: 100px;
-        margin-left: 400px;
-    }
-    .container{
-        background-color: #242424;
-        width: 200px;
-        border-radius: 15px;
-        text-align: center;
-        color: white;
-    }
-    hr{
-        width: 100px;
-    }
 
+
+form button{
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;
 }
-main{
-    margin-top: 300px;
-    margin-left: -1150px
-}
+
 .tabela {
+    margin-top: 100px;
+    margin-left: 100px;
     width: 400px;
     border-collapse: separate;
     border-spacing: 0;
@@ -119,4 +98,3 @@ main{
 .tabela tbody tr:last-child td:last-child {
     border-bottom-right-radius: 12px;
 }
-

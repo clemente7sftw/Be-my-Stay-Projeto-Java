@@ -16,7 +16,7 @@
 
 <body>
 
-<aside>
+<aside th:fragment="aside">
     <div class="logo">
         <img class="logo_menu" th:src="@{/assets/logo_branca.png}">
         <h1>Be my Stay</h1>
@@ -40,7 +40,7 @@
     </a>
 
     <a href="">
-        <img th:src="@{/assets/analytics-01.png}">
+        <img th:src="@{/assets/chart-line-data-01.png}">
         <span>Relatórios</span>
     </a>
 
@@ -54,8 +54,8 @@
         <span>Comodidades</span>
     </a>
 
-    <a href="">
-        <img th:src="@{/assets/chart-line-data-01.png}">
+    <a href="/tiposImoveis/listar">
+        <img th:src="@{/assets/analytics-01.png}">
         <span>Tipo Imóveis</span>
     </a>
 

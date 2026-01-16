@@ -55,11 +55,11 @@ public class UsuarioService {
         return usuarioRepository.count();
     }
 
-    public long contarAtivas() {
+    public long contarAtivos() {
         return usuarioRepository.countByAtivoTrue();
     }
 
-    public long contarInativas() {
+    public long contarInativos() {
         return usuarioRepository.countByAtivoFalse();
     }
 

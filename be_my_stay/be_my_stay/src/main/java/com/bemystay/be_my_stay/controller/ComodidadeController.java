@@ -20,8 +20,6 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/comodidades")
 public class ComodidadeController {
     private final ComodidadeService service;
-    @Autowired
-    private ComodidadeRepository comodidadeRepository;
 
     public ComodidadeController(ComodidadeService service) {
         this.service = service;
@@ -69,8 +67,8 @@ public class ComodidadeController {
         }
         model.addAttribute("comodidades", service.listar());
         model.addAttribute("contarTotal", service.contarTotal());
-        model.addAttribute("ativas", service.contarAtivas());
-        model.addAttribute("inativas", service.contarInativas());
+        model.addAttribute("ativas", service.contarAtivos());
+        model.addAttribute("inativas", service.contarInativos());
         return "comodidades/comodidades";
     }
 

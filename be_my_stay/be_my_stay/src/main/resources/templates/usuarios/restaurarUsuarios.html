@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Restaurar | Be my Stay Administradores</title>
   <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
-  <link rel="stylesheet" th:href="@{/css/comodidades.css}">
+  <link rel="stylesheet" th:href="@{/css/restaurar.css}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,37 +14,42 @@
 </head>
 <body>
 
+  <div th:replace="usuarios/telaAdmin :: aside"></div>
 
-<table class="tabela">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Nome</th>
-    <th>Email</th>
-    <th>Restaurar</th>
-  </tr>
-  </thead>
 
-  <tbody>
-  <tr th:each="u : ${usuarios}">
+      <h2>Usuários</h2>
 
-    <td th:text="${u.id}"></td>
+    <table class="tabela">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Restaurar</th>
+      </tr>
+      </thead>
 
-    <td th:text="${u.nome}"></td>
+      <tbody>
+      <tr th:each="u : ${usuarios}">
 
-    <td th:text="${u.email}"></td>
+        <td th:text="${u.id}"></td>
 
-    <td>
-      <form th:action="@{/usuarios/restaurar/{id}(id=${u.id})}" method="post">
-        <button type="submit" class="btn-icon">
-          <img th:src="@{/assets/restore-bin.png}" alt="Restaurar">
-        </button>
-      </form>
-    </td>
+        <td th:text="${u.nome}"></td>
 
-  </tr>
-  </tbody>
-</table>
+        <td th:text="${u.email}"></td>
+
+        <td>
+          <form th:action="@{/usuarios/restaurar/{id}(id=${u.id})}" method="post">
+            <button type="submit" class="btn-icon">
+              <img th:src="@{/assets/restore-bin.png}" alt="Restaurar">
+            </button>
+          </form>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+
 
 </body>
 </html>
