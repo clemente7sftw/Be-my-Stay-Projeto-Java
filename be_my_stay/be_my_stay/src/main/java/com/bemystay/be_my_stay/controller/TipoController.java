@@ -77,5 +77,23 @@ public class TipoController {
                 tipoService.editar(id, tipoImovel);
             return "redirect:/tiposImoveis/listar";
         }
-
+    @PostMapping("/deletar/{id}")
+    public String deletar(@PathVariable Long id) {
+        tipoService.desativar(id);
+        return "redirect:/tiposImoveis/listar";
+    }
+    @GetMapping("/listarInativas")
+    public String listarInativas(HttpSession session,  Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("tipo_imovel", tipoService.listarInativas());
+        return "tipos/restaurar";
+    }
+    @PostMapping("/restaurar/{id}")
+    public String restaurar(@PathVariable Long id){
+        tipoService.ativar(id);
+        return "redirect:/tiposImoveis/listar";
+    }
 }

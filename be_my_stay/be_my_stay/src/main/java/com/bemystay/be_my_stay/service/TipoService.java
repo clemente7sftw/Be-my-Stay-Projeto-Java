@@ -1,5 +1,6 @@
 package com.bemystay.be_my_stay.service;
 
+import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.TipoImovel;
 import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.repository.TipoRepository;
@@ -55,5 +56,8 @@ public class TipoService {
     }
     public long contarInativos() {
         return tipoRepository.countByAtivoFalse();
+    }
+    public List<TipoImovel> listarInativas() {
+        return tipoRepository.findInativos();
     }
 }

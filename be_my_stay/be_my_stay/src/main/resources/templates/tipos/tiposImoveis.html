@@ -23,28 +23,28 @@
 
     <div class="containers">
         <div class="container">
-            <h4>Usuários</h4>
+            <h4>Total</h4>
             <hr>
             <p th:text="${contarTotal}"></p>
         </div>
 
         <div class="container">
-            <h4>Usuários Ativos</h4>
+            <h4>Ativos</h4>
             <hr>
-            <p th:text="${ativas}"></p>
+            <p th:text="${ativos}"></p>
         </div>
 
         <div class="container">
-            <h4>Usuários Inativos</h4>
+            <h4>Inativos</h4>
             <hr>
-            <p th:text="${inativas}"></p>
+            <p th:text="${inativos}"></p>
         </div>
     </div>
 </nav>
 
 <main>
     <a class="aux" href="/tiposImoveis/criar">Criar <img  th:src="@{/assets/add.png}"></a> <br>
-<!--    <a class="aux" href="/comodidades/listarInativas">Restaurar <img  th:src="@{/assets/restore-bin.png}"></a>-->
+    <a class="aux" href="/tiposImoveis/listarInativas">Restaurar <img  th:src="@{/assets/restore-bin.png}"></a>
 
 
     <table class="tabela">
