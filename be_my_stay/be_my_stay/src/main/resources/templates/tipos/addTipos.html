@@ -23,10 +23,10 @@
 
 <main>
 
-    <form th:action="@{/comodidades/salvar}" method="post" enctype="multipart/form-data" th:object="${comodidade}">
-        <label for="">Adicione o nome da Comodidade</label> <br>
+    <form th:action="@{/tiposImoveis/salvar}" method="post" enctype="multipart/form-data" th:object="${tipo_imovel}">
+        <label for="">Adicione o título </label> <br>
         <input type="text" th:field="*{nome}" placeholder="Nome" required> <br>
-        <label for="">Adicione a imagem da Comodidade</label> <br>
+        <label for="">Adicione a imagem</label> <br>
         <input type="file" name="arquivo" required> <br>
 
         <button type="submit">Salvar</button>

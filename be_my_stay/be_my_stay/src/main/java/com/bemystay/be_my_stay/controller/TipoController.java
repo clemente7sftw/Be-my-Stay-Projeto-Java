@@ -2,6 +2,7 @@ package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.TipoImovel;
+import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.service.TipoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,25 @@ public class TipoController {
                 return "redirect:/usuarios/login";
             }
             model.addAttribute("tipo_imovel", tipoService.listar());
+            model.addAttribute("contarTotal", tipoService.contarTotal());
+            model.addAttribute("inativos", tipoService.contarInativos());
+            model.addAttribute("ativos", tipoService.contarAtivos());
+
             return "tipos/tiposImoveis";
+        }
+
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model){
+        TipoImovel t = tipoService.buscarPorId(id);
+        model.addAttribute("tipo_imovel", t);
+        return "tipos/editar";
+
+    }
+
+        @PostMapping("/salvarEdicao/{id}")
+    public String salvarEdicao(@PathVariable Long id,@ModelAttribute TipoImovel tipoImovel){
+                tipoService.editar(id, tipoImovel);
+            return "redirect:/tiposImoveis/listar";
         }
 
 }
