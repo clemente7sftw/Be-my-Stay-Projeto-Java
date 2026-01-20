@@ -61,7 +61,9 @@ public class UsuarioController {
     @PostMapping("/login")
     public String login(
             @RequestParam String email,
-            @RequestParam String senhaHash, HttpSession session, Model model) {
+            @RequestParam String senhaHash,
+            HttpSession session,
+            Model model) {
 
         Usuario usuario = service.buscarPorEmail(email);
 
@@ -75,23 +77,21 @@ public class UsuarioController {
             return "usuarios/login";
         }
 
-        Set<Cargo> cargos = usuario.getCargo();
-
-        String cargo = cargos.iterator().next().getNome();
-
+        String cargo = usuario.getCargo().stream()
+                .map(Cargo::getNome)
+                .findFirst()
+                .orElse("hóspede");
 
         session.setAttribute("idUsuario", usuario.getId());
         session.setAttribute("cargo", cargo);
 
-        switch (cargo) {
-            case "admin":
-                return "redirect:/usuarios/telaAdmin";
-
-            case "hóspede":
-            default:
-                return "redirect:/usuarios/telaInicial";
+        if ("admin".equals(cargo)) {
+            return "redirect:/usuarios/telaAdmin";
         }
+
+        return "redirect:/usuarios/telaInicial";
     }
+
     @GetMapping("/listarUsuarios")public String listar(HttpSession session,  Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {

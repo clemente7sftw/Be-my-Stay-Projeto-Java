@@ -105,6 +105,16 @@ public class ComodidadeController {
         service.editar(id, comodidade);
         return "redirect:/comodidades/listar";
     }
+    @GetMapping("/listarAnfitriao")
+    public String listarAnfitriao(HttpSession session,  Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("comodidades", service.listar());
+        return "anfitriao/addComodidade";
+    }
+
 
 
 
