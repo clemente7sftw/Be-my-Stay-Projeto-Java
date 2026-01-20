@@ -1,8 +1,6 @@
 package com.bemystay.be_my_stay.controller;
 
-import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.TipoImovel;
-import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.service.TipoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
