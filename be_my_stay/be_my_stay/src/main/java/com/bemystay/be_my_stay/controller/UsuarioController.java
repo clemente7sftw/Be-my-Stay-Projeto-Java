@@ -3,6 +3,7 @@ package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.Cargo;
 import com.bemystay.be_my_stay.model.Usuario;
+import com.bemystay.be_my_stay.service.ModeradorService;
 import com.bemystay.be_my_stay.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,13 @@ import java.util.Set;
 @RequestMapping("/usuarios")
 public class UsuarioController {
     private final UsuarioService service;
-        public UsuarioController(UsuarioService service) {
+    private final ModeradorService moderadorService;
+
+    public UsuarioController(UsuarioService service, ModeradorService moderadorService) {
         this.service = service;
+        this.moderadorService = moderadorService;
     }
+
 
     @GetMapping("/cadastroUsuario")
     public String novo(Model model) {
@@ -52,6 +57,26 @@ public class UsuarioController {
 
         return "usuarios/telaInicial";
     }
+    @GetMapping("/telaInicialAdm")
+    public String telaInicialAdm(HttpSession session, Model model) {
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        Usuario usuario = service.buscarPorId(idUsuario);
+
+        model.addAttribute("usuarioLogado", usuario);
+
+        model.addAttribute("contarUsuarios", service.contarTotal());
+        model.addAttribute("contarModeradores", moderadorService.contarTotal());
+
+        return "usuarios/telaAdmin";
+    }
+
+
 
     @GetMapping("/login")
     public String loginForm() {
@@ -86,7 +111,8 @@ public class UsuarioController {
         session.setAttribute("cargo", cargo);
 
         if ("admin".equals(cargo)) {
-            return "redirect:/usuarios/telaAdmin";
+            return "redirect:/usuarios/telaInicialAdm";
+
         }
 
         return "redirect:/usuarios/telaInicial";
@@ -104,6 +130,7 @@ public class UsuarioController {
 
         return "usuarios/usuarios";
     }
+
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model){

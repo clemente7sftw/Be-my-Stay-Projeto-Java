@@ -24,7 +24,7 @@
 
     <p class="pMenu">Administradores</p>
 
-    <a href="">
+    <a href="/usuarios/telaInicialAdm">
         <img th:src="@{/assets/dashboard-square-01.png}">
         <span>Dashboard</span>
     </a>
@@ -88,7 +88,7 @@
         <div class="container">
             <h4>Usuários</h4>
             <hr>
-            <p>0</p>
+            <p th:text="${contarUsuarios}"></p>
         </div>
 
         <div class="container">
@@ -100,7 +100,7 @@
         <div class="container">
             <h4>Moderadores</h4>
             <hr>
-            <p>0</p>
+            <p th:text="${contarModeradores}"></p>
         </div>
     </div>
 </nav>
