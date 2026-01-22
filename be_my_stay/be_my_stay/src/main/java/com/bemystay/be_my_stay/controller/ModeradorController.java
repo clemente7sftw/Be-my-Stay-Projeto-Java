@@ -72,7 +72,7 @@ public class ModeradorController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("moderador", moderadorService.listarInativas());
-        return "moderadores/restaurar";
+        return "moderadores/restaurarModeradores";
     }
     @PostMapping("/restaurar/{id}")
     public String restaurar(@PathVariable Long id){

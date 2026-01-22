@@ -31,20 +31,20 @@
     <div class="container">
       <h4>Moderadores Ativos</h4>
       <hr>
-      <p th:text="${ativas}"></p>
+      <p th:text="${ativos}"></p>
     </div>
 
     <div class="container">
       <h4>Moderadores Inativos</h4>
       <hr>
-      <p th:text="${inativas}"></p>
+      <p th:text="${inativos}"></p>
     </div>
   </div>
 </nav>
 
 <main>
   <a class="aux" href="/moderadores/criar">Criar <img  th:src="@{/assets/add.png}"></a> <br>
-<!--  <a class="aux" href="/usuarios/listarInativas">Restaurar <img  th:src="@{/assets/restore-bin.png}"></a>-->
+  <a class="aux" href="/moderadores/listarInativas">Restaurar <img  th:src="@{/assets/restore-bin.png}"></a>
 
 
   <table class="tabela">
@@ -68,13 +68,13 @@
       <td th:text="${m.email}"></td>
 
       <td>
-        <a th:href="@{/moderador/editar/{id}(id=${m.id})}">
+        <a th:href="@{/moderadores/editar/{id}(id=${m.id})}">
           <img th:src="@{/assets/file-edit.png}" alt="Editar">
         </a>
       </td>
 
       <td>
-        <form th:action="@{/templates/moderadores/deletar/{id}(id=${m.id})}" method="post">
+        <form th:action="@{/moderadores/deletar/{id}(id=${m.id})}" method="post">
           <button type="submit">
             <img th:src="@{/assets/file-remove.png}" alt="Excluir">
           </button>

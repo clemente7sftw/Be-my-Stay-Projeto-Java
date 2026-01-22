@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Restaurar | Be my Stay Administradores</title>
+    <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
+    <link rel="stylesheet" th:href="@{/css/restaurar.css}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
 </head>
 <body>
+
+<div th:replace="usuarios/telaAdmin :: aside"></div>
+
+
+<h2>Moderadores</h2>
+
+<table class="tabela">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Restaurar</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="m : ${moderador}">
+
+        <td th:text="${m.id}"></td>
+
+        <td th:text="${m.nome}"></td>
+
+        <td th:text="${m.email}"></td>
+
+        <td>
+            <form th:action="@{/moderadores/restaurar/{id}(id=${m.id})}" method="post">
+                <button type="submit" class="btn-icon">
+                    <img th:src="@{/assets/restore-bin.png}" alt="Restaurar">
+                </button>
+            </form>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>
