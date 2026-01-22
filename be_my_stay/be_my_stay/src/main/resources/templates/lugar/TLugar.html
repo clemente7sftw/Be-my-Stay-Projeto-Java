@@ -38,7 +38,51 @@
     </div>
   </div>
 </nav>
+<main>
+  <a class="aux" href="/tipolugar/criar">Criar <img  th:src="@{/assets/add.png}"></a> <br>
+  <table class="tabela">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Editar</th>
+      <th>Desativar</th>
+    </tr>
+    </thead>
 
+    <tbody>
+    <tr th:each="l : ${tipo_lugar}">
+
+      <td th:text="${l.id}"></td>
+
+      <td>
+        <img th:src="@{/uploads/{img}(img=${l.icone})}" alt="Ícone" width="40">
+      </td>
+
+      <td th:text="${l.titulo}"></td>
+
+      <td th:text="${l.descricao}"></td>
+
+<!--      <td>-->
+<!--        <a th:href="@{/moderadores/editar/{id}(id=${m.id})}">-->
+<!--          <img th:src="@{/assets/file-edit.png}" alt="Editar">-->
+<!--        </a>-->
+<!--      </td>-->
+
+<!--      <td>-->
+<!--        <form th:action="@{/moderadores/deletar/{id}(id=${m.id})}" method="post">-->
+<!--          <button type="submit">-->
+<!--            <img th:src="@{/assets/file-remove.png}" alt="Excluir">-->
+<!--          </button>-->
+<!--        </form>-->
+<!--      </td>-->
+
+    </tr>
+    </tbody>
+  </table>
+
+</main>
 
 </body>
 </html>

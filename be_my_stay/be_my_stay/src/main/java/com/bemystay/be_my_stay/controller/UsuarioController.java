@@ -70,8 +70,8 @@ public class UsuarioController {
 
         model.addAttribute("usuarioLogado", usuario);
 
-        model.addAttribute("contarUsuarios", service.contarTotal());
-        model.addAttribute("contarModeradores", moderadorService.contarTotal());
+        model.addAttribute("contarUsuarios", service.contarAtivos());
+        model.addAttribute("contarModeradores", moderadorService.contarAtivos());
 
         return "usuarios/telaAdmin";
     }

@@ -9,35 +9,17 @@ public class TipoLugar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_lugar")
     private Long id;
-
     private String titulo;
     private String descricao;
     private String icone;
-    @Column(nullable = false)
-    private Boolean ativo = true;
+    private boolean ativo;
 
-    public Long getId() {
-        return id;
+    public boolean isAtivo() {
+        return ativo;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     public String getIcone() {
@@ -48,11 +30,27 @@ public class TipoLugar {
         this.icone = icone;
     }
 
-    public Boolean getAtivo() {
-        return ativo;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
