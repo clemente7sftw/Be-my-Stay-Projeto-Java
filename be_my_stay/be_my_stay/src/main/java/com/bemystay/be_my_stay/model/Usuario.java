@@ -31,6 +31,7 @@ public class Usuario {
             joinColumns = @JoinColumn(name = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_cargo")
     )
+
     private Set<Cargo> cargo = new HashSet<>();
 
     public Set<Cargo> getCargo() {

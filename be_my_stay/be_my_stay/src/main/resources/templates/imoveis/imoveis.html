@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Imóveis | Be my Stay Administradores</title>
+
+    <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
+    <link rel="stylesheet" th:href="@{/css/usuarios.css}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
+</head>
+
+<body>
+
+<div th:replace="usuarios/telaAdmin :: aside"></div>
+
+<nav>
+    <h2>Imóveis</h2>
+
+    <div class="containers">
+        <div class="container">
+            <h4>Imóveis</h4>
+            <hr>
+            <p th:text="${contarTotal}"></p>
+        </div>
+
+        <div class="container">
+            <h4>Imóveis Ativos</h4>
+            <hr>
+            <p th:text="${ativas}"></p>
+        </div>
+
+        <div class="container">
+            <h4>Imóveis Inativos</h4>
+            <hr>
+            <p th:text="${inativas}"></p>
+        </div>
+    </div>
+</nav>
+
+<main>
+<!--    <a class="aux" href="/Imóveis/criar">Criar <img  th:src="@{/assets/add.png}"></a> <br>-->
+    <!--  <a class="aux" href="/usuarios/listarInativas">Restaurar <img  th:src="@{/assets/restore-bin.png}"></a>-->
+
+
+    <table class="tabela">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Editar</th>
+            <th>Desativar</th>
+        </tr>
+        </thead>
+
+        <tbody>
+<!--        <tr th:each="m : ${moderadores}">-->
+
+<!--            <td th:text="${m.id}"></td>-->
+
+<!--            <td th:text="${m.nome}"></td>-->
+
+<!--            <td th:text="${m.email}"></td>-->
+
+<!--            <td>-->
+<!--                <a th:href="@{/moderador/editar/{id}(id=${m.id})}">-->
+<!--                    <img th:src="@{/assets/file-edit.png}" alt="Editar">-->
+<!--                </a>-->
+<!--            </td>-->
+
+<!--            <td>-->
+<!--                <form th:action="@{/templates/moderadores/deletar/{id}(id=${m.id})}" method="post">-->
+<!--                    <button type="submit">-->
+<!--                        <img th:src="@{/assets/file-remove.png}" alt="Excluir">-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--            </td>-->
+
+<!--        </tr>-->
+        </tbody>
+    </table>
+
+</main>
+
+</body>
+</html>

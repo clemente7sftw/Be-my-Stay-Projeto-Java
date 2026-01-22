@@ -1,8 +1,6 @@
 package com.bemystay.be_my_stay.service;
 
-import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.TipoImovel;
-import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.repository.TipoRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +9,30 @@ import java.util.List;
 @Service
 public class TipoService {
     private final TipoRepository tipoRepository;
-    public List<TipoImovel> listar() { return tipoRepository.findAtivos(); }
+
     public TipoService(TipoRepository tipoRepository) {
         this.tipoRepository = tipoRepository;
     }
+
+    public List<TipoImovel> listar() { return tipoRepository.findAtivos(); }
+
+
+    public long contarTotal() {
+        return tipoRepository.count();
+    }
+
+    public long contarAtivos() {
+        return tipoRepository.countByAtivoTrue();
+    }
+
+    public long contarInativos() {
+        return tipoRepository.countByAtivoFalse();
+    }
+
+    public List<TipoImovel> listarInativas() {
+        return tipoRepository.findInativos();
+    }
+
     public void salvar(TipoImovel tipoImovel) {
         if (tipoRepository.findByNome(tipoImovel.getNome()) != null) {
             throw new RuntimeException("Já existe uma tipo de imóvel com esse nome");
@@ -48,16 +66,4 @@ public class TipoService {
         tipoRepository.save(t);
     }
 
-    public long contarTotal() {
-        return tipoRepository.count();
-    }
-    public long contarAtivos() {
-        return tipoRepository.countByAtivoTrue();
-    }
-    public long contarInativos() {
-        return tipoRepository.countByAtivoFalse();
-    }
-    public List<TipoImovel> listarInativas() {
-        return tipoRepository.findInativos();
-    }
 }

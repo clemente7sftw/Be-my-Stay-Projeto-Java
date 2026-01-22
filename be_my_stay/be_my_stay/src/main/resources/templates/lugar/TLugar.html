@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Tela Inicial | Be my Stay Administradores</title>
+
+  <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
+  <link rel="stylesheet" th:href="@{/css/usuarios.css}">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div th:replace="usuarios/telaAdmin :: aside"></div>
+
+<nav>
+  <h2>Tipos de Lugares </h2>
+
+  <div class="containers">
+    <div class="container">
+      <h4>Total</h4>
+      <hr>
+    </div>
+
+    <div class="container">
+      <h4>Ativos</h4>
+      <hr>
+    </div>
+
+    <div class="container">
+      <h4>Inativos</h4>
+      <hr>
+    </div>
+  </div>
+</nav>
+
+
+</body>
+</html>
