@@ -12,15 +12,17 @@ public class TipoLugar {
     private String titulo;
     private String descricao;
     private String icone;
-    private boolean ativo;
 
-    public boolean isAtivo() {
+    public Boolean getAtivo() {
         return ativo;
     }
 
-    public void setAtivo(boolean ativo) {
+    public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
+
+    @Column(nullable = false)
+    private Boolean ativo = true;
 
     public String getIcone() {
         return icone;
