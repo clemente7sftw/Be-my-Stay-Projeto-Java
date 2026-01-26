@@ -1,0 +1,87 @@
+*{
+    font-family: "Poppins", sans-serif ;
+}
+
+body{
+    margin: 0;
+    display: flex;
+}
+
+
+header{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .perfil_foto{
+        height: 80px;
+        width: 80px;
+        border-radius: 40px;
+    }
+    .info_usuario {
+        display: flex;
+        flex-direction: column;
+    }
+    h4,p {
+        margin: 0;
+    }
+}
+.conteudo{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+main{
+    margin-top: 20px;
+    input{
+        border-style: none;
+        background-color: #F9F9F9;
+    }
+}
+button{
+    border-style: none;
+    height: 30px;
+    width: 70px;
+    border-radius: 5px;
+    background-color: #0088FF;
+    color: white;
+    cursor: pointer;
+}
+
+aside{
+    background-color: #242424;
+    height: 100vh;
+    width: 300px;
+    a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    a img {
+        width: 40px;
+        height: 40px;
+    }
+
+    h1{
+        color: white;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .pMenu{
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        color: white;
+        font-size: x-large;
+    }
+
+}

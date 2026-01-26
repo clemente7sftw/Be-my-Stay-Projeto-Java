@@ -82,7 +82,7 @@ header{
         font-family: "Poppins", sans-serif;
         font-weight: 600;
         font-style: normal;
-        color: black;
+        
     }
     button{
         display: flex;
@@ -92,18 +92,15 @@ header{
         border-style: none;
         border-radius: 50px;
         height: 70px;
-        width: 160px;
+        width: 100px;
         background-color: black;
-        a{
-            font-size: 15px;
-            color: white;
-        }
     }
 }
 .header_direita, .header_esquerda{
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 .header_direita{
