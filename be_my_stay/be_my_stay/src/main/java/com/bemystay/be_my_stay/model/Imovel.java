@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table (name = "imoveis")
@@ -13,18 +15,6 @@ public class Imovel {
     @Column(name = "id_imovel")
     private Long id;
 
-    private String titulo;
-    private String descricaoCurta;
-    private String descricaoCompleta;
-    private BigDecimal precoDiaria;
-    private Integer capacidadeMax;
-    private Integer qntQuartos;
-    private Integer qntCamas;
-    private Integer qntBanheiros;
-    private Integer vagasGaragem  ;
-    private Integer maxNoites;
-    private boolean ativo = true;
-    private LocalDateTime dataCad;
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
@@ -33,4 +23,210 @@ public class Imovel {
     @JoinColumn(name = "id_tipo_imovel", nullable = false)
     private TipoImovel tipoImovel;
 
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_lugar", nullable = false)
+    private TipoLugar tipoLugar;
+
+    @Column(nullable = false)
+    private String titulo;
+
+    @Column(name = "descricao_curta", length = 255)
+    private String descricaoCurta;
+
+    @Column(name = "descricao_completa", columnDefinition = "TEXT")
+    private String descricaoCompleta;
+
+    @Column(name = "preco_diaria", nullable = false)
+    private BigDecimal precoDiaria;
+
+    @Column(name = "capacidade_max")
+    private Integer capacidadeMax;
+
+    @Column(name = "qtd_quartos")
+    private Integer qtdQuartos;
+
+    @Column(name = "qtd_camas")
+    private Integer qtdCamas;
+
+    @Column(name = "qtd_banheiros")
+    private Integer qtdBanheiros;
+
+    @Column(name = "vagas_garagem")
+    private Integer vagasGaragem;
+
+    @Column(name = "max_noites")
+    private Integer maxNoites;
+
+
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao;
+
+    @Column(nullable = false)
+    private Boolean ativo;
+
+    @Column(name = "data_cad")
+    private LocalDateTime dataCadastro;
+
+    @ManyToMany
+    @JoinTable(
+            name = "imovel_comodidades",
+            joinColumns = @JoinColumn(name = "id_imovel"),
+            inverseJoinColumns = @JoinColumn(name = "id_comodidade")
+    )
+    private List<Comodidade> comodidades = new ArrayList<>();
+
+    @OneToOne(mappedBy = "imovel", cascade = CascadeType.ALL)
+    private Endereco endereco;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public TipoImovel getTipoImovel() {
+        return tipoImovel;
+    }
+
+    public void setTipoImovel(TipoImovel tipoImovel) {
+        this.tipoImovel = tipoImovel;
+    }
+
+    public TipoLugar getTipoLugar() {
+        return tipoLugar;
+    }
+
+    public void setTipoLugar(TipoLugar tipoLugar) {
+        this.tipoLugar = tipoLugar;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescricaoCurta() {
+        return descricaoCurta;
+    }
+
+    public void setDescricaoCurta(String descricaoCurta) {
+        this.descricaoCurta = descricaoCurta;
+    }
+
+    public String getDescricaoCompleta() {
+        return descricaoCompleta;
+    }
+
+    public void setDescricaoCompleta(String descricaoCompleta) {
+        this.descricaoCompleta = descricaoCompleta;
+    }
+
+    public BigDecimal getPrecoDiaria() {
+        return precoDiaria;
+    }
+
+    public void setPrecoDiaria(BigDecimal precoDiaria) {
+        this.precoDiaria = precoDiaria;
+    }
+
+    public Integer getCapacidadeMax() {
+        return capacidadeMax;
+    }
+
+    public void setCapacidadeMax(Integer capacidadeMax) {
+        this.capacidadeMax = capacidadeMax;
+    }
+
+    public Integer getQtdQuartos() {
+        return qtdQuartos;
+    }
+
+    public void setQtdQuartos(Integer qtdQuartos) {
+        this.qtdQuartos = qtdQuartos;
+    }
+
+    public Integer getQtdCamas() {
+        return qtdCamas;
+    }
+
+    public void setQtdCamas(Integer qtdCamas) {
+        this.qtdCamas = qtdCamas;
+    }
+
+    public Integer getQtdBanheiros() {
+        return qtdBanheiros;
+    }
+
+    public void setQtdBanheiros(Integer qtdBanheiros) {
+        this.qtdBanheiros = qtdBanheiros;
+    }
+
+    public Integer getVagasGaragem() {
+        return vagasGaragem;
+    }
+
+    public void setVagasGaragem(Integer vagasGaragem) {
+        this.vagasGaragem = vagasGaragem;
+    }
+
+    public Integer getMaxNoites() {
+        return maxNoites;
+    }
+
+    public void setMaxNoites(Integer maxNoites) {
+        this.maxNoites = maxNoites;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public List<Comodidade> getComodidades() {
+        return comodidades;
+    }
+
+    public void setComodidades(List<Comodidade> comodidades) {
+        this.comodidades = comodidades;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }

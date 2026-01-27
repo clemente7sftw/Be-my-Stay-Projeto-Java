@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar | Be my Stay Administradores</title>
+    <title>Imóvel | Be my Stay Administradores</title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
     <link rel="stylesheet" th:href="@{/css/telaAnfitriao.css}">
@@ -24,16 +24,27 @@
 </header>
 <main>
     <p>Vamos começar sua jornada como anfitrião</p>
-    <p>Que tipo de acomodação descreve melhor o seu imóvel</p>
-    <section>
-        <button th:each="c : ${comodidades}">
-            <img th:src="@{/uploads/{img}(img=${c.icone})}"
-                 alt="Ícone"
-                 width="40">
-            <span th:text="${c.nome}"></span>
-        </button>
+    <p>Que tipo de Imóvel descreve melhor o seu</p>
 
-    </section>
+    <form th:action="@{/imovel/salvarImovel}" method="post">
+
+        <div class="lista">
+            <label th:each="t : ${tipoimovel}">
+                <input
+                        type="radio"
+                        name="idTipo"
+                        th:value="${t.id}"
+                        required>
+                <img th:src="@{/uploads/{img}(img=${t.icone})}"
+                     alt="Ícone"
+                     width="40">
+                <span th:text="${t.nome}"></span>
+            </label>
+        </div>
+        <button type="submit">Continuar</button>
+    </form>
+
+
 </main>
 
 </body>

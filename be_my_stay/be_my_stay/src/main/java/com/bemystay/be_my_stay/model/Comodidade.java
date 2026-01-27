@@ -2,6 +2,9 @@ package com.bemystay.be_my_stay.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "comodidades")
 public class Comodidade {
@@ -14,6 +17,9 @@ public class Comodidade {
 
     @Column(nullable = false)
     private Boolean ativo = true;
+
+    @ManyToMany(mappedBy = "comodidades")
+    private List<Imovel> imoveis = new ArrayList<>();
 
 
     public Long getId() {

@@ -165,4 +165,6 @@ public class UsuarioController {
         service.ativar(id);
         return "redirect:/usuarios/listarUsuarios";
     }
+
+
 }
