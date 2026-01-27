@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div th:replace="usuarios/telaAdmin :: aside"></div>
+<div th:replace="~{usuarios/telaAdmin :: aside}"></div>
 
 
 <h2>Tipos Lugares</h2>
@@ -39,7 +39,7 @@
     <td th:text="${l.descricao}"></td>
 
     <td>
-      <form th:action="@{/lugar/restaurar/{id}(id=${l.id})}" method="post">
+      <form th:action="@{/tipolugar/restaurar/{id}(id=${l.id})}" method="post">
         <button type="submit" class="btn-icon">
           <img th:src="@{/assets/restore-bin.png}" alt="Restaurar">
         </button>
