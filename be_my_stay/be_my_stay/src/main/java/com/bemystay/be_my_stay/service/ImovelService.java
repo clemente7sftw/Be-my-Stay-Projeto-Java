@@ -25,11 +25,11 @@ public class ImovelService {
         }
 
         if (idComodidade != null && !idComodidade.isEmpty()) {
-            List<Comodidade> comodidades =
+            List<Comodidade> comodidade =
                     comodidadeRepository.findAllById(idComodidade);
-            imovel.setComodidades(comodidades);
+            imovel.setComodidade(comodidade);
         } else {
-            imovel.getComodidades().clear();
+            imovel.getComodidade().clear();
         }
 
         return imovelRepository.save(imovel);

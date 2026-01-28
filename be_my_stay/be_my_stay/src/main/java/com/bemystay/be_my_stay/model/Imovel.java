@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table (name = "imoveis")
+@Table(name = "imoveis")
 public class Imovel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,18 +62,19 @@ public class Imovel {
     private LocalDateTime dataCriacao;
 
     @Column(nullable = false)
-    private Boolean ativo;
+    private boolean ativo = true;
 
     @Column(name = "data_cad")
     private LocalDateTime dataCadastro;
 
     @ManyToMany
     @JoinTable(
-            name = "imovel_comodidades",
-            joinColumns = @JoinColumn(name = "id_imovel"),
-            inverseJoinColumns = @JoinColumn(name = "id_comodidade")
+            name = "imovel_comodidade",
+            joinColumns = @JoinColumn(name = "imovel_id"),
+            inverseJoinColumns = @JoinColumn(name = "comodidade_id")
     )
-    private List<Comodidade> comodidades = new ArrayList<>();
+
+    private List<Comodidade> comodidade = new ArrayList<>();
 
     @OneToOne(mappedBy = "imovel", cascade = CascadeType.ALL)
     private Endereco endereco;
@@ -162,6 +163,14 @@ public class Imovel {
         return qtdCamas;
     }
 
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
     public void setQtdCamas(Integer qtdCamas) {
         this.qtdCamas = qtdCamas;
     }
@@ -198,13 +207,6 @@ public class Imovel {
         this.dataCriacao = dataCriacao;
     }
 
-    public Boolean getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
-    }
 
     public LocalDateTime getDataCadastro() {
         return dataCadastro;
@@ -214,19 +216,31 @@ public class Imovel {
         this.dataCadastro = dataCadastro;
     }
 
-    public List<Comodidade> getComodidades() {
-        return comodidades;
+    public List<Comodidade> getComodidade() {
+        return comodidade;
     }
 
-    public void setComodidades(List<Comodidade> comodidades) {
-        this.comodidades = comodidades;
+    public void setComodidade(List<Comodidade> comodidade) {
+        this.comodidade = comodidade;
     }
 
     public Endereco getEndereco() {
         return endereco;
     }
 
+
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    @OneToMany(mappedBy = "imovel", cascade = CascadeType.ALL)
+    private List<ImagemImovel> imagens = new ArrayList<>();
+
+    public List<ImagemImovel> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<ImagemImovel> imagens) {
+        this.imagens = imagens;
     }
 }

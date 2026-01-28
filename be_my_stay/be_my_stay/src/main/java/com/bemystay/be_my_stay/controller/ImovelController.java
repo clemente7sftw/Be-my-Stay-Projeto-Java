@@ -1,16 +1,14 @@
 package com.bemystay.be_my_stay.controller;
 
-import com.bemystay.be_my_stay.model.Imovel;
-import com.bemystay.be_my_stay.model.TipoImovel;
-import com.bemystay.be_my_stay.model.TipoLugar;
-import com.bemystay.be_my_stay.service.ComodidadeService;
-import com.bemystay.be_my_stay.service.ImovelService;
-import com.bemystay.be_my_stay.service.TLugarService;
-import com.bemystay.be_my_stay.service.TipoService;
+import com.bemystay.be_my_stay.model.*;
+import com.bemystay.be_my_stay.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/imovel")
@@ -20,6 +18,7 @@ public class ImovelController {
     private final ComodidadeService comodidadeService;
     private final TLugarService tLugarService;
     private final TipoService tipoService;
+
 
     public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService) {
         this.imovelService = imovelService;
@@ -66,7 +65,40 @@ public class ImovelController {
     TipoLugar tipoLugar = tLugarService.buscarPorId(idTLugar);
     imovel.setTipoLugar(tipoLugar);
 
-        return "redirect:/imovel/teste";
+        return "redirect:/imovel/comodidades";
 
     }
+
+    @GetMapping("/comodidades")
+    public String comodidades(HttpSession session, Model model ) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        model.addAttribute("comodidade", comodidadeService.listar());
+        return "imoveis/addComodidade";
+    }
+
+    @PostMapping("/salvarComodidade")
+    public String salvarComodidade( @RequestParam Long idComodidade,  @ModelAttribute("imovel") Imovel imovel){
+        Comodidade comodidade = comodidadeService.buscarPorId(idComodidade);
+        imovel.getComodidade().add(comodidade);
+
+        return "redirect:/imovel/Foto";
+
+    }
+
+    @GetMapping("/Foto")
+    public String Foto(HttpSession session, Model model ) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        return "imoveis/addFotos";
+
+    }
+
+
 }

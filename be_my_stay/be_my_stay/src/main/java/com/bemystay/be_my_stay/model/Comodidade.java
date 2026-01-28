@@ -18,8 +18,9 @@ public class Comodidade {
     @Column(nullable = false)
     private Boolean ativo = true;
 
-    @ManyToMany(mappedBy = "comodidades")
+    @ManyToMany(mappedBy = "comodidade")
     private List<Imovel> imoveis = new ArrayList<>();
+
 
 
     public Long getId() {
