@@ -24,6 +24,14 @@
 </header>
 <main>
 
+    <form th:action="@{/imovel/foto}"
+          method="post"
+          enctype="multipart/form-data">
+
+        <input type="file" name="fotos" multiple>
+
+        <button type="submit">Continuar</button>
+    </form>
 
 
 </main>

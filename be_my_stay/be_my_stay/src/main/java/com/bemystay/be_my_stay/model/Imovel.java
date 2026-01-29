@@ -42,6 +42,9 @@ public class Imovel {
     @Column(name = "capacidade_max")
     private Integer capacidadeMax;
 
+    @Column(name = "qtd_hospede")
+    private Integer qtdHospede;
+
     @Column(name = "qtd_quartos")
     private Integer qtdQuartos;
 
@@ -50,6 +53,7 @@ public class Imovel {
 
     @Column(name = "qtd_banheiros")
     private Integer qtdBanheiros;
+
 
     @Column(name = "vagas_garagem")
     private Integer vagasGaragem;
@@ -69,9 +73,9 @@ public class Imovel {
 
     @ManyToMany
     @JoinTable(
-            name = "imovel_comodidade",
-            joinColumns = @JoinColumn(name = "imovel_id"),
-            inverseJoinColumns = @JoinColumn(name = "comodidade_id")
+            name = "imovel_comodidades",
+            joinColumns = @JoinColumn(name = "id_imovel"),
+            inverseJoinColumns = @JoinColumn(name = "id_comodidade")
     )
 
     private List<Comodidade> comodidade = new ArrayList<>();
@@ -163,6 +167,14 @@ public class Imovel {
         return qtdCamas;
     }
 
+    public Integer getQtdHospede() {
+        return qtdHospede;
+    }
+
+    public void setQtdHospede(Integer qtdHospede) {
+        this.qtdHospede = qtdHospede;
+    }
+
     public boolean isAtivo() {
         return ativo;
     }
@@ -233,14 +245,4 @@ public class Imovel {
         this.endereco = endereco;
     }
 
-    @OneToMany(mappedBy = "imovel", cascade = CascadeType.ALL)
-    private List<ImagemImovel> imagens = new ArrayList<>();
-
-    public List<ImagemImovel> getImagens() {
-        return imagens;
-    }
-
-    public void setImagens(List<ImagemImovel> imagens) {
-        this.imagens = imagens;
-    }
 }

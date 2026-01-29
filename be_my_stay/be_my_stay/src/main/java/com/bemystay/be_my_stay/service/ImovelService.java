@@ -19,19 +19,15 @@ public class ImovelService {
     }
     @Transactional
 
-    public Imovel salvar(Imovel imovel, List<Long> idComodidade){
+    public Imovel salvar(Imovel imovel){
         if (imovel.getEndereco() != null) {
             imovel.getEndereco().setImovel(imovel);
         }
 
-        if (idComodidade != null && !idComodidade.isEmpty()) {
-            List<Comodidade> comodidade =
-                    comodidadeRepository.findAllById(idComodidade);
-            imovel.setComodidade(comodidade);
-        } else {
-            imovel.getComodidade().clear();
-        }
-
         return imovelRepository.save(imovel);
     }
+    public List<Comodidade> buscarPorId(List<Long> id) {
+        return comodidadeRepository.findAllById(id);
+    }
+
 }

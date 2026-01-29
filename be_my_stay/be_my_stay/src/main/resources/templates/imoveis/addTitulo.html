@@ -23,24 +23,20 @@
     <span>Be my stay</span>
 </header>
 <main>
-    <p>Vamos começar sua jornada como anfitrião</p>
-    <p>Que tipo de Imóvel descreve melhor o seu</p>
+    <p>Compartilhe mais informações básicas sobre seu imóvel</p>
 
-    <form th:action="@{/imovel/salvarComodidade}" method="post">
+    <form th:action="@{/imovel/salvarTitulo}"
+          method="post"
+          th:object="${imovel}">
 
-        <div class="lista">
-            <label th:each="c : ${comodidade}">
-                <input type="checkbox" name="ids" th:value="${c.id}">
+    <label>Título do Imóvel</label> <br>
+        <input type="text" th:field="*{titulo}" required> <br>
 
-                <img th:src="@{/uploads/{img}(img=${c.icone})}"
-                     alt="Ícone"
-                     width="40">
-                <span th:text="${c.nome}"></span>
-            </label>
-        </div>
+
         <button type="submit">Continuar</button>
-    </form>
 
+
+    </form>
 
 </main>
 

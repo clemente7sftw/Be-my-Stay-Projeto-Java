@@ -57,6 +57,11 @@ public class ComodidadeService {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não encontrada"));
     }
+    public List<Comodidade> buscarPorIds(List<Long> ids) {
+        return repository.findAllById(ids);
+    }
+
+
     public void editar(Long id, Comodidade dados) {
 
         Comodidade c = repository.findById(id)

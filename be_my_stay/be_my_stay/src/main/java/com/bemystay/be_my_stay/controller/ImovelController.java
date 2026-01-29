@@ -6,8 +6,11 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -26,7 +29,10 @@ public class ImovelController {
         this.tLugarService = tLugarService;
         this.tipoService = tipoService;
     }
-
+    @ModelAttribute("imovel")
+    public Imovel carregarImovel() {
+        return new Imovel();
+    }
 
     @GetMapping("/criar")
     public String criar(HttpSession session, Model model ) {
@@ -81,24 +87,84 @@ public class ImovelController {
     }
 
     @PostMapping("/salvarComodidade")
-    public String salvarComodidade( @RequestParam Long idComodidade,  @ModelAttribute("imovel") Imovel imovel){
-        Comodidade comodidade = comodidadeService.buscarPorId(idComodidade);
-        imovel.getComodidade().add(comodidade);
+    public String salvarComodidade(
+            @RequestParam(required = false) List<Long> ids,
+            @ModelAttribute("imovel") Imovel imovel
+    ) {
+        if (ids != null) {
+            List<Comodidade> comodidades =
+                    comodidadeService.buscarPorIds(ids);
 
-        return "redirect:/imovel/Foto";
+            imovel.getComodidade().addAll(comodidades);
+        }
 
+        return "redirect:/imovel/Info";
     }
 
-    @GetMapping("/Foto")
-    public String Foto(HttpSession session, Model model ) {
+    @GetMapping("/Info")
+        public String info(HttpSession session, Model model ) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        return "imoveis/addInfo";
+    }
+
+        @PostMapping("/salvarInfo")
+        public String salvarInfo(@ModelAttribute("imovel") Imovel imovel){
+            return "redirect:/imovel/titulo";
+        }
+
+    @GetMapping("/titulo")
+    public String titulo(HttpSession session, Model model ) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        return "imoveis/addTitulo";
+    }
+    @PostMapping("/salvarTitulo")
+    public String salvarTitulo( @ModelAttribute("imovel") Imovel imovel){
+        return "redirect:/imovel/descricao";
+
+    }
+    @GetMapping("/descricao")
+    public String descricao(HttpSession session, Model model ) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        return "imoveis/addDescricao";
+    }
+
+
+    @PostMapping("/salvarDescricao")
+    public String salvarDescricao(
+            HttpSession session,
+            @ModelAttribute("imovel") Imovel imovel,
+            SessionStatus status
+    ) {
+
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
 
-        return "imoveis/addFotos";
+        Usuario usuario = new Usuario();
+        usuario.setId(idUsuario);
+        imovel.setUsuario(usuario);
 
+        imovel.setDataCadastro(LocalDateTime.now());
+        imovel.setAtivo(true);
+
+        imovelService.salvar(imovel);
+
+        status.setComplete();
+
+        return "redirect:/imovel/criar";
     }
+
+
 
 
 }
