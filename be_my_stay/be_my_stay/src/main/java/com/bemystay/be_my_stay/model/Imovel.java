@@ -39,6 +39,8 @@ public class Imovel {
     private TipoLugar tipoLugar;
 
 
+    @OneToMany(mappedBy = "imovel", cascade = CascadeType.ALL)
+    private List<Imagem> imagens = new ArrayList<>();
 
     @Column(nullable = false)
     private String titulo;
