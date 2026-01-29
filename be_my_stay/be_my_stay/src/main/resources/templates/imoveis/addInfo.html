@@ -50,6 +50,13 @@
            min="0"
            required> <br>
 
+    <label>Check-in</label>
+    <input type="time" th:field="*{checkIn}" name="checkIn" value="10:00" required>
+
+    <label>Check-out</label>
+    <input type="time" th:field="*{checkOut}" name="checkOut" value="16:00" required>
+
+
     <button type="submit">Continuar</button>
   </form>
 

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,27 +21,30 @@ public class Imovel {
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_imovel", nullable = false)
+    @JoinTable(
+            name = "imovel_tipo",
+            joinColumns = @JoinColumn(name = "id_imovel"),
+            inverseJoinColumns = @JoinColumn(name = "id_tipo_imovel")
+    )
     private TipoImovel tipoImovel;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_lugar", nullable = false)
+    @JoinTable(
+            name = "imovel_tipolugar",
+            joinColumns = @JoinColumn(name = "id_imovel"),
+            inverseJoinColumns = @JoinColumn(name = "id_tipo_lugar")
+    )
+
     private TipoLugar tipoLugar;
 
     @Column(nullable = false)
     private String titulo;
-
-    @Column(name = "descricao_curta", length = 255)
-    private String descricaoCurta;
 
     @Column(name = "descricao_completa", columnDefinition = "TEXT")
     private String descricaoCompleta;
 
     @Column(name = "preco_diaria", nullable = false)
     private BigDecimal precoDiaria;
-
-    @Column(name = "capacidade_max")
-    private Integer capacidadeMax;
 
     @Column(name = "qtd_hospede")
     private Integer qtdHospede;
@@ -58,18 +62,33 @@ public class Imovel {
     @Column(name = "vagas_garagem")
     private Integer vagasGaragem;
 
-    @Column(name = "max_noites")
-    private Integer maxNoites;
+    @Column(name = "checkin")
+    private LocalTime checkIn;
 
-
-    @Column(name = "data_criacao")
-    private LocalDateTime dataCriacao;
+    @Column(name = "checkout")
+    private LocalTime checkOut;
 
     @Column(nullable = false)
     private boolean ativo = true;
 
     @Column(name = "data_cad")
     private LocalDateTime dataCadastro;
+
+    public LocalTime getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(LocalTime checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public LocalTime getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(LocalTime checkOut) {
+        this.checkOut = checkOut;
+    }
 
     @ManyToMany
     @JoinTable(
@@ -82,6 +101,7 @@ public class Imovel {
 
     @OneToOne(mappedBy = "imovel", cascade = CascadeType.ALL)
     private Endereco endereco;
+
 
     public Long getId() {
         return id;
@@ -123,13 +143,6 @@ public class Imovel {
         this.titulo = titulo;
     }
 
-    public String getDescricaoCurta() {
-        return descricaoCurta;
-    }
-
-    public void setDescricaoCurta(String descricaoCurta) {
-        this.descricaoCurta = descricaoCurta;
-    }
 
     public String getDescricaoCompleta() {
         return descricaoCompleta;
@@ -147,13 +160,6 @@ public class Imovel {
         this.precoDiaria = precoDiaria;
     }
 
-    public Integer getCapacidadeMax() {
-        return capacidadeMax;
-    }
-
-    public void setCapacidadeMax(Integer capacidadeMax) {
-        this.capacidadeMax = capacidadeMax;
-    }
 
     public Integer getQtdQuartos() {
         return qtdQuartos;
@@ -202,23 +208,6 @@ public class Imovel {
     public void setVagasGaragem(Integer vagasGaragem) {
         this.vagasGaragem = vagasGaragem;
     }
-
-    public Integer getMaxNoites() {
-        return maxNoites;
-    }
-
-    public void setMaxNoites(Integer maxNoites) {
-        this.maxNoites = maxNoites;
-    }
-
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(LocalDateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
 
     public LocalDateTime getDataCadastro() {
         return dataCadastro;
