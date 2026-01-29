@@ -23,6 +23,14 @@ public class ImovelService {
         if (imovel.getEndereco() != null) {
             imovel.getEndereco().setImovel(imovel);
         }
+        if (imovel.getDisponibilidadeInicio() != null
+                && imovel.getDisponibilidadeInicio() != null
+                && imovel.getDisponibilidadeFim().isBefore(imovel.getDisponibilidadeInicio())) {
+
+            throw new IllegalArgumentException(
+                    "Data final não pode ser menor que a inicial"
+            );
+        }
 
         return imovelRepository.save(imovel);
     }

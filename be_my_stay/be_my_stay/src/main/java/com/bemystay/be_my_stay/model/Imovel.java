@@ -3,6 +3,7 @@ package com.bemystay.be_my_stay.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class Imovel {
 
     private TipoLugar tipoLugar;
 
+
+
     @Column(nullable = false)
     private String titulo;
 
@@ -70,6 +73,29 @@ public class Imovel {
 
     @Column(nullable = false)
     private boolean ativo = true;
+
+
+    @Column(name = "disponibilidade_inicio")
+    private LocalDate disponibilidadeInicio;
+
+    @Column(name = "disponibilidade_fim")
+    private LocalDate disponibilidadeFim;
+
+    public LocalDate getDisponibilidadeInicio() {
+        return disponibilidadeInicio;
+    }
+
+    public void setDisponibilidadeInicio(LocalDate disponibilidadeInicio) {
+        this.disponibilidadeInicio = disponibilidadeInicio;
+    }
+
+    public LocalDate getDisponibilidadeFim() {
+        return disponibilidadeFim;
+    }
+
+    public void setDisponibilidadeFim(LocalDate disponibilidadeFim) {
+        this.disponibilidadeFim = disponibilidadeFim;
+    }
 
     @Column(name = "data_cad")
     private LocalDateTime dataCadastro;

@@ -54,7 +54,14 @@
     <input type="time" th:field="*{checkIn}" name="checkIn" value="10:00" required>
 
     <label>Check-out</label>
-    <input type="time" th:field="*{checkOut}" name="checkOut" value="16:00" required>
+    <input type="time" th:field="*{checkOut}" name="checkOut" value="16:00 " required> <br>
+
+    <label>Disponível a partir de</label>
+    <input type="date" th:field="*{disponibilidadeInicio}" required>
+
+    <label>Disponível até</label>
+    <input type="date" th:field="*{disponibilidadeFim}" required>
+
 
 
     <button type="submit">Continuar</button>
