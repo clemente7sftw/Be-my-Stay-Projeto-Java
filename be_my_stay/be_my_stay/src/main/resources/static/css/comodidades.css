@@ -43,6 +43,7 @@ aside{
     }
 
 }
+
 .aux{
     text-align: center;
     font-family: "Poppins", sans-serif;
@@ -82,6 +83,7 @@ main{
     border-radius: 12px;
     overflow: hidden;
     font-family: Arial, sans-serif;
+
 }
 
 .tabela thead th {
