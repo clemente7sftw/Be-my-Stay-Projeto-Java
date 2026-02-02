@@ -107,6 +107,8 @@ public class ImovelController {
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
+        Imovel imovel = new Imovel();
+        imovel.setEndereco(new Endereco());
         return "imoveis/addInfo";
     }
 
@@ -136,7 +138,11 @@ public class ImovelController {
         }
         return "imoveis/addDescricao";
     }
-
+    @GetMapping("/cep/{cep}")
+    @ResponseBody
+    public String buscarCep(@PathVariable String cep) {
+        return imovelService.buscarCep(cep);
+    }
 
     @PostMapping("/salvarDescricao")
     public String salvarDescricao(
@@ -163,6 +169,8 @@ public class ImovelController {
 
         return "redirect:/imovel/criar";
     }
+
+
 
 
 

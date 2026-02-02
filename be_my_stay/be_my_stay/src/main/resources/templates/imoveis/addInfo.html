@@ -64,11 +64,68 @@
 
 
 
-    <button type="submit">Continuar</button>
-  </form>
+
+
+
+  <label>CEP</label>
+  <input type="text"
+         id="cep"
+         maxlength="8"
+         placeholder="Digite o CEP"
+         th:field="*{endereco.cep}"
+         required>
+
+  <button type="button" onclick="buscarCep()">Pesquisar CEP</button>
+
+  <br><br>
+
+  <label>Rua</label>
+  <input type="text"
+         id="rua"
+         th:field="*{endereco.rua}">
+
+  <label>Bairro</label>
+  <input type="text"
+         id="bairro"
+         th:field="*{endereco.bairro}">
+
+  <label>Cidade</label>
+  <input type="text"
+         id="cidade"
+         th:field="*{endereco.cidade}">
+
+
+  <button type="submit">Salvar</button>
+</form>
+    
 
 
 </main>
+<script>
+  function buscarCep() {
+    const cep = document.getElementById("cep").value.replace(/\D/g, '');
+
+    if (cep.length !== 8) {
+      alert("CEP inválido");
+      return;
+    }
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(data => {
+
+              if (data.erro) {
+                alert("CEP não encontrado");
+                return;
+              }
+
+              document.getElementById("rua").value = data.logradouro;
+              document.getElementById("bairro").value = data.bairro;
+              document.getElementById("cidade").value = data.localidade;
+            })
+            .catch(() => alert("Erro ao buscar CEP"));
+  }
+</script>
 
 </body>
 </html>
