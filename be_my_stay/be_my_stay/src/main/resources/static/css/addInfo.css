@@ -1,0 +1,61 @@
+*{
+    font-family: "Poppins", sans-serif;
+
+}
+body{
+    background-color: #ffffff;
+
+}
+.conteudo{
+    display: flex;
+    gap: 20px;
+}
+header{
+    font-weight: 700;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+main{
+    margin-left: 35px;
+    margin-top: 35px;
+
+}
+aside{
+    margin-top: 80px;
+}
+.campo_cep{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.btn_cep{
+    border-style: solid;
+    border-color: black;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border-radius: 100%;
+    height: 38px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button{
+    border-style: solid;
+    border-color: black;
+    background-color: black;
+    color: white;
+    border-radius: 13px;
+    margin-top: 10px;
+    height: 30px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+
+
