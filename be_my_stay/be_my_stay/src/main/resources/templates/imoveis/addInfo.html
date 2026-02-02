@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Imóvel | Be my Stay Administradores</title>
+  <title>Criar | Be my Stay Administradores</title>
 
   <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
-  <link rel="stylesheet" th:href="@{/css/telaAnfitriao.css}">
+  <link rel="stylesheet" th:href="@{/css/addInfo.css}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -16,91 +15,81 @@
           href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
           rel="stylesheet">
 </head>
+
 <body>
 <header>
 
   <img th:src="@{/assets/logo.png}">
   <span>Be my stay</span>
 </header>
-<main>
-  <p>Compartilhe mais informações básicas sobre seu imóvel</p>
+<div class="conteudo">
+  <main>
+    <p>Compartilhe mais informações básicas sobre seu imóvel</p>
+    <h4>Informações</h4>
+    <form th:action="@{/imovel/salvarInfo}" method="post" th:object="${imovel}">
 
-  <form th:action="@{/imovel/salvarInfo}"
-        method="post"
-        th:object="${imovel}">
+      <label>Quantidade de hóspedes</label> <br>
+      <input type="number" min="1" th:field="*{qtdHospede}" required> <br>
 
-    <label>Quantidade de hóspedes</label>
-    <input type="number" min="1" th:field="*{qtdHospede}" required>
+      <label>Quantidade de quartos</label> <br>
+      <input type="number" min="0" th:field="*{qtdQuartos}" required> <br>
 
-    <label>Quantidade de quartos</label>
-    <input type="number" min="0" th:field="*{qtdQuartos}" required>
+      <label>Quantidade de camas</label> <br>
+      <input type="number" min="0" th:field="*{qtdCamas}" required> <br>
 
-    <label>Quantidade de camas</label>
-    <input type="number" min="0" th:field="*{qtdCamas}" required>
+      <label>Quantidade de banheiros</label> <br>
+      <input type="number" min="0" th:field="*{qtdBanheiros}" required> <br>
 
-    <label>Quantidade de banheiros</label>
-    <input type="number" min="0" th:field="*{qtdBanheiros}" required>
+      <label>Vagas de garagem</label> <br>
+      <input type="number" min="0" th:field="*{vagasGaragem}"> <br>
+      <label>Preço da diária</label> <br>
+      <input type="number" name="precoDiaria" step="0.01" min="0" required> <br>
 
-    <label>Vagas de garagem</label>
-    <input type="number" min="0" th:field="*{vagasGaragem}">
-    <label>Preço da diária</label>
-    <input type="number"
-           name="precoDiaria"
-           step="0.01"
-           min="0"
-           required> <br>
+      <label>Check-in</label> <br>
+      <input type="time" th:field="*{checkIn}" name="checkIn" required> <br>
 
-    <label>Check-in</label>
-    <input type="time" th:field="*{checkIn}" name="checkIn" value="10:00" required>
+      <label>Check-out</label> <br>
+      <input type="time" th:field="*{checkOut}" name="checkOut" required> <br>
 
-    <label>Check-out</label>
-    <input type="time" th:field="*{checkOut}" name="checkOut" value="16:00 " required> <br>
+      <h4>Disponibilidade</h4>
 
-    <label>Disponível a partir de</label>
-    <input type="date" th:field="*{disponibilidadeInicio}" required>
+      <label>Disponível a partir de</label> <br>
+      <input type="date" th:field="*{disponibilidadeInicio}" required> <br>
 
-    <label>Disponível até</label>
-    <input type="date" th:field="*{disponibilidadeFim}" required>
+      <label>Disponível até</label> <br>
+      <input type="date" th:field="*{disponibilidadeFim}" required> <br>
 
 
+    <h4>Endereço</h4>
 
+    <label>CEP</label> <br>
+    <div class="campo_cep">
+      <input type="text" id="cep" maxlength="8" placeholder="Digite o CEP" th:field="*{endereco.cep}"
+             required>
+      <button type="button" class="btn_cep" onclick="buscarCep()"><img th:src="@{/assets/pesquisar.png}" alt=""></button>
+    </div>
 
+    <label>Rua</label> <br>
+    <input type="text" id="rua" th:field="*{endereco.rua}" readonly> <br>
 
+    <label>Bairro</label> <br>
+    <input type="text" id="bairro" th:field="*{endereco.bairro}" readonly> <br>
 
-  <label>CEP</label>
-  <input type="text"
-         id="cep"
-         maxlength="8"
-         placeholder="Digite o CEP"
-         th:field="*{endereco.cep}"
-         required>
+    <label>Cidade</label> <br>
+    <input type="text" id="cidade" th:field="*{endereco.cidade}" readonly> <br>
 
-  <button type="button" onclick="buscarCep()">Pesquisar CEP</button>
+    <label>Estado</label> <br>
+    <input type="text" id="estado" th:field="*{endereco.estado}" readonly> <br>
 
-  <br><br>
+    <label>Número</label> <br>
+    <input type="text"  th:field="*{endereco.numero}" required> <br>
 
-  <label>Rua</label>
-  <input type="text"
-         id="rua"
-         th:field="*{endereco.rua}">
+    <button type="submit">Continuar</button>
+    </form>
 
-  <label>Bairro</label>
-  <input type="text"
-         id="bairro"
-         th:field="*{endereco.bairro}">
+  </main>
 
-  <label>Cidade</label>
-  <input type="text"
-         id="cidade"
-         th:field="*{endereco.cidade}">
-
-
-  <button type="submit">Salvar</button>
-</form>
-
-
-
-</main>
+</div>
 <script>
   function buscarCep() {
     const cep = document.getElementById("cep").value.replace(/\D/g, '');
@@ -122,10 +111,12 @@
               document.getElementById("rua").value = data.logradouro;
               document.getElementById("bairro").value = data.bairro;
               document.getElementById("cidade").value = data.localidade;
+              document.getElementById("estado").value = data.estado;
             })
             .catch(() => alert("Erro ao buscar CEP"));
   }
 </script>
 
 </body>
+
 </html>

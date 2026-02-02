@@ -3,6 +3,7 @@ package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.Cargo;
 import com.bemystay.be_my_stay.model.Usuario;
+import com.bemystay.be_my_stay.service.ImovelService;
 import com.bemystay.be_my_stay.service.ModeradorService;
 import com.bemystay.be_my_stay.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
@@ -18,10 +19,12 @@ import java.util.Set;
 public class UsuarioController {
     private final UsuarioService service;
     private final ModeradorService moderadorService;
+    private final ImovelService imovelService;
 
-    public UsuarioController(UsuarioService service, ModeradorService moderadorService) {
+    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService) {
         this.service = service;
         this.moderadorService = moderadorService;
+        this.imovelService = imovelService;
     }
 
 
@@ -164,6 +167,17 @@ public class UsuarioController {
     public String restaurar(@PathVariable Long id){
         service.ativar(id);
         return "redirect:/usuarios/listarUsuarios";
+    }
+    @GetMapping("/listarImoveis")
+    public String listarImoveis(HttpSession session,  Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        model.addAttribute("imoveis", imovelService.listar());
+
+        return "usuarios/Inicio";
     }
 
 
