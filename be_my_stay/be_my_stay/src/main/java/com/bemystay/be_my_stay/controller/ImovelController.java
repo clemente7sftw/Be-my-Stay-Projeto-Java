@@ -10,8 +10,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/imovel")
@@ -127,9 +133,46 @@ public class ImovelController {
     }
     @PostMapping("/salvarTitulo")
     public String salvarTitulo( @ModelAttribute("imovel") Imovel imovel){
-        return "redirect:/imovel/descricao";
+        return "redirect:/imovel/fotos";
 
     }
+    @GetMapping("/fotos")
+    public String fotos(HttpSession session, Model model){
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        return "imoveis/addFotos";
+    }
+    @PostMapping("/salvarFoto")
+    public String salvarFoto(
+            HttpSession session,
+            @RequestParam("imagens") MultipartFile[] arquivos
+    ) throws IOException {
+
+        List<String> fotosTemp = new ArrayList<>();
+
+        for (MultipartFile file : arquivos) {
+
+            if (!file.isEmpty()) {
+
+                String nomeArquivo = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
+                Path caminho = Paths.get(
+                        "src/main/resources/static/uploads/imoveis/" + nomeArquivo
+                );
+
+                Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
+
+                fotosTemp.add("uploads/imoveis/" + nomeArquivo);
+            }
+        }
+
+        session.setAttribute("fotosImovel", fotosTemp);
+
+        return "redirect:/imovel/descricao";
+    }
+
     @GetMapping("/descricao")
     public String descricao(HttpSession session, Model model ) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -156,6 +199,20 @@ public class ImovelController {
             return "redirect:/usuarios/login";
         }
 
+
+        List<String> fotosTemp =
+                (List<String>) session.getAttribute("fotosImovel");
+
+        if (fotosTemp != null) {
+            for (String caminho : fotosTemp) {
+                Imagem imagem = new Imagem();
+                imagem.setCaminho(caminho);
+                imagem.setImovel(imovel);
+                imovel.getImagens().add(imagem);
+            }
+        }
+
+        session.removeAttribute("fotosImovel");
         Usuario usuario = new Usuario();
         usuario.setId(idUsuario);
         imovel.setUsuario(usuario);

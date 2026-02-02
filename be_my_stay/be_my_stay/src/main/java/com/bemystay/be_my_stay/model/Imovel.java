@@ -42,6 +42,14 @@ public class Imovel {
     @OneToMany(mappedBy = "imovel", cascade = CascadeType.ALL)
     private List<Imagem> imagens = new ArrayList<>();
 
+    public List<Imagem> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<Imagem> imagens) {
+        this.imagens = imagens;
+    }
+
     @Column(nullable = false)
     private String titulo;
 

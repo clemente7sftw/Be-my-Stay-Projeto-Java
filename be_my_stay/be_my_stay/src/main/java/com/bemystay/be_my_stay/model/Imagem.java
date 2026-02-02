@@ -12,9 +12,18 @@ public class Imagem {
 
     private String icone;
 
+    private String caminho;
     @ManyToOne
     @JoinColumn(name = "id_imovel")
     private Imovel imovel;
+
+    public String getCaminho() {
+        return caminho;
+    }
+
+    public void setCaminho(String caminho) {
+        this.caminho = caminho;
+    }
 
     public Long getId() {
         return id;

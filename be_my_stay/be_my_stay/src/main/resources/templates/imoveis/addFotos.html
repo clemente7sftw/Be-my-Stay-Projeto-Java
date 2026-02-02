@@ -23,15 +23,20 @@
     <span>Be my stay</span>
 </header>
 <main>
-
-    <form th:action="@{/imovel/foto}"
+    <form th:action="@{/imovel/salvarFoto}"
           method="post"
-          enctype="multipart/form-data">
+          enctype="multipart/form-data"
+          th:object="${imovel}">
 
-        <input type="file" name="fotos" multiple>
+        <input type="file"
+               name="imagens"
+               multiple
+               accept="image/*"
+               required>
 
-        <button type="submit">Continuar</button>
+        <button type="submit">Salvar</button>
     </form>
+
 
 
 </main>
