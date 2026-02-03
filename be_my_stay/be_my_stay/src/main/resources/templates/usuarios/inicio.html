@@ -37,5 +37,11 @@
     </div>
 </header>
 
+<main>
+    <label th:each=" i : ${imoveis}" >
+        <p th:text="${i.titulo}" ></p>
+    </label>
+</main>
+
 </body>
 </html>

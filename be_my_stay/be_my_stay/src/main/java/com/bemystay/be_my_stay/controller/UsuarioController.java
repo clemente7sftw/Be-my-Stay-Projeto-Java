@@ -59,6 +59,7 @@ public class UsuarioController {
         boolean temImovel = imovelRepository.existsByUsuario(usuario);
         model.addAttribute("temImovel", temImovel);
         model.addAttribute("usuarioLogado", usuario);
+        model.addAttribute("imoveis", imovelService.listar());
 
         return "usuarios/inicio";
     }
