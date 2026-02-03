@@ -1,0 +1,29 @@
+*{
+    font-family: "Poppins", sans-serif;
+
+}
+body{
+    background-color: #ffffff;
+
+}
+header{
+    display: flex;
+}
+.esquerdo{
+    margin-left: 600px;
+    display: flex;
+    gap: 50px;
+}
+.criar{
+    text-decoration: none;
+    color: black;
+}
+.perfil{
+    button{
+        border-radius: 20px;
+        border-style: solid;
+        background-color: black;
+        color: white;
+        cursor: pointer;
+    }
+}

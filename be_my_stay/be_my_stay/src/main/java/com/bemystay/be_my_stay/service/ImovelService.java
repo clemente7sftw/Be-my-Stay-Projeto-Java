@@ -18,7 +18,7 @@ public class ImovelService {
         this.imovelRepository = imovelRepository;
         this.comodidadeRepository = comodidadeRepository;
     }
-    public List<Imovel> listar() { return imovelRepository.findAtivos(); }
+    public List<Imovel> listar() { return imovelRepository.findByAtivos(); }
     @Transactional
 
     public Imovel salvar(Imovel imovel){

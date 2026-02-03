@@ -3,6 +3,7 @@ package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.Cargo;
 import com.bemystay.be_my_stay.model.Usuario;
+import com.bemystay.be_my_stay.repository.ImovelRepository;
 import com.bemystay.be_my_stay.service.ImovelService;
 import com.bemystay.be_my_stay.service.ModeradorService;
 import com.bemystay.be_my_stay.service.UsuarioService;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
-
 
 @Controller
 @RequestMapping("/usuarios")
@@ -20,11 +19,13 @@ public class UsuarioController {
     private final UsuarioService service;
     private final ModeradorService moderadorService;
     private final ImovelService imovelService;
+    private final ImovelRepository imovelRepository;
 
-    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService) {
+    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository) {
         this.service = service;
         this.moderadorService = moderadorService;
         this.imovelService = imovelService;
+        this.imovelRepository = imovelRepository;
     }
 
 
@@ -55,11 +56,23 @@ public class UsuarioController {
         }
 
         Usuario usuario = service.buscarPorId(idUsuario);
-
+        boolean temImovel = imovelRepository.existsByUsuario(usuario);
+        model.addAttribute("temImovel", temImovel);
         model.addAttribute("usuarioLogado", usuario);
 
-        return "usuarios/telaInicial";
+        return "usuarios/inicio";
     }
+    @GetMapping("/anfitriao")
+    public String anfitriao(HttpSession session, Model model){
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        return "usuarios/anfitriao";
+    }
+
     @GetMapping("/telaInicialAdm")
     public String telaInicialAdm(HttpSession session, Model model) {
 
@@ -177,7 +190,7 @@ public class UsuarioController {
 
         model.addAttribute("imoveis", imovelService.listar());
 
-        return "usuarios/Inicio";
+        return "usuarios/inicio";
     }
 
 
