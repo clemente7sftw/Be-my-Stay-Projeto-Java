@@ -37,12 +37,6 @@ header {
     font-family: "Poppins", sans-serif;
 
 }
-
-body {
-    background-color: #ffffff;
-
-}
-
 main {
     display: grid;
     grid-template-columns: repeat(4, 250px);
@@ -52,13 +46,16 @@ main {
 
 
     .img {
-        background-color: blue;
         width: 250px;
         height: 200px;
         border-radius: 10px;
 
     }
 
+    a{
+        text-decoration: none;
+        color: black;
+    }
     .titulo {
         font-weight: bold;
     }

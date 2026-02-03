@@ -38,30 +38,7 @@
 </header>
 
 <main>
-    <label th:each=" i : ${imoveis}" >
-
-        <div class="img">
-            <div class="carrosel">
-                <img th:src="@{/uploads/{img}(img=${i.imagens})}"
-                     alt="Ícone"
-                     width="40">
-            </div>
-        </div>
-
-    <a href="/imovel/mostrarDescricao">
-        <div class="descricao">
-            <p class="titulo" th:text="${i.titulo}" ></p>
-            <p class="local"
-               th:text="${i.endereco != null ? i.endereco.cidade + ', ' + i.endereco.estado : 'Local não informado'}">
-            </p>
-            <div class="diaria">
-                <p class="preco">R$</p>
-                <p th:text="${i.precoDiaria}" ></p>
-                <p>por noite</p>
-            </div>
-        </div>
-    </a>
-    </label>
+<p>aaaaaaaaaaaa</p>
 </main>
 
 </body>

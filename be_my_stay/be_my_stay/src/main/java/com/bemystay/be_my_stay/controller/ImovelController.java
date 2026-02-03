@@ -224,12 +224,15 @@ public class ImovelController {
 
         status.setComplete();
 
-        return "redirect:/imovel/criar";
+        return "redirect:/usuarios/anfitriao";
     }
-
-
-
-
-
+    @GetMapping("/mostrarDescricao")
+    public String mostrarDescricao(HttpSession session, Model model ) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        return "imoveis/descricao";
+    }
 
 }

@@ -19,6 +19,35 @@ public class ImovelService {
         this.comodidadeRepository = comodidadeRepository;
     }
     public List<Imovel> listar() { return imovelRepository.findByAtivos(); }
+    public List<Imovel> listarInativas() {
+        return imovelRepository.findByInativos();
+    }
+    public long contarTotal() {
+        return imovelRepository.count();
+    }
+
+    public long contarAtivos() {
+        return imovelRepository.countByAtivoTrue();
+    }
+
+    public long contarInativos() {
+        return imovelRepository.countByAtivoFalse();
+    }
+
+    public void desativar(Long id) {
+        Imovel i = imovelRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("mensagem"));
+
+        i.setAtivo(false);
+        imovelRepository.save(i);
+    }
+    public void ativar(Long id) {
+        Imovel i = imovelRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("mensagem"));
+
+        i.setAtivo(true);
+        imovelRepository.save(i);
+    }
 
     @Transactional
 

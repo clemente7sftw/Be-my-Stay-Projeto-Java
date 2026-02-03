@@ -189,7 +189,7 @@ public class UsuarioController {
             return "redirect:/usuarios/login";
         }
 
-        model.addAttribute("imoveis", imovelService.listar());
+        model.addAttribute("imovel", imovelService.listar());
 
         return "usuarios/inicio";
     }

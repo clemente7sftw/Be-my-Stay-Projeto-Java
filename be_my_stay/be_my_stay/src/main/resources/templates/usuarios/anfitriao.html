@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Tela Inicial | Be my Stay</title>
+
+    <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
+    <link rel="stylesheet" th:href="@{/css/telaInicialAdmin.css}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet">
 </head>
+
 <body>
-<h2>testeeeee</h2>
+<a href="/imovel/criar">
+    <img th:src="@{/assets/house-04.svg}">
+    <span>Adicionar Imóvel</span>
+</a>
 </body>
 </html>
