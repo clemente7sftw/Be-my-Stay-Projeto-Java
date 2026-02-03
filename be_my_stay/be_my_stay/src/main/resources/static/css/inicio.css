@@ -1,29 +1,80 @@
-*{
+* {
     font-family: "Poppins", sans-serif;
 
 }
-body{
+
+body {
     background-color: #ffffff;
 
 }
-header{
+
+header {
     display: flex;
 }
-.esquerdo{
+
+.esquerdo {
     margin-left: 600px;
     display: flex;
     gap: 50px;
 }
-.criar{
+
+.criar {
     text-decoration: none;
     color: black;
 }
-.perfil{
-    button{
+
+.perfil {
+    button {
         border-radius: 20px;
         border-style: solid;
         background-color: black;
         color: white;
         cursor: pointer;
     }
+}
+
+* {
+    font-family: "Poppins", sans-serif;
+
+}
+
+body {
+    background-color: #ffffff;
+
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(4, 250px);
+    column-gap: 50px;
+    row-gap: 15px;
+    justify-content: center;
+
+
+    .img {
+        background-color: blue;
+        width: 250px;
+        height: 200px;
+        border-radius: 10px;
+
+    }
+
+    .titulo {
+        font-weight: bold;
+    }
+
+    .preco {
+        font-weight: bold;
+    }
+
+    .diaria {
+        display: flex;
+        gap: 5px;
+    }
+
+    .descricao p {
+        margin: 0;
+    }
+
+
 }
