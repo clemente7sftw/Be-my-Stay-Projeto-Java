@@ -34,6 +34,9 @@ public class ImovelService {
         return imovelRepository.countByAtivoFalse();
     }
 
+    public Imovel buscarPorId(Long id) {
+        return imovelRepository.findById(id).orElseThrow(() -> new RuntimeException("Não encontrada"));
+    }
     public void desativar(Long id) {
         Imovel i = imovelRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("mensagem"));
@@ -66,8 +69,8 @@ public class ImovelService {
 
         return imovelRepository.save(imovel);
     }
-    public List<Comodidade> buscarPorId(List<Long> id) {
-        return comodidadeRepository.findAllById(id);
+    public List<Imovel> buscarPorId(List<Long> id) {
+        return imovelRepository.findAllById(id);
     }
 
 
@@ -78,5 +81,8 @@ public class ImovelService {
             return restTemplate.getForObject(url, String.class);
 
     }
+
+
+
 
 }

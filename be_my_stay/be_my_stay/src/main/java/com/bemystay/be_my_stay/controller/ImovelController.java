@@ -235,4 +235,44 @@ public class ImovelController {
         return "imoveis/descricao";
     }
 
+    @GetMapping("/listarAdmin")
+    public String listarAdmin(HttpSession session, Model model ) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("imovel", imovelService.listar());
+        model.addAttribute("contarTotal", imovelService.contarTotal());
+        model.addAttribute("ativas", imovelService.contarAtivos());
+        model.addAttribute("inativas", imovelService.contarInativos());
+        return "imoveis/imoveis";
+    }
+
+    @GetMapping("/listarInativas")
+    public String listarInativas(HttpSession session,  Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("imovel", imovelService.listarInativas());
+        return "imoveis/restaurar";
+    }
+    @PostMapping("/deletar/{id}")
+    public String deletar(@PathVariable Long id) {
+        imovelService.desativar(id);
+        return "redirect:/imovel/listarAdmin";
+    }
+    @PostMapping("/restaurar/{id}")
+    public String restaurar(@PathVariable Long id){
+        imovelService.ativar(id);
+        return "redirect:/imovel/listarAdmin";
+    }
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        Imovel i  = imovelService.buscarPorId(id);
+        model.addAttribute("imovel", i);
+        return "imoveis/editar";
+    }
+
+
 }
