@@ -226,14 +226,14 @@ public class ImovelController {
 
         return "redirect:/usuarios/anfitriao";
     }
-    @GetMapping("/mostrarDescricao")
-    public String mostrarDescricao(HttpSession session, Model model ) {
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
+
+    @GetMapping("/mostrarDescricao/{id}")
+    public String mostrarDescricao(@PathVariable Long id, Model model) {
+        Imovel imovel = imovelService.buscarPorId(id);
+        model.addAttribute("imovel", imovel);
         return "imoveis/descricao";
     }
+
 
     @GetMapping("/listarAdmin")
     public String listarAdmin(HttpSession session, Model model ) {

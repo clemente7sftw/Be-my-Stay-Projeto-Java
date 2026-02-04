@@ -42,14 +42,18 @@
 
         <div class="carrosel">
             <div class="slides">
-                <img class="img" th:each="img, stat : ${i.imagens}"
+                <img class="img"
+                     th:each="img, stat : ${i.imagens}"
                      th:src="@{/uploads/{path}(path=${img.caminho})}"
-                     th:classappend="${stat.index == 0} ? 'active'">
+                     th:classappend="${stat.index == 0} ? ' active'">
             </div>
+
+            <button class="prev">‹</button>
+            <button class="next">›</button>
         </div>
 
 
-    <a href="/imovel/mostrarDescricao">
+        <a th:href="@{/imovel/mostrarDescricao/{id}(id=${i.id})}">
         <div class="descricao">
             <p class="titulo" th:text="${i.titulo}" ></p>
             <p class="local"
@@ -64,6 +68,30 @@
     </a>
     </label>
 </main>
+<script>
+    document.querySelectorAll('.carrosel').forEach(carrosel => {
+        const imgs = carrosel.querySelectorAll('.slides img');
+        const prev = carrosel.querySelector('.prev');
+        const next = carrosel.querySelector('.next');
+
+        let index = 0;
+
+        function showImage(i) {
+            imgs.forEach(img => img.classList.remove('active'));
+            imgs[i].classList.add('active');
+        }
+
+        prev.addEventListener('click', () => {
+            index = (index - 1 + imgs.length) % imgs.length;
+            showImage(index);
+        });
+
+        next.addEventListener('click', () => {
+            index = (index + 1) % imgs.length;
+            showImage(index);
+        });
+    });
+</script>
 
 </body>
 </html>
