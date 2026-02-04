@@ -164,7 +164,7 @@ public class ImovelController {
 
                 Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
 
-                fotosTemp.add("uploads/imoveis/" + nomeArquivo);
+                fotosTemp.add("imoveis/" + nomeArquivo);
             }
         }
 

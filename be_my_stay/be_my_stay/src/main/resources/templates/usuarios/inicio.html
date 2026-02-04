@@ -40,13 +40,14 @@
 <main>
     <label th:each=" i : ${imoveis}" >
 
-        <div class="img">
-            <div class="carrosel">
-                <img th:src="@{/uploads/{img}(img=${i.imagens})}"
-                     alt="Ícone"
-                     width="40">
+        <div class="carrosel">
+            <div class="slides">
+                <img class="img" th:each="img, stat : ${i.imagens}"
+                     th:src="@{/uploads/{path}(path=${img.caminho})}"
+                     th:classappend="${stat.index == 0} ? 'active'">
             </div>
         </div>
+
 
     <a href="/imovel/mostrarDescricao">
         <div class="descricao">

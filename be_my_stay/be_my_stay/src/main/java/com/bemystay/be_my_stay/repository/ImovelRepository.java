@@ -11,7 +11,7 @@ public interface ImovelRepository extends JpaRepository <Imovel, Long> {
     @Query("SELECT i FROM Imovel i WHERE i.ativo = true")
     List<Imovel> findByAtivos();
 
-    @Query("SELECT i FROM Imovel  i WHERE i.ativo = true")
+    @Query("SELECT i FROM Imovel  i WHERE i.ativo = false")
     List<Imovel> findByInativos();
 
     boolean existsByUsuario(Usuario usuario);
