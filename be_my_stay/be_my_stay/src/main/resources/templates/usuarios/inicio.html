@@ -21,7 +21,7 @@
     <img th:src="@{/assets/logo.png}">
     <span>Be my stay</span>
 
-    <div class="esquerdo" >
+    <div class="esquerdo">
 
         <a th:if="${temImovel}" href="/usuarios/anfitriao">
             <button>Sua conta de anfitrião</button>
@@ -38,13 +38,11 @@
 </header>
 
 <main>
-    <label th:each=" i : ${imoveis}" >
+    <label th:each=" i : ${imoveis}">
 
         <div class="carrosel">
             <div class="slides">
-                <img class="img"
-                     th:each="img, stat : ${i.imagens}"
-                     th:src="@{/uploads/{path}(path=${img.caminho})}"
+                <img class="img" th:each="img, stat : ${i.imagens}" th:src="@{/uploads/{path}(path=${img.caminho})}"
                      th:classappend="${stat.index == 0} ? ' active'">
             </div>
 
@@ -54,18 +52,18 @@
 
 
         <a th:href="@{/imovel/mostrarDescricao/{id}(id=${i.id})}">
-        <div class="descricao">
-            <p class="titulo" th:text="${i.titulo}" ></p>
-            <p class="local"
-               th:text="${i.endereco != null ? i.endereco.cidade + ', ' + i.endereco.estado : 'Local não informado'}">
-            </p>
-            <div class="diaria">
-                <p class="preco">R$</p>
-                <p th:text="${i.precoDiaria}" ></p>
-                <p>por noite</p>
+            <div class="descricao">
+                <p class="titulo" th:text="${i.titulo}"></p>
+                <p class="local"
+                   th:text="${i.endereco != null ? i.endereco.cidade + ', ' + i.endereco.estado : 'Local não informado'}">
+                </p>
+                <div class="diaria">
+                    <p class="preco">R$</p>
+                    <p th:text="${i.precoDiaria}"></p>
+                    <p>por noite</p>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
     </label>
 </main>
 <script>
@@ -94,4 +92,5 @@
 </script>
 
 </body>
+
 </html>

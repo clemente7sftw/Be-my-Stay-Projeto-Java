@@ -1,4 +1,5 @@
 package com.bemystay.be_my_stay.controller;
+
 import com.bemystay.be_my_stay.model.TipoLugar;
 import com.bemystay.be_my_stay.service.TLugarService;
 import jakarta.servlet.http.HttpSession;
@@ -25,7 +26,7 @@ public class TLugarController {
 
 
     @GetMapping("/listar")
-    public String listar(HttpSession session,  Model model) {
+    public String listar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -47,8 +48,9 @@ public class TLugarController {
 
         return "lugar/adicionar";
     }
+
     @PostMapping("/salvar")
-    public String salvar (@ModelAttribute TipoLugar tipoLugar,@RequestParam("arquivo") MultipartFile file)throws IOException {
+    public String salvar(@ModelAttribute TipoLugar tipoLugar, @RequestParam("arquivo") MultipartFile file) throws IOException {
 
         if (!file.isEmpty()) {
             String nome = file.getOriginalFilename();
@@ -67,25 +69,27 @@ public class TLugarController {
     }
 
     @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model){
+    public String editar(@PathVariable Long id, Model model) {
         TipoLugar l = tLugarService.buscarPorId(id);
         model.addAttribute("tipo_lugar", l);
         return "lugar/editar";
     }
 
-@PostMapping("/salvarEdicao/{id}")
-public String salvarEdicao (@PathVariable Long id,@ModelAttribute TipoLugar tipoLugar){
+    @PostMapping("/salvarEdicao/{id}")
+    public String salvarEdicao(@PathVariable Long id, @ModelAttribute TipoLugar tipoLugar) {
         tLugarService.editar(id, tipoLugar);
-    return "redirect:/tipolugar/listar";
+        return "redirect:/tipolugar/listar";
 
-}
+    }
+
     @PostMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {
         tLugarService.desativar(id);
         return "redirect:/tipolugar/listar";
     }
+
     @GetMapping("/listarInativas")
-    public String listarInativas(HttpSession session,  Model model) {
+    public String listarInativas(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -93,8 +97,9 @@ public String salvarEdicao (@PathVariable Long id,@ModelAttribute TipoLugar tipo
         model.addAttribute("tipo_lugar", tLugarService.listarInativas());
         return "lugar/restaurar";
     }
+
     @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id){
+    public String restaurar(@PathVariable Long id) {
         tLugarService.ativar(id);
         return "redirect:/tipolugar/listar";
     }

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 
@@ -22,7 +21,8 @@
 
 <main>
 
-    <form th:action="@{/moderadores/salvarEdicao/{id}(id=${moderador.id})}" method="post" enctype="multipart/form-data" th:object="${moderador}">
+    <form th:action="@{/moderadores/salvarEdicao/{id}(id=${moderador.id})}" method="post"
+          enctype="multipart/form-data" th:object="${moderador}">
         <label for="">Adicione o nome </label> <br>
         <input type="text" th:field="*{nome}" placeholder="Nome" required> <br>
         <label for="">Adicione o email</label> <br>

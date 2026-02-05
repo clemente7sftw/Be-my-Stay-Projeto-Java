@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 
@@ -23,7 +22,8 @@
 
 <main>
 
-    <form th:action="@{/tiposImoveis/salvar}" method="post" enctype="multipart/form-data" th:object="${tipo_imovel}">
+    <form th:action="@{/tiposImoveis/salvar}" method="post" enctype="multipart/form-data"
+          th:object="${tipo_imovel}">
         <label for="">Adicione o título </label> <br>
         <input type="text" th:field="*{nome}" placeholder="Nome" required> <br>
         <label for="">Adicione a imagem</label> <br>

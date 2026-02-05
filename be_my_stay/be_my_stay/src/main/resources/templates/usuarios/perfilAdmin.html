@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,45 +16,46 @@
 
 <body>
 
-    <div th:replace="~{usuarios/telaAdmin :: aside}"></div>
-    <div class="conteudo">
-        <header>
-            <img src="" alt="" class="perfil_foto">
-            <div class="info_usuario">
-                <h4>Nome</h4>
-                <p>email</p>
-            </div>
-        </header>
-        <main>
-            <div class="label_inputs">
-                <label for="">Nome completo</label> <br>
-                <input type="text" placeholder="teste" disabled> <br>
+<div th:replace="~{usuarios/telaAdmin :: aside}"></div>
+<div class="conteudo">
+    <header>
+        <img src="" alt="" class="perfil_foto">
+        <div class="info_usuario">
+            <h4>Nome</h4>
+            <p>email</p>
+        </div>
+    </header>
+    <main>
+        <div class="label_inputs">
+            <label for="">Nome completo</label> <br>
+            <input type="text" placeholder="teste" disabled> <br>
 
-                <label for="">Gênero</label> <br>
-                <select name="" id="" disabled>
-                    <option value="a">a</option>
-                </select> <br>
+            <label for="">Gênero</label> <br>
+            <select name="" id="" disabled>
+                <option value="a">a</option>
+            </select> <br>
 
-                <label for="">Username</label> <br>
-                <input type="text" disabled> <br>
+            <label for="">Username</label> <br>
+            <input type="text" disabled> <br>
 
-                <label for="">Email</label> <br>
-                <input type="email"disabled> <br>
+            <label for="">Email</label> <br>
+            <input type="email" disabled> <br>
 
-                <label for="">Cep</label> <br>
-                <input type="text" name="" id="" disabled> <br>
+            <label for="">Cep</label> <br>
+            <input type="text" name="" id="" disabled> <br>
 
-                <label for="">País</label> <br>
-                <input type="text" name="" id="" disabled> <br>
+            <label for="">País</label> <br>
+            <input type="text" name="" id="" disabled> <br>
 
-                <label for="">Cidade</label> <br>
-                <input type="text" name="" id="" disabled>
-            </div>
-        </main>
+            <label for="">Cidade</label> <br>
+            <input type="text" name="" id="" disabled>
+        </div>
+    </main>
 
-        <footer>
-            <button>Editar</button>
-        </footer>
-    </div>
+    <footer>
+        <button>Editar</button>
+    </footer>
+</div>
 </body>
+
 </html>

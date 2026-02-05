@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 
@@ -22,8 +21,9 @@
 
 <main>
 
-  <form th:action="@{/tipolugar/salvarEdicao/{id}(id=${tipo_lugar.id})}" method="post" enctype="multipart/form-data" th:object="${tipo_lugar}">
-    <label for="">Adicione o título  </label> <br>
+  <form th:action="@{/tipolugar/salvarEdicao/{id}(id=${tipo_lugar.id})}" method="post"
+        enctype="multipart/form-data" th:object="${tipo_lugar}">
+    <label for="">Adicione o título </label> <br>
     <input type="text" th:field="*{titulo}" placeholder="Nome" required> <br>
     <label for="">Adicione a descrição</label> <br>
     <input type="text" th:field="*{descricao}" placeholder="Nome" required> <br>
