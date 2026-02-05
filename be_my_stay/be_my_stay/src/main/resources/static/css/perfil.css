@@ -1,0 +1,104 @@
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    margin: 0;
+    display: flex;
+}
+
+aside {
+    background-color: #242424;
+    height: 100vh;
+    width: 300px;
+
+    a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        text-decoration: none;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    a img {
+        width: 40px;
+        height: 40px;
+    }
+
+    h1 {
+        color: white;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .pMenu {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        color: white;
+        font-size: x-large;
+    }
+
+}
+
+main {
+    margin: 20px;
+}
+
+.topo {
+    display: flex;
+}
+
+.img {
+    background-color: #242424;
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+
+}
+
+.info p {
+    margin: 0;
+    margin-top: 10px;
+}
+
+.nome{
+    font-weight: 600;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+input{
+    background-color: #F9F9F9;
+    border-style: none;
+    height: 25px;
+    width: 200px;
+    color: #121212;
+}
+
+
+button{
+    background-color: #0088FF;
+    border-style: none;
+    margin-top: 20px;
+    color: white;
+    cursor: pointer;
+    width: 200px;
+}

@@ -52,16 +52,6 @@ public class AdminController {
         return "usuarios/telaAdmin";
     }
 
-    @GetMapping("/perfilAdmin")
-    public String perfil(HttpSession session, Model model) {
-
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-
-        return "usuarios/perfilAdmin";
-    }
 
 
 

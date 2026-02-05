@@ -21,6 +21,7 @@ public class UsuarioController {
     private final ImovelService imovelService;
     private final ImovelRepository imovelRepository;
 
+
     public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository) {
         this.service = service;
         this.moderadorService = moderadorService;
@@ -89,6 +90,7 @@ public class UsuarioController {
 
         model.addAttribute("contarUsuarios", service.contarAtivos());
         model.addAttribute("contarModeradores", moderadorService.contarAtivos());
+        model.addAttribute("contarImoveis", imovelService.contarTotal());
 
         return "usuarios/telaAdmin";
     }
@@ -192,6 +194,20 @@ public class UsuarioController {
         model.addAttribute("imovel", imovelService.listar());
 
         return "usuarios/inicio";
+    }
+    @GetMapping("/perfilAdmin")
+    public String perfilAdmin(HttpSession session,  Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        Usuario usuario = service.buscarPorId(idUsuario);
+
+        model.addAttribute("usuario", usuario);
+
+
+        return "usuarios/perfilAdmin";
     }
 
 
