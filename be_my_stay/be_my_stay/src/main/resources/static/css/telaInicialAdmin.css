@@ -105,10 +105,17 @@ header{
 
 .header_direita{
     margin-left: 1300px;
+    button{
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        width: 170px;
+        cursor: pointer;
+    }
 }
 .header_esquerda{
     gap: 10px;
-    margin-left: -45px;
+    margin-left: -40px;
 }
 nav{
     margin-top: 50px;
