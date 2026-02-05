@@ -231,6 +231,8 @@ public class ImovelController {
     public String mostrarDescricao(@PathVariable Long id, Model model) {
         Imovel imovel = imovelService.buscarPorId(id);
         model.addAttribute("imovel", imovel);
+        model.addAttribute("comodidades", comodidadeService.listar());
+        model.addAttribute("imagens", imovel.getImagens());
         return "imoveis/descricao";
     }
 

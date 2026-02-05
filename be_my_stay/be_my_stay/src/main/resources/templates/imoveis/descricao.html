@@ -7,7 +7,7 @@
     <title>Criar | Be my Stay Administradores</title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
-    <link rel="stylesheet" th:href="@{/css/inicio.css}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -17,11 +17,13 @@
 </head>
 
 <body>
+
+
 <header>
-    <img th:src="@{/assets/logo.png}">
+    <img src="/assets/logo.png">
     <span>Be my stay</span>
 
-    <div class="esquerdo" >
+    <div class="esquerdo">
 
         <a th:if="${temImovel}" href="/usuarios/anfitriao">
             <button>Sua conta de anfitrião</button>
@@ -37,13 +39,105 @@
     </div>
 </header>
 
+
+<main>
+    <div class="topo">
+        <div class="titulo_topo">
+            <h1 th:text="${imovel.titulo}"></h1>
+        </div>
+        <div class="info_topo">
+            <p
+                    th:text="${imovel.endereco != null ? imovel.endereco.cidade + ', ' + imovel.endereco.estado : 'Local não informado'}">
+            </p>
+        </div>
+    </div>
+
+    <div class="fotos">
+        <div class="galeria">
+            <img th:each="img : ${imovel.imagens}"
+                 th:src="@{/uploads/{arquivo}(arquivo=${img.caminho})}"
+                 alt="Imagem do imóvel">
+        </div>
+
+    </div>
+    <p th:text="${imovel.titulo}"></p>
+    <div class="descricao">
+
+        <p th:text="${imovel.qtdHospede == 1
+    ? '1 hóspede • ' + imovel.qtdBanheiros + ' banheiros'
+    : imovel.qtdHospede + ' hóspedes • ' + imovel.qtdBanheiros + ' banheiros'}">
+        </p>
+
+
+        <p>descrição</p>
+
+        <div class="reserva">
+                <p th:text="${ 'R$' + imovel.precoDiaria + ' /Diária'}"></p>
+        </div>
+    </div>
+    <div>
+        <label th:each="c : ${comodidades}" >
+            <img th:src="@{/uploads/{img}(img=${c.icone})}"
+                 alt="Ícone"
+                 width="40">
+            <span th:text="${c.nome}"></span>
+        </label>
+    </div>
+    <div>
+        <p>datas disponíveis</p>
+        <p th:text="${imovel.disponibilidadeInicio + ' - ' + imovel.disponibilidadeFim}" > </p>
+        <label>Check-in</label><br>
+        <input type="date"
+               id="checkin"
+               name="checkin"
+               th:attr="min=${imovel.disponibilidadeInicio},
+                max=${imovel.disponibilidadeFim}"
+               required>
+
+        <br>
+
+        <label>Check-out</label><br>
+        <input type="date"
+               id="checkout"
+               name="checkout"
+               th:attr="min=${imovel.disponibilidadeInicio},
+                max=${imovel.disponibilidadeFim}"
+               required>
+        <label>quantos hóspedes?</label>
+        <input type="number" th:attr="max=${imovel.qtdHospede}, min=1" >
+
+        <button>reservar</button>
+
+    </div>
+    <!-- <header>
+<img th:src="@{/assets/logo.png}">
+<span>Be my stay</span>
+
+<div class="esquerdo" >
+
+    <a th:if="${temImovel}" href="/usuarios/anfitriao">
+        <button>Sua conta de anfitrião</button>
+    </a>
+
+    <a th:unless="${temImovel}" href="/imovel/criar">
+        <button>Seja anfitrião</button>
+    </a>
+
+    <a class="perfil" href="">
+        <Button><img src="pesquisar.png" alt="">Sua Conta</Button>
+    </a>
+</div>
+</header>
+
 <main>
 <p>aaaaaaaaaaaa</p>
-    <h1 th:text="'ID do imóvel: ' + ${imovel.id}"></h1>
-    <p th:text="${imovel.titulo}"></p>
-    <p th:text="${imovel.precoDiaria}"></p>
+<h1 th:text="'ID do imóvel: ' + ${imovel.id}"></h1>
+<p th:text="${imovel.titulo}"></p>
+<p th:text="${imovel.precoDiaria}"></p>
+
+</main> -->
 
 </main>
-
 </body>
+
 </html>

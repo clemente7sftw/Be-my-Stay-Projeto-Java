@@ -1,0 +1,64 @@
+* {
+    font-family: "Poppins", sans-serif;
+
+}
+
+body {
+    background-color: #ffffff;
+
+}
+
+header {
+    display: flex;
+}
+
+.esquerdo {
+    margin-left: 600px;
+    display: flex;
+    gap: 50px;
+}
+
+.criar {
+    text-decoration: none;
+    color: black;
+}
+
+.perfil {
+    button {
+        border-radius: 20px;
+        border-style: solid;
+        background-color: black;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+* {
+    font-family: "Poppins", sans-serif;
+
+}
+
+body {
+    background-color: #ffffff;
+
+}
+.descricao{
+    display: flex;
+    gap: 20px;
+}
+main {
+    .info_topo{
+        display: flex;
+        gap: 5px;
+    }
+    .topo p, h1{
+        margin: 0;
+    }
+    .fotos{
+        background-color: black;
+        height: 300px;
+        width: 1200px;
+
+        margin: 0 auto;
+    }
+}
