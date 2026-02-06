@@ -257,7 +257,7 @@ public class ImovelController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("imovel", imovelService.listarInativas());
-        return "imoveis/restaurar";
+        return "imoveis/restaurarAdmin";
     }
     @PostMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {

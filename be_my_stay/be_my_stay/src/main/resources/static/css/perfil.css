@@ -56,7 +56,7 @@ main {
     display: flex;
 }
 
-.img {
+img {
     background-color: #242424;
     height: 100px;
     width: 100px;

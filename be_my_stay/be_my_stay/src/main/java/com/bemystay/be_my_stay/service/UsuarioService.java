@@ -66,12 +66,20 @@ public class UsuarioService {
 
     public void editar(Long id, Usuario dados) {
 
-        Usuario u = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
+        Usuario u = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("não encontrada"));
 
         u.setNome(dados.getNome());
+        u.setUserName(dados.getUserName());
         u.setEmail(dados.getEmail());
+        u.setTelefone(dados.getTelefone());
 
+        if (dados.getFoto_perfil() != null) {
+            u.setFoto_perfil(dados.getFoto_perfil());
+        }
         usuarioRepository.save(u);
+
+
     }
     public void desativar(Long id) {
         Usuario u = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));

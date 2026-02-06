@@ -185,3 +185,10 @@ nav{
     margin-top: 300px;
     margin-left: -1150px
   }
+form{
+    button{
+        background-color: transparent;
+        border-style: none;
+        cursor: pointer;
+    }
+}

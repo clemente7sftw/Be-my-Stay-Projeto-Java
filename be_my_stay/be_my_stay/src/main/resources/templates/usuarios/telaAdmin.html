@@ -111,22 +111,39 @@
 </nav>
 
 <main>
-    <h2>Últimos Imóveis</h2>
+    <h2>Imóveis</h2>
 
     <table class="tabela">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Título</th>
-            <th>Anfitrião</th>
+            <th>ID Imóvel</th>
+            <th>Email</th>
+            <th>Editar</th>
+            <th>Excluir</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr t>
-            <td></td>
-            <td></td>
-            <td></td>
+        <tr th:each="i : ${imovel}">
+
+            <td th:text="${i.id}"></td>
+
+            <td th:text="${i.usuario.email}"></td>
+
+            <td>
+                <a th:href="@{/imovel/editar/{id}(id=${i.id})}">
+                    <img th:src="@{/assets/file-edit.png}" alt="Editar">
+                </a>
+            </td>
+
+            <td>
+                <form th:action="@{/imovel/deletar/{id}(id=${i.id})}" method="post">
+                    <button type="submit">
+                        <img th:src="@{/assets/file-remove.png}" alt="Excluir">
+                    </button>
+                </form>
+            </td>
+
         </tr>
         </tbody>
     </table>

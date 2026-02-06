@@ -25,6 +25,21 @@ public class Usuario {
     private LocalDateTime dataCad;
     private LocalDate dataNasc;
 
+    public String getFoto_perfil() {
+        return foto_perfil;
+    }
+
+    public void setFoto_perfil(String foto_perfil) {
+        this.foto_perfil = foto_perfil;
+    }
+
+    public void setCargo(Set<Cargo> cargo) {
+        this.cargo = cargo;
+    }
+    @Column(name = "foto_perfil")
+    private String foto_perfil;
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "usuarios_cargos",

@@ -2,15 +2,28 @@ package com.bemystay.be_my_stay.controller;
 
 
 import com.bemystay.be_my_stay.model.Cargo;
+import com.bemystay.be_my_stay.model.Comodidade;
+import com.bemystay.be_my_stay.model.Imovel;
 import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
+import com.bemystay.be_my_stay.repository.UsuarioRepository;
 import com.bemystay.be_my_stay.service.ImovelService;
 import com.bemystay.be_my_stay.service.ModeradorService;
+import com.bemystay.be_my_stay.service.ReservaService;
 import com.bemystay.be_my_stay.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 
 
 @Controller
@@ -20,13 +33,17 @@ public class UsuarioController {
     private final ModeradorService moderadorService;
     private final ImovelService imovelService;
     private final ImovelRepository imovelRepository;
+    private final ReservaService reservaService;
+    private final UsuarioRepository usuarioRepository;
 
 
-    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository) {
+    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, UsuarioRepository usuarioRepository) {
         this.service = service;
         this.moderadorService = moderadorService;
         this.imovelService = imovelService;
         this.imovelRepository = imovelRepository;
+        this.reservaService = reservaService;
+        this.usuarioRepository = usuarioRepository;
     }
 
 
@@ -91,6 +108,7 @@ public class UsuarioController {
         model.addAttribute("contarUsuarios", service.contarAtivos());
         model.addAttribute("contarModeradores", moderadorService.contarAtivos());
         model.addAttribute("contarImoveis", imovelService.contarTotal());
+        model.addAttribute("imovel", imovelService.listar());
 
         return "usuarios/telaAdmin";
     }
@@ -155,15 +173,35 @@ public class UsuarioController {
     public String editar(@PathVariable Long id, Model model){
         Usuario u = service.buscarPorId(id);
         model.addAttribute("usuario", u);
-        return "usuarios/editar";
+
+        return "usuarios/perfilAdminEdicao";
 
     }
 
     @PostMapping("/salvarEdicao/{id}")
-        public String salvarEdicao (@PathVariable Long id,@ModelAttribute Usuario usuario){
-            service.editar(id, usuario);
-            return "redirect:/usuarios/listarUsuarios";
+    public String salvarEdicao(
+            @PathVariable Long id,
+            @ModelAttribute Usuario usuario,
+            @RequestParam(value = "arquivo", required = false) MultipartFile file
+    ) throws IOException {
+
+        if (file != null && !file.isEmpty()) {
+            String nome = file.getOriginalFilename();
+
+            Path caminho = Paths.get(
+                    "src/main/resources/static/uploads/fotos_perfil/" + nome
+            );
+
+            Files.createDirectories(caminho.getParent());
+            Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
+
+            usuario.setFoto_perfil("fotos_perfil/" + nome);
         }
+
+        service.editar(id, usuario);
+
+        return "redirect:/usuarios/listarUsuarios";
+    }
 
     @GetMapping("/listarInativas")
     public String listarInativas(HttpSession session,  Model model) {
@@ -209,6 +247,32 @@ public class UsuarioController {
 
         return "usuarios/perfilAdmin";
     }
+
+
+
+    @PostMapping("/reservar/{id}")
+    public String reservar(@PathVariable Long id,
+                           HttpSession session,
+                           Model model) {
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        System.out.println("ID DO IMÓVEL: " + id);
+        System.out.println("reservaaaa");
+
+        Usuario usuario = service.buscarPorId(idUsuario);
+        Imovel imovel = imovelService.buscarPorId(id);
+
+
+
+        return "/usuarios/inicio";
+    }
+
+
+
 
 
 }

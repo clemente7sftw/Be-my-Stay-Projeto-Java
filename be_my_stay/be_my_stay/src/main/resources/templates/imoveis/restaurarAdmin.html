@@ -22,8 +22,8 @@
 <table class="tabela">
     <thead>
     <tr>
-        <th>Ícone</th>
-        <th>Imóvel</th>
+        <th>ID</th>
+        <th>Título</th>
         <th>Restaurar</th>
     </tr>
     </thead>
@@ -31,18 +31,16 @@
     <tbody>
     <tr th:each="i : ${imovel}">
 
-        <td>
-            <img th:src="@{/uploads/{img}(img=${imovel.imagens})}" alt="Ícone" width="40">
-        </td>
+        <td th:text="${i.id}"></td>
 
-        <td th:text="${imovel.titulo}"></td>
+        <td th:text="${i.titulo}"></td>
 
         <td>
-<!--            <form th:action="@{/comodidades/restaurar/{id}(id=${c.id})}" method="post">-->
-<!--                <button type="submit" class="btn-icon">-->
-<!--                    <img th:src="@{/assets/restore-bin.png}" alt="Restaurar">-->
-<!--                </button>-->
-<!--            </form>-->
+            <form th:action="@{/imovel/restaurar/{id}(id=${i.id})}" method="post">
+                <button type="submit" class="btn-icon">
+                    <img th:src="@{/assets/restore-bin.png}" alt="Restaurar">
+                </button>
+            </form>
         </td>
 
     </tr>

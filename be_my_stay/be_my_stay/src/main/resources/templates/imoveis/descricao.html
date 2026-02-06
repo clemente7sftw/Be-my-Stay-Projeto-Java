@@ -86,27 +86,27 @@
     <div>
         <p>datas disponíveis</p>
         <p th:text="${imovel.disponibilidadeInicio + ' - ' + imovel.disponibilidadeFim}" > </p>
-        <label>Check-in</label><br>
-        <input type="date"
-               id="checkin"
-               name="checkin"
-               th:attr="min=${imovel.disponibilidadeInicio},
-                max=${imovel.disponibilidadeFim}"
-               required>
 
-        <br>
+        <form th:action="@{/usuarios/reservar/{id}(id=${imovel.id})}" method="post">
 
-        <label>Check-out</label><br>
-        <input type="date"
-               id="checkout"
-               name="checkout"
-               th:attr="min=${imovel.disponibilidadeInicio},
-                max=${imovel.disponibilidadeFim}"
-               required>
-        <label>quantos hóspedes?</label>
-        <input type="number" th:attr="max=${imovel.qtdHospede}, min=1" >
 
-        <button>reservar</button>
+        <label>Check-in</label>
+            <input type="date" name="checkin"
+                   th:attr="min=${imovel.disponibilidadeInicio},
+                    max=${imovel.disponibilidadeFim}" required>
+
+            <label>Check-out</label>
+            <input type="date" name="checkout"
+                   th:attr="min=${imovel.disponibilidadeInicio},
+                    max=${imovel.disponibilidadeFim}" required>
+
+            <label>Hóspedes</label>
+            <input type="number" name="qtdHospedes"
+                   th:attr="max=${imovel.qtdHospede}, min=1" required>
+
+            <button type="submit">Reservar</button>
+        </form>
+
 
     </div>
     <!-- <header>
