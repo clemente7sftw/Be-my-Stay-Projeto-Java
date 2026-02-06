@@ -19,7 +19,7 @@
 <div th:replace="usuarios/telaAdmin :: aside"></div>
 <main>
     <div class="topo">
-        <img th:src="@{/uploads/{img}(img=${usuario.foto_perfil})}" alt="Ícone" width="40">
+        <img img th:src="@{/uploads/{img}(img=${usuario.foto_perfil})}" alt="Ícone" width="40">
 
         <div class="info">
             <p class="nome" th:text="${usuario.nome}"></p>
@@ -43,7 +43,7 @@
         <label for="">Cpf</label>
         <input type="text" name="" id=""  th:field="${usuario.cpf}" >
 
-        <Button>Editar</Button>
+        <Button>Salvar</Button>
     </form>
 </main>
 

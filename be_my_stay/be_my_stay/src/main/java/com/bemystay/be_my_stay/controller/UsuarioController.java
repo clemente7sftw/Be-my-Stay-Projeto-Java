@@ -1,10 +1,7 @@
 package com.bemystay.be_my_stay.controller;
 
 
-import com.bemystay.be_my_stay.model.Cargo;
-import com.bemystay.be_my_stay.model.Comodidade;
-import com.bemystay.be_my_stay.model.Imovel;
-import com.bemystay.be_my_stay.model.Usuario;
+import com.bemystay.be_my_stay.model.*;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
 import com.bemystay.be_my_stay.repository.UsuarioRepository;
 import com.bemystay.be_my_stay.service.ImovelService;
@@ -200,7 +197,7 @@ public class UsuarioController {
 
         service.editar(id, usuario);
 
-        return "redirect:/usuarios/listarUsuarios";
+        return "redirect:/usuarios/perfilAdmin";
     }
 
     @GetMapping("/listarInativas")
@@ -212,6 +209,14 @@ public class UsuarioController {
         model.addAttribute("usuarios", service.listarInativas());
         return "usuarios/restaurarUsuarios";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/usuarios/login";
+    }
+
+
     @PostMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {
         service.desativar(id);
@@ -249,9 +254,10 @@ public class UsuarioController {
     }
 
 
-
     @PostMapping("/reservar/{id}")
     public String reservar(@PathVariable Long id,
+                           @RequestParam LocalDate checkin,
+                           @RequestParam LocalDate checkout,
                            HttpSession session,
                            Model model) {
 
@@ -260,19 +266,24 @@ public class UsuarioController {
             return "redirect:/usuarios/login";
         }
 
-        System.out.println("ID DO IMÓVEL: " + id);
-        System.out.println("reservaaaa");
+        if (reservaService.existeConflito(id, checkin, checkout)) {
+            model.addAttribute("erro", "Esse imóvel já está reservado nesse período.");
+            model.addAttribute("imovel", imovelService.buscarPorId(id));
+            return "imoveis/descricao";
+        }
 
         Usuario usuario = service.buscarPorId(idUsuario);
         Imovel imovel = imovelService.buscarPorId(id);
 
+        Reserva reserva = new Reserva();
+        reserva.setUsuario(usuario);
+        reserva.setImovel(imovel);
+        reserva.setCheckin(checkin);
+        reserva.setCheckout(checkout);
 
+        reservaService.salvar(reserva);
 
-        return "/usuarios/inicio";
+        return "redirect:/usuarios/inicio";
     }
-
-
-
-
 
 }

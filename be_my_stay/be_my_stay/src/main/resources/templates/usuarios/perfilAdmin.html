@@ -19,7 +19,7 @@
 <div th:replace="usuarios/telaAdmin :: aside"></div>
 <main>
     <div class="topo">
-        <img th:src="@{/uploads/{img}(img=${usuario.foto_perfil})}" alt="Ícone" width="40">
+        <img class="img" th:src="@{/uploads/{img}(img=${usuario.foto_perfil})}" alt="Ícone" width="40">
         <div class="info">
             <p class="nome" th:text="${usuario.nome}"></p>
             <p class="email" th:text="${usuario.email}">email</p>

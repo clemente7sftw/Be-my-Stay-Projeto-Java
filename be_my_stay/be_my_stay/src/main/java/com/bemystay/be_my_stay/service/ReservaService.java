@@ -15,21 +15,13 @@ public class ReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
 
-    public void reservar(Imovel imovel, LocalDate checkin, LocalDate checkout,
-                         int qtdHospedes, Usuario usuario) {
+    public boolean existeConflito(Long imovelId, LocalDate checkin, LocalDate checkout) {
+        return !reservaRepository
+                .buscarConflitos(imovelId, checkin, checkout)
+                .isEmpty();
+    }
+    public void salvar(Reserva reserva) {
 
-
-        System.out.println(">>> ENTROU NO MÉTODO reservar()");
-
-        Reserva reserva = new Reserva();
-        reserva.setImovel(imovel);
-        reserva.setUsuario(usuario);
-        reserva.setCheckin(checkin);
-        reserva.setCheckout(checkout);
-        reserva.setQtdHospedes(qtdHospedes);
-
-        System.out.println(">>> VAI SALVAR RESERVA");
         reservaRepository.save(reserva);
-        System.out.println(">>> SALVOU RESERVA");
     }
 }
