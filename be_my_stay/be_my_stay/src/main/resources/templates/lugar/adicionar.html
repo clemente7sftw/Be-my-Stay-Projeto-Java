@@ -68,7 +68,7 @@
         <input type="text" th:field="*{descricao}" placeholder="Nome" required> <br>
         <label for="">Adicione a imagem</label> <br>
         <input type="file" name="arquivo" required> <br>
-
+        <p th:if="${erro}" th:text="${erro}" style="color:red"></p>
         <button type="submit">Salvar</button>
     </form>
 

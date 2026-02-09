@@ -14,4 +14,5 @@ public interface TipoRepository extends JpaRepository <TipoImovel, Long> {
     List<TipoImovel> findInativos();
     long countByAtivoTrue();
     long countByAtivoFalse();
+    boolean existsByNomeIgnoreCase(String nome);
 }

@@ -1,6 +1,7 @@
 package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.Comodidade;
+import com.bemystay.be_my_stay.repository.ComodidadeRepository;
 import com.bemystay.be_my_stay.service.ComodidadeService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,11 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/comodidades")
 public class ComodidadeController {
     private final ComodidadeService service;
+    private final ComodidadeRepository comodidadeRepository;
 
-    public ComodidadeController(ComodidadeService service) {
+    public ComodidadeController(ComodidadeService service, ComodidadeRepository comodidadeRepository) {
         this.service = service;
+        this.comodidadeRepository = comodidadeRepository;
     }
 
     @GetMapping("/criar")
@@ -38,7 +41,7 @@ public class ComodidadeController {
     public String salvar(
             @ModelAttribute Comodidade comodidade,
             @RequestParam("arquivo") MultipartFile file
-    ) throws IOException {
+    , Model model ) throws IOException {
 
         if (!file.isEmpty()) {
             String nome = file.getOriginalFilename();
@@ -48,7 +51,11 @@ public class ComodidadeController {
             Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
             comodidade.setIcone("comodidades/" + nome);
         }
+        if  (comodidadeRepository.existsByNomeIgnoreCase(comodidade.getNome())) {
+            model.addAttribute("erro", "Já existe uma comodidade com este nome");
 
+            return "comodidades/addComodidades";
+        }
 
         service.salvar(comodidade);
 

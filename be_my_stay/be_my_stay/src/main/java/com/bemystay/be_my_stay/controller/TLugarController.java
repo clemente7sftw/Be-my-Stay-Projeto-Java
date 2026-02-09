@@ -1,6 +1,7 @@
 package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.TipoLugar;
+import com.bemystay.be_my_stay.repository.TLugarRepository;
 import com.bemystay.be_my_stay.service.TLugarService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,11 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/tipolugar")
 public class TLugarController {
     private final TLugarService tLugarService;
+    private final TLugarRepository tLugarRepository;
 
-    public TLugarController(TLugarService tLugarService) {
+    public TLugarController(TLugarService tLugarService, TLugarRepository tLugarRepository) {
         this.tLugarService = tLugarService;
+        this.tLugarRepository = tLugarRepository;
     }
 
 
@@ -50,7 +53,7 @@ public class TLugarController {
     }
 
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute TipoLugar tipoLugar, @RequestParam("arquivo") MultipartFile file) throws IOException {
+    public String salvar(@ModelAttribute TipoLugar tipoLugar, @RequestParam("arquivo") MultipartFile file, Model model) throws IOException {
 
         if (!file.isEmpty()) {
             String nome = file.getOriginalFilename();
@@ -61,7 +64,12 @@ public class TLugarController {
             tipoLugar.setIcone("tipo_lugar/" + nome);
         }
 
+        if  (tLugarRepository.existsByNomeIgnoreCase(tipoLugar.getTitulo())) {
+            model.addAttribute("erro", "Já existe um tipo de lugar com este título");
 
+            return "lugar/adicionar";
+
+        }
         tLugarService.salvar(tipoLugar);
 
         return "redirect:/tipolugar/listar";

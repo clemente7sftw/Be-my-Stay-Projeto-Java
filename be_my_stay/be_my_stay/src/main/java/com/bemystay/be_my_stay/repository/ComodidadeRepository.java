@@ -14,5 +14,7 @@ public interface ComodidadeRepository extends JpaRepository <Comodidade, Long > 
     List<Comodidade> findInativos();
     long countByAtivoTrue();
     long countByAtivoFalse();
+    boolean existsByNomeIgnoreCase(String nome);
+
 
 }
