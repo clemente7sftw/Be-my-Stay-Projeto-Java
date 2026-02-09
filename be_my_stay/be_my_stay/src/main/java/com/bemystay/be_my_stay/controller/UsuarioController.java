@@ -87,6 +87,10 @@ public class UsuarioController {
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
+
+        Usuario usuario = service.buscarPorId(idUsuario);
+        model.addAttribute("usuarioLogado", usuario);
+
         return "usuarios/anfitriao";
     }
 
@@ -259,6 +263,7 @@ public class UsuarioController {
     public String reservar(@PathVariable Long id,
                            @RequestParam LocalDate checkin,
                            @RequestParam LocalDate checkout,
+                           @RequestParam Integer qtdHospede,
                            HttpSession session,
                            Model model) {
 
@@ -281,6 +286,7 @@ public class UsuarioController {
         reserva.setImovel(imovel);
         reserva.setCheckin(checkin);
         reserva.setCheckout(checkout);
+        reserva.setQtdHospedes(qtdHospede);
 
         reservaService.salvar(reserva);
 

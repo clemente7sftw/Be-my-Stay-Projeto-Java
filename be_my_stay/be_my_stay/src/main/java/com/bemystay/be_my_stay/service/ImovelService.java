@@ -63,8 +63,9 @@ public class ImovelService {
                 && imovel.getDisponibilidadeFim().isBefore(imovel.getDisponibilidadeInicio())) {
 
             throw new IllegalArgumentException(
-                    "Data final não pode ser menor que a inicial"
+                    "A data final da disponibilidade do imóvel não pode ser menor que a inicial, tente novamente"
             );
+
         }
 
         return imovelRepository.save(imovel);

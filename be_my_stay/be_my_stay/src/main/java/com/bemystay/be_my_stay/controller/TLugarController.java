@@ -64,7 +64,7 @@ public class TLugarController {
             tipoLugar.setIcone("tipo_lugar/" + nome);
         }
 
-        if  (tLugarRepository.existsByNomeIgnoreCase(tipoLugar.getTitulo())) {
+        if  (tLugarRepository.existsByTituloIgnoreCase(tipoLugar.getTitulo())) {
             model.addAttribute("erro", "Já existe um tipo de lugar com este título");
 
             return "lugar/adicionar";

@@ -27,18 +27,18 @@
 
   <form th:action="@{/imovel/salvarDescricao}"
         method="post"
-        th:object="${imovel}">
+      th:object="${imovel}">
 
-  <label>Descrição</label> <br>
-    <textarea th:field="*{descricaoCompleta}"
-              rows="5"
-              required></textarea>
+<label>Descrição</label> <br>
+  <textarea th:field="*{descricaoCompleta}"
+            rows="5"
+            required></textarea>
 <br>
+  <p th:if="${erro}" th:text="${erro}" style="color:red"></p>
+<button type="submit">Salvar</button>
 
-  <button type="submit">Continuar</button>
 
-
-  </form>
+</form>
 
 </main>
 

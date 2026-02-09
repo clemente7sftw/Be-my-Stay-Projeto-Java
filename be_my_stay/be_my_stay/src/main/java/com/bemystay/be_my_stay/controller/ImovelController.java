@@ -202,7 +202,7 @@ public class ImovelController {
     public String salvarDescricao(
             HttpSession session,
             @ModelAttribute("imovel") Imovel imovel,
-            SessionStatus status
+            SessionStatus status, Model model
     ) {
 
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -231,11 +231,19 @@ public class ImovelController {
         imovel.setDataCadastro(LocalDateTime.now());
         imovel.setAtivo(true);
 
-        imovelService.salvar(imovel);
 
-        status.setComplete();
+        try {
+            imovelService.salvar(imovel);
 
-        return "redirect:/usuarios/anfitriao";
+            status.setComplete();
+
+            return "redirect:/usuarios/anfitriao";
+
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("erro", e.getMessage());
+            model.addAttribute("imovel", imovel);
+            return "imoveis/addDescricao";
+        }
     }
 
     @GetMapping("/mostrarDescricao/{id}")

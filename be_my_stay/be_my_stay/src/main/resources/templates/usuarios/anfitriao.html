@@ -1,23 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Tela Inicial | Be my Stay</title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
     <link rel="stylesheet" th:href="@{/css/telaInicialAdmin.css}">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-            rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
 
 <body>
-<a href="/imovel/criar">
-    <img th:src="@{/assets/house-04.svg}">
-    <span>Adicionar Imóvel</span>
-</a>
+
+<aside th:fragment="aside">
+    <div class="logo">
+        <img class="logo_menu" th:src="@{/assets/logo_branca.png}">
+        <h1>Be my Stay</h1>
+    </div>
+
+    <p class="pMenu">Anfitriões</p>
+
+    <a href="/usuarios/">
+        <img th:src="@{/assets/dashboard-square-01.png}">
+        <span>Dashboard</span>
+    </a>
+    <a href="/imovel/criar">
+        <img th:src="@{/assets/house-04.svg}">
+        <span>Adicionar Imóvel</span>
+    </a>
+    <a href="/imovel/listarAdmin">
+        <img th:src="@{/assets/house-04.svg}">
+        <span>Imóveis</span>
+    </a>
+
+    <a href="">
+        <img th:src="@{/assets/chart-line-data-01.png}">
+        <span>Relatórios</span>
+    </a>
+
+    <a href="/usuarios/logout">
+        <img th:src="@{/assets/logout-01.png}">
+        <span>Sair</span>
+    </a>
+</aside>
+
+<header>
+    <div class="header_esquerda">
+        <p class="p1">Olá</p>
+        <p class="p2" th:text="${usuarioLogado.nome}">Nome</p>
+    </div>
+
+    <div class="header_direita">
+        <a href="/usuarios/perfilAdmin">
+            <button>
+                <img th:src="@{/assets/avatar.png}"> Seu Perfil
+            </button>
+        </a>
+    </div>
+</header>
+
+<nav>
+    <h2>Dashboard</h2>
+
+    <div class="containers">
+        <div class="container">
+            <h4>Usuários</h4>
+            <hr>
+            <p th:text="${contarUsuarios}"></p>
+        </div>
+
+        <div class="container">
+            <h4>Imóveis</h4>
+            <hr>
+            <p th:text="${contarImoveis}"></p>
+        </div>
+
+        <div class="container">
+            <h4>Moderadores</h4>
+            <hr>
+            <p th:text="${contarModeradores}"></p>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <h2>Imóveis</h2>
+
+    <table class="tabela">
+        <thead>
+        <tr>
+            <th>ID Imóvel</th>
+            <th>Email</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="i : ${imovel}">
+
+            <td th:text="${i.id}"></td>
+
+            <td th:text="${i.usuario.email}"></td>
+
+            <td>
+                <a th:href="@{/imovel/editar/{id}(id=${i.id})}">
+                    <img th:src="@{/assets/file-edit.png}" alt="Editar">
+                </a>
+            </td>
+
+            <td>
+                <form th:action="@{/imovel/deletar/{id}(id=${i.id})}" method="post">
+                    <button type="submit">
+                        <img th:src="@{/assets/file-remove.png}" alt="Excluir">
+                    </button>
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</main>
+
 </body>
+
 </html>

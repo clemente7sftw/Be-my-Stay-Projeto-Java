@@ -20,7 +20,7 @@ public interface TLugarRepository extends JpaRepository <TipoLugar, Long> {
 
     long countByAtivoFalse();
 
-    boolean existsByNomeIgnoreCase(String titulo);
+    boolean existsByTituloIgnoreCase(String titulo);
 
 
 
