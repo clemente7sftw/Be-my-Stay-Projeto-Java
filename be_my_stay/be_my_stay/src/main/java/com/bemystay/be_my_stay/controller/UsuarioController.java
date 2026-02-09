@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Controller
@@ -234,7 +235,7 @@ public class UsuarioController {
             return "redirect:/usuarios/login";
         }
 
-        model.addAttribute("imovel", imovelService.listar());
+        model.addAttribute("imoveis", imovelService.listar());
 
         return "usuarios/inicio";
     }
@@ -283,7 +284,8 @@ public class UsuarioController {
 
         reservaService.salvar(reserva);
 
-        return "redirect:/usuarios/inicio";
+        return "/usuarios/inicio";
     }
+
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ReservaService {
@@ -24,4 +25,17 @@ public class ReservaService {
 
         reservaRepository.save(reserva);
     }
+
+    public List<Reserva> buscarAtivasPorImovel(Long idImovel) {
+        return reservaRepository.buscarReservasAtivas(idImovel);
+    }
+
+    public List<Reserva> reservasDoUsuario(Long idImovel, Long idUsuario) {
+        return reservaRepository.buscarReservasDoUsuario(idImovel, idUsuario);
+    }
+
+    public List<Reserva> buscarReservasPorUsuario(Long idUsuario) {
+        return reservaRepository.buscarPorUsuario(idUsuario);
+    }
+
 }
