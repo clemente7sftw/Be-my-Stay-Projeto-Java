@@ -85,5 +85,8 @@ public class ImovelService {
 
 
 
+    public List<Imovel> listarAtivosPorTipo(Long tipoId) {
+        return imovelRepository.findByTipoImovelIdAndAtivoTrue(tipoId);
+    }
 
 }

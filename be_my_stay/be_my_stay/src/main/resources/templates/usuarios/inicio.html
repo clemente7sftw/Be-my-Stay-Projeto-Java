@@ -18,25 +18,40 @@
 
 <body>
 <header>
-    <img th:src="@{/assets/logo.png}">
-    <span>Be my stay</span>
-
     <div class="esquerdo">
 
-        <a th:if="${temImovel}" href="/usuarios/anfitriao">
+        <img th:src="@{/assets/logo.png}">
+        <span>Be my stay</span>
+
+
+    </div>
+    <div class="direito">
+
+        <a class="linkPerfil" th:if="${temImovel}" href="/usuarios/anfitriao">
             <button>Sua conta de anfitrião</button>
         </a>
 
-        <a th:unless="${temImovel}" href="/imovel/criar">
+        <a class="linkPerfil" th:unless="${temImovel}" href="/imovel/criar">
             <button>Seja anfitrião</button>
         </a>
 
         <a class="perfil" href="">
-            <Button><img src="pesquisar.png" alt="">Sua Conta</Button>
+            <Button><img th:src="@{/assets/avatar.png}">Sua Conta</Button>
         </a>
     </div>
 </header>
 <nav>
+    <div class="filtro-tipos">
+        <a th:each="t : ${tipo_imovel}"
+           th:href="@{/usuarios/listarImoveis(tipo=${t.id})}"
+           class="tipo-btn">
+
+            <img th:src="@{/uploads/{img}(img=${t.icone})}" width="40">
+            <span th:text="${t.nome}"></span>
+        </a>
+    </div>
+
+
     <div th:each="imovel : ${imoveis}">
         <a th:href="@{/imovel/mostrarReservas/{id}(id=${imovel.id})}">
             Ver reservas

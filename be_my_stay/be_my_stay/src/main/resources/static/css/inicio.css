@@ -12,10 +12,20 @@ header {
     display: flex;
 }
 
-.esquerdo {
-    margin-left: 600px;
+.direito {
+    margin-left: 1000px;
     display: flex;
     gap: 50px;
+}
+
+.esquerdo {
+    font-weight: 700;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 .criar {
@@ -33,10 +43,26 @@ header {
     }
 }
 
+.linkPerfil {
+    button {
+        background-color: transparent;
+        border-style: none;
+        cursor: pointer;
+    }
+
+}
+
 * {
     font-family: "Poppins", sans-serif;
 
 }
+
+nav{
+    display: flex;
+    justify-content: center;
+
+}
+
 main {
     display: grid;
     grid-template-columns: repeat(4, 250px);
@@ -52,10 +78,11 @@ main {
 
     }
 
-    a{
+    a {
         text-decoration: none;
         color: black;
     }
+
     .titulo {
         font-weight: bold;
     }
@@ -105,7 +132,7 @@ main {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background: rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, 0.5);
         color: white;
         border: none;
         font-size: 22px;
@@ -114,7 +141,12 @@ main {
         border-radius: 50%;
     }
 
-    .carrosel .prev { left: 10px; }
-    .carrosel .next { right: 10px; }
+    .carrosel .prev {
+        left: 10px;
+    }
+
+    .carrosel .next {
+        right: 10px;
+    }
 
 }

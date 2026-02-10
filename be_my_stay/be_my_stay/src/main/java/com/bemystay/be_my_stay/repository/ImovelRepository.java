@@ -17,4 +17,6 @@ public interface ImovelRepository extends JpaRepository <Imovel, Long> {
     boolean existsByUsuario(Usuario usuario);
     long countByAtivoTrue();
     long countByAtivoFalse();
+
+    List<Imovel> findByTipoImovelIdAndAtivoTrue(Long id);
 }

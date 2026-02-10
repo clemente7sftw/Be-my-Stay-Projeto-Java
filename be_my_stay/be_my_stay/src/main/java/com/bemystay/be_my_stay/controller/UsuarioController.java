@@ -4,10 +4,7 @@ package com.bemystay.be_my_stay.controller;
 import com.bemystay.be_my_stay.model.*;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
 import com.bemystay.be_my_stay.repository.UsuarioRepository;
-import com.bemystay.be_my_stay.service.ImovelService;
-import com.bemystay.be_my_stay.service.ModeradorService;
-import com.bemystay.be_my_stay.service.ReservaService;
-import com.bemystay.be_my_stay.service.UsuarioService;
+import com.bemystay.be_my_stay.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,15 +30,17 @@ public class UsuarioController {
     private final ImovelRepository imovelRepository;
     private final ReservaService reservaService;
     private final UsuarioRepository usuarioRepository;
+    private final TipoService tipoService;
 
 
-    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, UsuarioRepository usuarioRepository) {
+    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, UsuarioRepository usuarioRepository, TipoService tipoService) {
         this.service = service;
         this.moderadorService = moderadorService;
         this.imovelService = imovelService;
         this.imovelRepository = imovelRepository;
         this.reservaService = reservaService;
         this.usuarioRepository = usuarioRepository;
+        this.tipoService = tipoService;
     }
 
 
@@ -76,6 +75,7 @@ public class UsuarioController {
         model.addAttribute("temImovel", temImovel);
         model.addAttribute("usuarioLogado", usuario);
         model.addAttribute("imoveis", imovelService.listar());
+        model.addAttribute("tipo_imovel", tipoService.listar() );
 
         return "usuarios/inicio";
     }
@@ -233,13 +233,21 @@ public class UsuarioController {
         return "redirect:/usuarios/listarUsuarios";
     }
     @GetMapping("/listarImoveis")
-    public String listarImoveis(HttpSession session,  Model model) {
+    public String listarImoveis(HttpSession session,  Model model, @RequestParam(required = false) Long tipo) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
+        List<Imovel> imoveis;
 
-        model.addAttribute("imoveis", imovelService.listar());
+        if (tipo != null) {
+            imoveis = imovelService.listarAtivosPorTipo(tipo);
+        } else {
+            imoveis = imovelService.listar();
+        }
+
+        model.addAttribute("imoveis", imoveis);
+        model.addAttribute("tipo_imovel", tipoService.listar());
 
         return "usuarios/inicio";
     }
