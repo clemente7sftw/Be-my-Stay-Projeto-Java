@@ -2,6 +2,7 @@ package com.bemystay.be_my_stay.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -23,9 +24,17 @@ public class Reserva {
     private LocalDate checkin;
     private LocalDate checkout;
     private int qtdHospedes;
-
+    private BigDecimal total;
     @Column(nullable = false)
     private Boolean ativo = true;
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
 
     public Boolean getAtivo() {
         return ativo;

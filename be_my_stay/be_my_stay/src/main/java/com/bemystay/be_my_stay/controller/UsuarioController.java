@@ -13,11 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -286,8 +288,13 @@ public class UsuarioController {
             return "imoveis/descricao";
         }
 
+
         Usuario usuario = service.buscarPorId(idUsuario);
         Imovel imovel = imovelService.buscarPorId(id);
+
+        long dias = ChronoUnit.DAYS.between(checkin, checkout);
+        BigDecimal total = imovel.getPrecoDiaria()
+                .multiply(BigDecimal.valueOf(dias));
 
         Reserva reserva = new Reserva();
         reserva.setUsuario(usuario);
@@ -295,6 +302,7 @@ public class UsuarioController {
         reserva.setCheckin(checkin);
         reserva.setCheckout(checkout);
         reserva.setQtdHospedes(qtdHospede);
+        reserva.setTotal(total);
 
         reservaService.salvar(reserva);
 
