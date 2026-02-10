@@ -52,7 +52,6 @@
             <th>ID</th>
             <th>Nome</th>
             <th>Email</th>
-            <th>Editar</th>
             <th>Desativar</th>
         </tr>
         </thead>
@@ -66,11 +65,6 @@
 
             <td th:text="${u.email}"></td>
 
-            <td>
-                <a th:href="@{/usuarios/editar/{id}(id=${u.id})}">
-                    <img th:src="@{/assets/file-edit.png}" alt="Editar">
-                </a>
-            </td>
 
             <td>
                 <form th:action="@{/usuarios/deletar/{id}(id=${u.id})}" method="post">

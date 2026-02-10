@@ -118,7 +118,6 @@
         <tr>
             <th>ID Imóvel</th>
             <th>Email</th>
-            <th>Editar</th>
             <th>Excluir</th>
         </tr>
         </thead>
@@ -130,11 +129,6 @@
 
             <td th:text="${i.usuario.email}"></td>
 
-            <td>
-                <a th:href="@{/imovel/editar/{id}(id=${i.id})}">
-                    <img th:src="@{/assets/file-edit.png}" alt="Editar">
-                </a>
-            </td>
 
             <td>
                 <form th:action="@{/imovel/deletar/{id}(id=${i.id})}" method="post">
