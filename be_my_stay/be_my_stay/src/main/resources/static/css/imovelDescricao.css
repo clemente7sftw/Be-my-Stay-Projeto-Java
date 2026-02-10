@@ -1,0 +1,78 @@
+* {
+    font-family: "Poppins", sans-serif;
+
+}
+
+body {
+    background-color: #ffffff;
+
+}
+.fotos {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.galeria {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    height: 400px;
+}
+
+.galeria img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.galeria img:first-child {
+    grid-row: 1 / span 2;
+    grid-column: 1 / 2;
+}
+
+.titulo{
+    font-size: 25px;
+    font-weight: 600;
+}
+.lista {
+    display: grid;
+    grid-template-columns: repeat(1, 200px);
+}
+.lista label {
+    border-style: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 8px;
+    cursor: pointer;
+}
+.lista span {
+    font-size: 15px;
+    color: #333;
+}
+.card_reserva{
+    width: 300px;
+    height: 250px;
+    display: flex;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    input{
+        width: 200px;
+    }
+    button{
+        border-radius: 5px;
+        border-width: 0.1px;
+        background-color: #333;
+        color: white;
+        cursor: pointer;
+
+    }
+}
+.card_conteudo{
+    width: 200px;
+    margin-top: 30px;
+    margin-left: 40px;
+}

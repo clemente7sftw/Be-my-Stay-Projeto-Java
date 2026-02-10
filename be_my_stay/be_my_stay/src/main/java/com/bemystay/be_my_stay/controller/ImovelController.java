@@ -327,6 +327,7 @@ public class ImovelController {
         Imovel imovel = imovelService.buscarPorId(id);
         model.addAttribute("reservas", reservas);
         model.addAttribute("imovel", imovel);
+        model.addAttribute("comodidades", comodidadeService.listar() );
         return "reservas/minhasReservas";
     }
 

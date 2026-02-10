@@ -41,22 +41,22 @@
     </div>
 </header>
 <nav>
-    <div class="filtro-tipos">
-        <a th:each="t : ${tipo_imovel}"
-           th:href="@{/usuarios/listarImoveis(tipo=${t.id})}"
-           class="tipo-btn">
+    <div class="filtro">
+
+        <a class="tipos" th:each="t : ${tipo_imovel}" th:href="@{/usuarios/listarImoveis(tipo=${t.id})}">
 
             <img th:src="@{/uploads/{img}(img=${t.icone})}" width="40">
             <span th:text="${t.nome}"></span>
         </a>
+
     </div>
 
 
-    <div th:each="imovel : ${imoveis}">
-        <a th:href="@{/imovel/mostrarReservas/{id}(id=${imovel.id})}">
-            Ver reservas
-        </a>
-    </div>
+        <div th:each="imovel : ${imoveis}">
+            <a th:href="@{/imovel/mostrarReservas/{id}(id=${imovel.id})}">
+                Ver reservas
+            </a>
+        </div>
 
 </nav>
 <main>
