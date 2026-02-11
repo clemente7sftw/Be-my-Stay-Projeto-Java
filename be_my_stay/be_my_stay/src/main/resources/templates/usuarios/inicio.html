@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar | Be my Stay Administradores</title>
+    <title>Inicio | Be my Stay </title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
     <link rel="stylesheet" th:href="@{/css/inicio.css}">
@@ -18,22 +18,25 @@
 
 <body>
 <header>
-    <div class="esquerdo">
+    <div class="esquerdo" id="menuToggle">
 
-        <img th:src="@{/assets/logo.png}">
+        <img th:src="@{/assets/logo.png}" class="logo">
         <span>Be my stay</span>
 
+        <div class="menu_dropdown" id="menuDropdown">
+            <a href="/usuarios/">Avaliar</a>
+            <a th:if="${temImovel}" href="/usuarios/anfitriao">
+                Sua conta de anfitrião
+            </a>
+            <a th:unless="${temImovel}" href="/imovel/criar">
+                Seja anfitrião
+            </a>
+            <a href="/usuarios/logout">Sair</a>
+        </div>
 
     </div>
+
     <div class="direito">
-
-        <a class="linkPerfil" th:if="${temImovel}" href="/usuarios/anfitriao">
-            <button>Sua conta de anfitrião</button>
-        </a>
-
-        <a class="linkPerfil" th:unless="${temImovel}" href="/imovel/criar">
-            <button>Seja anfitrião</button>
-        </a>
 
         <a class="perfil" href="">
             <Button><img th:src="@{/assets/avatar.png}">Sua Conta</Button>
@@ -49,14 +52,13 @@
             <span th:text="${t.nome}"></span>
         </a>
 
+        <a class="tipos" href="/usuarios/telaInicial">
+            <img th:src="@{/assets/logo_cinza.png}" width="40">
+            <span>Mostrar Todos</span>
+        </a>
+
     </div>
 
-
-        <div th:each="imovel : ${imoveis}">
-            <a th:href="@{/imovel/mostrarReservas/{id}(id=${imovel.id})}">
-                Ver reservas
-            </a>
-        </div>
 
 </nav>
 <main>
@@ -111,6 +113,21 @@
             showImage(index);
         });
     });
+
+    const menuToggle = document.getElementById("menuToggle");
+    const menuDropdown = document.getElementById("menuDropdown");
+
+    menuToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        menuDropdown.style.display =
+            menuDropdown.style.display === "flex" ? "none" : "flex";
+    });
+
+    document.addEventListener("click", () => {
+        menuDropdown.style.display = "none";
+    });
+
+
 </script>
 
 </body>

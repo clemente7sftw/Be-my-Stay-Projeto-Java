@@ -36,7 +36,6 @@
             <img th:each="img : ${imovel.imagens}" th:src="@{/uploads/{arquivo}(arquivo=${img.caminho})}"
                  alt="Imagem do imóvel">
         </div>
-
     </div>
     <p class="titulo" th:text="${imovel.titulo}"></p>
     <div class="descricao">
@@ -52,8 +51,8 @@
     </div>
     <p class="titulo"> O que esse lugar oferece </p>
     <div class="lista">
-        <label th:each="c : ${comodidades}">
-            <img th:src="@{/uploads/{img}(img=${c.icone})}" alt="Ícone" width="40">
+        <label th:each="c : ${imovel.comodidade}">
+            <img th:src="@{/uploads/{img}(img=${c.icone })}" alt="Ícone" width="40">
             <span th:text="${c.nome}"></span>
         </label>
     </div>

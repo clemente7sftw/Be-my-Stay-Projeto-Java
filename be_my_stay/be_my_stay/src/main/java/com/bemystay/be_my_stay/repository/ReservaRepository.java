@@ -47,6 +47,4 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 """)
     List<Reserva> buscarPorUsuario(@Param("idUsuario") Long idUsuario);
 
-
-
 }

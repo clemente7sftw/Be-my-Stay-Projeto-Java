@@ -56,10 +56,14 @@ public class ComodidadeController {
 
             return "comodidades/addComodidades";
         }
+        try {
+            service.salvar(comodidade);
+            return "redirect:/comodidades/listar";
 
-        service.salvar(comodidade);
-
-        return "redirect:/comodidades/listar";
+        } catch (Exception e) {
+            model.addAttribute("erro", "Ocorreu um erro do nosso lado, tente novamente mais tarde");
+            return "comodidades/addComodidades";
+        }
 
     }
 

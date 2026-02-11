@@ -80,6 +80,7 @@ main {
     column-gap: 50px;
     row-gap: 15px;
     justify-content: center;
+    margin-top: 20px;
 
 
     .img {
@@ -150,6 +151,7 @@ main {
         padding: 4px 10px;
         cursor: pointer;
         border-radius: 50%;
+        background-color: transparent;
     }
 
     .carrosel .prev {
@@ -160,4 +162,37 @@ main {
         right: 10px;
     }
 
+}
+.esquerdo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.menu_dropdown {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background: white;
+    width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: none;
+    flex-direction: column;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+.menu_dropdown a {
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.menu_dropdown a:hover {
+    background-color: #f5f5f5;
 }

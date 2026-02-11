@@ -237,7 +237,7 @@ public class ImovelController {
 
             status.setComplete();
 
-            return "redirect:/usuarios/anfitriao";
+            return "/imoveis/redirecionamento";
 
         } catch (IllegalArgumentException e) {
             model.addAttribute("erro", e.getMessage());
@@ -311,25 +311,25 @@ public class ImovelController {
         return "imoveis/editar";
     }
 
-    @GetMapping("/mostrarReservas/{id}")
-    public String mostrarReservas(@PathVariable Long id,
-                                  HttpSession session,
-                                  Model model) {
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-
-        List<Reserva> reservas =
-                reservaService.reservasDoUsuario(id, idUsuario);
-
-        Imovel imovel = imovelService.buscarPorId(id);
-        model.addAttribute("reservas", reservas);
-        model.addAttribute("imovel", imovel);
-        model.addAttribute("comodidades", comodidadeService.listar() );
-        return "reservas/minhasReservas";
-    }
+//    @GetMapping("/mostrarReservas/{id}")
+//    public String mostrarReservas(@PathVariable Long id,
+//                                  HttpSession session,
+//                                  Model model) {
+//        Long idUsuario = (Long) session.getAttribute("idUsuario");
+//
+//        if (idUsuario == null) {
+//            return "redirect:/usuarios/login";
+//        }
+//
+//        List<Reserva> reservas =
+//                reservaService.reservasDoUsuario(id, idUsuario);
+//
+//        Imovel imovel = imovelService.buscarPorId(id);
+//        model.addAttribute("reservas", reservas);
+//        model.addAttribute("imovel", imovel);
+//        model.addAttribute("comodidades", comodidadeService.listar() );
+//        return "reservas/minhasReservas";
+//    }
 
     @GetMapping("/listarImoveisReserva")
     public String listarImoveisReserva(@PathVariable Long id,
