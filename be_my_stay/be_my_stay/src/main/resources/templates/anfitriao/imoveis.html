@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tela Inicial | Be my Stay</title>
+
+  <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
+  <link rel="stylesheet" th:href="@{/css/listagem.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+<div th:replace="usuarios/anfitriao :: aside"></div>
+
+
+
+<nav>
+  <h2>Dashboard</h2>
+
+  <div class="containers">
+    <div class="container">
+      <h4></h4>
+      <hr>
+      <p></p>
+    </div>
+
+    <div class="container">
+      <h4></h4>
+      <hr>
+      <p></p>
+    </div>
+
+    <div class="container">
+      <h4></h4>
+      <hr>
+      <p></p>
+    </div>
+  </div>
+</nav>
+
+
+<main>
+  <a class="aux" href="/imovel/criar">Criar <img  th:src="@{/assets/add.png}"></a> <br>
+  <a class="aux" href="/anfitriao/listarInativas">Restaurar <img  th:src="@{/assets/restore-bin.png}"></a>
+  <table class="tabela">
+    <thead>
+    <tr>
+      <th>ID Imóvel</th>
+      <th>Título</th>
+      <th>Data de Criação</th>
+      <th>Editar</th>
+      <th>Excluir</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="i : ${imoveis}">
+
+      <td th:text="${i.id}"></td>
+
+      <td th:text="${i.titulo}"></td>
+
+      <td th:text="${i.dataCadastro}"></td>
+
+      <td>
+        <a th:href="@{/anfitriao/editar/{id}(id=${i.id})}">
+          <img th:src="@{/assets/file-edit.png}" alt="Editar">
+        </a>
+      </td>
+
+      <td>
+        <form th:action="@{/anfitriao/deletar/{id}(id=${i.id})}" method="post">
+          <button type="submit">
+            <img th:src="@{/assets/file-remove.png}" alt="Excluir">
+          </button>
+        </form>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</main>
+
+</body>
+
+</html>
