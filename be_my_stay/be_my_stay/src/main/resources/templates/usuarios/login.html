@@ -28,25 +28,11 @@
             <button>Entrar</button>
             <p th:if="${erro}" th:text="${erro}" style="color:red"></p>
         </form>
-        <div class="redesSociais">
-            <p>ou continue com</p>
 
-            <a href="https://www.google.com/">
-                <img th:src="@{/assets/google.png}" alt="">
-            </a>
-
-            <a href="https://pt-br.facebook.com/">
-                <img th:src="@{/assets/facebook.png}" alt="">
-            </a>
-
-            <a href="https://www.apple.com/">
-                <img th:src="@{/assets/apple.png}" alt="">
-            </a>
-        </div>
         <a th:href="@{/usuarios/cadastroUsuario}" class="alogin">
             Não possui uma conta? Faça seu Cadastro aqui.
         </a>
-    </div>
+
 </main>
 <aside>
     <img th:src="@{/assets/icone_visual_login.png}" alt="">

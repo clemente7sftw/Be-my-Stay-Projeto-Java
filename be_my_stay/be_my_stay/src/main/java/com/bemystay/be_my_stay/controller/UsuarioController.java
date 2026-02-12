@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -77,12 +76,13 @@ public class UsuarioController {
         model.addAttribute("temImovel", temImovel);
         model.addAttribute("usuarioLogado", usuario);
         model.addAttribute("imoveis", imovelService.listar());
-        model.addAttribute("tipo_imovel", tipoService.listar() );
+        model.addAttribute("tipo_imovel", tipoService.listar());
 
         return "usuarios/inicio";
     }
+
     @GetMapping("/anfitriao")
-    public String anfitriao(HttpSession session, Model model){
+    public String anfitriao(HttpSession session, Model model) {
 
         Long idUsuario = (Long) session.getAttribute("idUsuario");
 
@@ -118,7 +118,6 @@ public class UsuarioController {
 
         return "usuarios/telaAdmin";
     }
-
 
 
     @GetMapping("/login")
@@ -161,7 +160,8 @@ public class UsuarioController {
         return "redirect:/usuarios/telaInicial";
     }
 
-    @GetMapping("/listarUsuarios")public String listar(HttpSession session,  Model model) {
+    @GetMapping("/listarUsuarios")
+    public String listar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -176,7 +176,7 @@ public class UsuarioController {
 
 
     @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model){
+    public String editar(@PathVariable Long id, Model model) {
         Usuario u = service.buscarPorId(id);
         model.addAttribute("usuario", u);
 
@@ -210,7 +210,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/listarInativas")
-    public String listarInativas(HttpSession session,  Model model) {
+    public String listarInativas(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -231,13 +231,15 @@ public class UsuarioController {
         service.desativar(id);
         return "redirect:/usuarios/listarUsuarios";
     }
+
     @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id){
+    public String restaurar(@PathVariable Long id) {
         service.ativar(id);
         return "redirect:/usuarios/listarUsuarios";
     }
+
     @GetMapping("/listarImoveis")
-    public String listarImoveis(HttpSession session,  Model model, @RequestParam(required = false) Long tipo) {
+    public String listarImoveis(HttpSession session, Model model, @RequestParam(required = false) Long tipo) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -255,8 +257,9 @@ public class UsuarioController {
 
         return "usuarios/inicio";
     }
+
     @GetMapping("/perfilAdmin")
-    public String perfilAdmin(HttpSession session,  Model model) {
+    public String perfilAdmin(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -268,6 +271,41 @@ public class UsuarioController {
 
 
         return "usuarios/perfilAdmin";
+    }
+
+    @PostMapping("/reservar/{id}/confirmar")
+    public String confirmarReserva(@PathVariable Long id,
+                                   @RequestParam LocalDate checkin,
+                                   @RequestParam LocalDate checkout,
+                                   @RequestParam Integer qtdHospede,
+                                   HttpSession session,
+                                   Model model) {
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        if (reservaService.existeConflito(id, checkin, checkout)) {
+            model.addAttribute("erro", "Esse imóvel já está reservado nesse período.");
+            model.addAttribute("imovel", imovelService.buscarPorId(id));
+            return "imoveis/descricao";
+        }
+
+        Imovel imovel = imovelService.buscarPorId(id);
+
+        long dias = ChronoUnit.DAYS.between(checkin, checkout);
+        BigDecimal total = imovel.getPrecoDiaria()
+                .multiply(BigDecimal.valueOf(dias));
+
+        model.addAttribute("imovel", imovel);
+        model.addAttribute("checkin", checkin);
+        model.addAttribute("checkout", checkout);
+        model.addAttribute("qtdHospede", qtdHospede);
+        model.addAttribute("dias", dias);
+        model.addAttribute("total", total);
+
+        return "reservas/confirmar";
     }
 
 
@@ -310,6 +348,4 @@ public class UsuarioController {
 
         return "/usuarios/inicio";
     }
-
-
 }
