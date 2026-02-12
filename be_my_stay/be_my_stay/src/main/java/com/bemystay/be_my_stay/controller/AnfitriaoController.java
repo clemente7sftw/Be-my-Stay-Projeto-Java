@@ -1,15 +1,15 @@
 package com.bemystay.be_my_stay.controller;
 
+import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.Imovel;
+import com.bemystay.be_my_stay.model.TipoLugar;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
+import com.bemystay.be_my_stay.service.ComodidadeService;
 import com.bemystay.be_my_stay.service.ImovelService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,10 +18,12 @@ import java.util.List;
 public class AnfitriaoController {
     private final ImovelService imovelService;
     private final ImovelRepository imovelRepository;
+    private final ComodidadeService comodidadeService;
 
-    public AnfitriaoController(ImovelService imovelService, ImovelRepository imovelRepository) {
+    public AnfitriaoController(ImovelService imovelService, ImovelRepository imovelRepository, ComodidadeService comodidadeService) {
         this.imovelService = imovelService;
         this.imovelRepository = imovelRepository;
+        this.comodidadeService = comodidadeService;
     }
 
 
@@ -65,8 +67,16 @@ public class AnfitriaoController {
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         Imovel i = imovelService.buscarPorId(id);
+        Comodidade c = comodidadeService.buscarPorId(id);
         model.addAttribute("imovel", i);
-        return "anfitriao/editarImoveis";
+        model.addAttribute("comodidades", c);
+        return "anfitriao/editarImovel";
+    }
+    @PostMapping("/salvarEdicao/{id}")
+    public String salvarEdicao(@PathVariable Long id, @ModelAttribute TipoLugar tipoLugar) {
+        imovelService.editar(id, tipoLugar);
+        return "redirect:/tipolugar/listar";
+
     }
 
 }

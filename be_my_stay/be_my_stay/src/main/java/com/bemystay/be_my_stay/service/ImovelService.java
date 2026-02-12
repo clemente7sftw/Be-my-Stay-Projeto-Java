@@ -2,6 +2,7 @@ package com.bemystay.be_my_stay.service;
 
 import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.Imovel;
+import com.bemystay.be_my_stay.model.TipoLugar;
 import com.bemystay.be_my_stay.repository.ComodidadeRepository;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
 import jakarta.transaction.Transactional;
@@ -90,6 +91,14 @@ public class ImovelService {
     }
     public List<Imovel> buscarPorAnfitriao(Long id) {
         return imovelRepository.findByUsuarioIdAndAtivoTrue(id);
+    }
+
+    public void editar(Long id, TipoLugar dados) {
+
+        Imovel i = imovelRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
+
+        i.setTitulo(dados.getTitulo());
+        imovelRepository.save(i);
     }
 
 

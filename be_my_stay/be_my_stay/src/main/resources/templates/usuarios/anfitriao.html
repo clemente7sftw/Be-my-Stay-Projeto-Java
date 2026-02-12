@@ -23,7 +23,7 @@
 
     <p class="pMenu">Anfitriões</p>
 
-    <a href="/usuarios/">
+    <a href="/usuarios/anfitriao">
         <img th:src="@{/assets/dashboard-square-01.png}">
         <span>Dashboard</span>
     </a>
@@ -92,32 +92,18 @@
         <thead>
         <tr>
             <th>ID Imóvel</th>
-            <th>Email</th>
-            <th>Editar</th>
-            <th>Excluir</th>
+            <th>Título</th>
+            <th>Reservas</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr th:each="i : ${imovel}">
+        <tr th:each="i : ${imoveis}">
 
             <td th:text="${i.id}"></td>
+            
+            <td th:text="${i.titulo}"></td>
 
-            <td th:text="${i.usuario.email}"></td>
-
-            <td>
-                <a th:href="@{/imovel/editar/{id}(id=${i.id})}">
-                    <img th:src="@{/assets/file-edit.png}" alt="Editar">
-                </a>
-            </td>
-
-            <td>
-                <form th:action="@{/imovel/deletar/{id}(id=${i.id})}" method="post">
-                    <button type="submit">
-                        <img th:src="@{/assets/file-remove.png}" alt="Excluir">
-                    </button>
-                </form>
-            </td>
 
         </tr>
         </tbody>

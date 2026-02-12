@@ -91,6 +91,8 @@ public class UsuarioController {
         }
 
         Usuario usuario = service.buscarPorId(idUsuario);
+        List<Imovel> imoveis = imovelRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
+        model.addAttribute("imoveis", imoveis);
         model.addAttribute("usuarioLogado", usuario);
 
         return "usuarios/anfitriao";
