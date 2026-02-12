@@ -3,6 +3,7 @@ package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.*;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
+import com.bemystay.be_my_stay.repository.MetPagRepository;
 import com.bemystay.be_my_stay.repository.UsuarioRepository;
 import com.bemystay.be_my_stay.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -30,18 +31,21 @@ public class UsuarioController {
     private final ImovelService imovelService;
     private final ImovelRepository imovelRepository;
     private final ReservaService reservaService;
-    private final UsuarioRepository usuarioRepository;
+    private final MetPagRepository metPagRepository;
     private final TipoService tipoService;
+    private final MetPagService metPagService;
 
 
-    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, UsuarioRepository usuarioRepository, TipoService tipoService) {
+
+    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, MetPagRepository metPagRepository, TipoService tipoService, MetPagService metPagService) {
         this.service = service;
         this.moderadorService = moderadorService;
         this.imovelService = imovelService;
         this.imovelRepository = imovelRepository;
         this.reservaService = reservaService;
-        this.usuarioRepository = usuarioRepository;
+        this.metPagRepository = metPagRepository;
         this.tipoService = tipoService;
+        this.metPagService = metPagService;
     }
 
 
@@ -348,4 +352,46 @@ public class UsuarioController {
 
         return "/usuarios/inicio";
     }
+
+    @GetMapping("/addMetodo")
+    public String addMetodo(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("metodo", new MetodoPagamento());
+
+        return "/metodoPag/criar";
+    }
+
+    @PostMapping("/salvarMetodo")
+    public String salvar(
+            @ModelAttribute MetodoPagamento metodoPagamento,
+            @RequestParam("arquivo") MultipartFile file,
+            Model model) throws IOException {
+
+        if (!file.isEmpty()) {
+            String titulo = file.getOriginalFilename();
+            Path caminho = Paths.get("src/main/resources/static/uploads/metodo_pag/" + titulo);
+            Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
+
+            metodoPagamento.setCaminho("metodo/" + titulo);
+        }
+
+        if (metPagRepository.existsByTituloIgnoreCase(metodoPagamento.getTitulo())) {
+            model.addAttribute("erro", "Já existe um método com este nome");
+            return "comodidades/addComodidades";
+        }
+
+        try {
+            metPagService.salvar(metodoPagamento);
+            return "redirect:/usuarios/addMetodo";
+        } catch (Exception e) {
+            model.addAttribute("erro", "Ocorreu um erro do nosso lado, tente novamente mais tarde");
+            return "metodoPag/criar";
+        }
+    }
+
+
+
 }
