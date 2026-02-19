@@ -13,4 +13,6 @@ public interface MetPagRepository extends JpaRepository<MetodoPagamento, Long> {
     List<MetodoPagamento> findAtivos();
     @Query("SELECT m FROM MetodoPagamento m WHERE m.ativo = false")
     List<MetodoPagamento> findInativos();
+    long countByAtivoTrue();
+    long countByAtivoFalse();
 }

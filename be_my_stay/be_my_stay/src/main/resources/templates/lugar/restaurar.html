@@ -27,6 +27,8 @@
     <th>ícone</th>
     <th>Título</th>
     <th>Descrição</th>
+    <th>Restaurar</th>
+
   </tr>
   </thead>
 
@@ -34,6 +36,11 @@
   <tr th:each="l : ${tipo_lugar}">
 
     <td th:text="${l.id}"></td>
+
+    <td>
+      <img th:src="@{/uploads/{img}(img=${l.icone})}" alt="Ícone" width="40">
+    </td>
+
 
     <td th:text="${l.titulo}"></td>
 

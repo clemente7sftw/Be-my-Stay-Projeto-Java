@@ -366,6 +366,18 @@ public class UsuarioController {
 
     }
 
+    @GetMapping("/listarInaMet")
+    public String listarInaMet(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("método", metPagService.listarInativos()  );
+
+        return "/metodoPag/restaurar";
+
+    }
+
     @GetMapping("/addMetodo")
     public String addMetodo(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
