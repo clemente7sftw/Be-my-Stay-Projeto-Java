@@ -37,6 +37,7 @@ public class UsuarioController {
 
 
 
+
     public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, MetPagRepository metPagRepository, TipoService tipoService, MetPagService metPagService) {
         this.service = service;
         this.moderadorService = moderadorService;
@@ -208,6 +209,7 @@ public class UsuarioController {
             usuario.setFoto_perfil("fotos_perfil/" + nome);
         }
 
+
         service.editar(id, usuario);
 
         return "redirect:/usuarios/perfilAdmin";
@@ -352,6 +354,17 @@ public class UsuarioController {
 
         return "/usuarios/inicio";
     }
+    @GetMapping("/listarMet")
+    public String listarMet(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("método", metPagService.listar()  );
+
+        return "/metodoPag/listar";
+
+    }
 
     @GetMapping("/addMetodo")
     public String addMetodo(HttpSession session, Model model) {
@@ -375,12 +388,12 @@ public class UsuarioController {
             Path caminho = Paths.get("src/main/resources/static/uploads/metodo_pag/" + titulo);
             Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
 
-            metodoPagamento.setCaminho("metodo/" + titulo);
+            metodoPagamento.setCaminho("metodo_pag/" + titulo);
         }
 
         if (metPagRepository.existsByTituloIgnoreCase(metodoPagamento.getTitulo())) {
             model.addAttribute("erro", "Já existe um método com este nome");
-            return "comodidades/addComodidades";
+            return "metodoPag/criar";
         }
 
         try {

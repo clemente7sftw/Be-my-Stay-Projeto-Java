@@ -10,8 +10,17 @@ public class MetodoPagamento {
     @Column(name = "id")
     private Long id;
     private String titulo;
-    public String icone;
     public String caminho;
+    @Column(nullable = false)
+    private Boolean ativo = true;
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
 
     public String getCaminho() {
         return caminho;
@@ -19,14 +28,6 @@ public class MetodoPagamento {
 
     public void setCaminho(String caminho) {
         this.caminho = caminho;
-    }
-
-    public String getIcone() {
-        return icone;
-    }
-
-    public void setIcone(String icone) {
-        this.icone = icone;
     }
 
     public Long getId() {
