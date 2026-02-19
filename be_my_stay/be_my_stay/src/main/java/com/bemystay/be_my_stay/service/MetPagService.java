@@ -55,5 +55,4 @@ public class MetPagService {
         return metPagRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não encontrada"));
     }
-
 }

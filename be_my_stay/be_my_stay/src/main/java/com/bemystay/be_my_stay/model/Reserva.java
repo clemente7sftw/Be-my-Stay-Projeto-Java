@@ -17,6 +17,18 @@ public class Reserva {
     @JoinColumn(name = "id_imovel", nullable = false)
     private Imovel imovel;
 
+    public MetodoPagamento getMetodoPagamento() {
+        return metodoPagamento;
+    }
+
+    public void setMetodoPagamento(MetodoPagamento metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_metpag", nullable = false)
+    private MetodoPagamento metodoPagamento;
+
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;

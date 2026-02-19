@@ -310,6 +310,7 @@ public class UsuarioController {
         model.addAttribute("qtdHospede", qtdHospede);
         model.addAttribute("dias", dias);
         model.addAttribute("total", total);
+        model.addAttribute("método", metPagService.listar());
 
         return "reservas/confirmar";
     }
@@ -320,6 +321,7 @@ public class UsuarioController {
                            @RequestParam LocalDate checkin,
                            @RequestParam LocalDate checkout,
                            @RequestParam Integer qtdHospede,
+                           @RequestParam ("ids") Long idMetPag,
                            HttpSession session,
                            Model model) {
 
@@ -337,6 +339,7 @@ public class UsuarioController {
 
         Usuario usuario = service.buscarPorId(idUsuario);
         Imovel imovel = imovelService.buscarPorId(id);
+        MetodoPagamento metodoPagamento = metPagService.buscarPorId(idMetPag);
 
         long dias = ChronoUnit.DAYS.between(checkin, checkout);
         BigDecimal total = imovel.getPrecoDiaria()
@@ -349,6 +352,7 @@ public class UsuarioController {
         reserva.setCheckout(checkout);
         reserva.setQtdHospedes(qtdHospede);
         reserva.setTotal(total);
+        reserva.setMetodoPagamento(metodoPagamento);
 
         reservaService.salvar(reserva);
 

@@ -26,11 +26,23 @@
 <p>Dias: <span th:text="${dias}"></span></p>
 <p>Total: R$ <span th:text="${total}"></span></p>
 
-<form th:action="@{/reservar/{id}(id=${imovel.id})}" method="post">
+<form th:action="@{/usuarios/reservar/{id}(id=${imovel.id})}" method="post">
 
     <input type="hidden" name="checkin" th:value="${checkin}">
     <input type="hidden" name="checkout" th:value="${checkout}">
     <input type="hidden" name="qtdHospede" th:value="${qtdHospede}">
+    <label th:each="m : ${método}">
+        <input type="radio"
+               name="ids"
+               th:value="${m.id}"
+               required>
+
+        <img th:src="@{/uploads/{img}(img=${m.caminho})}"
+             alt="Ícone"
+             width="40">
+
+        <span th:text="${m.titulo}"></span>
+    </label>
 
     <button type="submit">Confirmar Reserva</button>
 </form>
