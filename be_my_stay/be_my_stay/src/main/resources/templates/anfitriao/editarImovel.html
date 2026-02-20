@@ -27,16 +27,43 @@
         method="post">
     <label>Coloque o Título</label> <br>
     <input type="text" th:field="*{titulo}"> <br>
-    <label>Coloque o icone</label> <br>
-    <input type="text" th:field="*{imagens}"> <br>
-    <div class="lista">
-      <label th:each="c : ${comodidades}">
-        <input type="checkbox" name="ids" th:value="${comodidades.id}">
 
-        <img th:src="@{/uploads/{img}(img=${comodidades.icone})}"
+    <label>Coloque a Descrição</label> <br>
+    <textarea th:field="*{descricaoCompleta}"
+              rows="6"
+              required></textarea> <br>
+
+    <label>Coloque  o Preço da diária</label> <br>
+    <input type="number" th:field="*{precoDiaria}" step="0.01" min="0"> <br>
+
+    <label>Check-in</label> <br>
+    <input type="time" th:field="*{checkIn}" name="checkIn" > <br>
+
+    <label>Check-out</label> <br>
+    <input type="time" th:field="*{checkOut}" name="checkOut" > <br>
+
+    <label>Coloque a Quantidade de Hóspedes</label> <br>
+    <input type="number" th:field="*{qtdHospede}"> <br>
+
+    <label>Coloque a Quantidade de Banheiros</label> <br>
+    <input type="number" th:field="*{qtdBanheiros}"> <br>
+
+    <label>Coloque a Quantidade de Quartos</label> <br>
+    <input type="number" th:field="*{qtdQuartos}"> <br>
+
+    <label>Coloque a Quantidade de Camas</label> <br>
+    <input type="number" th:field="*{qtdCamas}"> <br>
+
+    <div th:each="c : ${comodidades}">
+      <label>
+        <input type="checkbox"
+               th:field="*{comodidade}"
+               th:value="${c.id}"
+               th:checked="${imovel.comodidade.contains(c)}">
+        <img th:src="@{/uploads/{img}(img=${c.icone})}"
              alt="Ícone"
              width="40">
-        <span th:text="${comodidades.nome}"></span>
+        <span th:text="${c.nome}"></span>
       </label>
     </div>
 

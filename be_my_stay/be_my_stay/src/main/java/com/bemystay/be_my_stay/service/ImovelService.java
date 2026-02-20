@@ -93,11 +93,19 @@ public class ImovelService {
         return imovelRepository.findByUsuarioIdAndAtivoTrue(id);
     }
 
-    public void editar(Long id, TipoLugar dados) {
+    public void editar(Long id, Imovel dados) {
 
         Imovel i = imovelRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
 
         i.setTitulo(dados.getTitulo());
+        i.setDescricaoCompleta(dados.getDescricaoCompleta());
+        i.setPrecoDiaria(dados.getPrecoDiaria());
+        i.setDisponibilidadeFim(dados.getDisponibilidadeFim());
+        i.setDisponibilidadeInicio(dados.getDisponibilidadeInicio());
+        i.setQtdHospede(dados.getQtdHospede());
+        i.setQtdBanheiros(dados.getQtdBanheiros());
+        i.setQtdCamas(dados.getQtdCamas());
+        i.setComodidade(dados.getComodidade());
         imovelRepository.save(i);
     }
 

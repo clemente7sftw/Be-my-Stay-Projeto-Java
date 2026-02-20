@@ -41,6 +41,11 @@
         <span>Relatórios</span>
     </a>
 
+    <a href="">
+        <img th:src="@{/assets/user_icon.png}">
+        <span>Perfil</span>
+    </a>
+
     <a href="/usuarios/logout">
         <img th:src="@{/assets/logout-01.png}">
         <span>Sair</span>
@@ -53,13 +58,6 @@
         <p class="p2" th:text="${usuarioLogado.nome}">Nome</p>
     </div>
 
-    <div class="header_direita">
-        <a href="/usuarios/perfilAdmin">
-            <button>
-                <img th:src="@{/assets/avatar.png}"> Seu Perfil
-            </button>
-        </a>
-    </div>
 </header>
 
 <nav>

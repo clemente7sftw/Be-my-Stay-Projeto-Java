@@ -67,15 +67,15 @@ public class AnfitriaoController {
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         Imovel i = imovelService.buscarPorId(id);
-        Comodidade c = comodidadeService.buscarPorId(id);
+        List<Comodidade> comodidades= comodidadeService.listar();
         model.addAttribute("imovel", i);
-        model.addAttribute("comodidades", c);
+        model.addAttribute("comodidades", comodidades);
         return "anfitriao/editarImovel";
     }
     @PostMapping("/salvarEdicao/{id}")
-    public String salvarEdicao(@PathVariable Long id, @ModelAttribute TipoLugar tipoLugar) {
-        imovelService.editar(id, tipoLugar);
-        return "redirect:/tipolugar/listar";
+    public String salvarEdicao(@PathVariable Long id, @ModelAttribute Imovel imovel) {
+        imovelService.editar(id, imovel);
+        return "redirect:/anfitriao/listarImoveis";
 
     }
 
