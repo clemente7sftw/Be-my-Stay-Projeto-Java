@@ -4,9 +4,17 @@ import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.MetodoPagamento;
 import com.bemystay.be_my_stay.repository.MetPagRepository;
 import com.bemystay.be_my_stay.service.MetPagService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Controller
 @RequestMapping("/metodo")
@@ -42,4 +50,67 @@ public class MetodoController {
         metPagService.editar(id, metodoPagamento);
         return "redirect:/usuarios/listarMet";
     }
+    @GetMapping("/listarMet")
+    public String listarMet(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("método", metPagService.listar()  );
+
+        return "/metodoPag/listar";
+
+    }
+
+    @GetMapping("/listarInaMet")
+    public String listarInaMet(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("método", metPagService.listarInativos()  );
+
+        return "/metodoPag/restaurar";
+
+    }
+
+    @GetMapping("/addMetodo")
+    public String addMetodo(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("metodo", new MetodoPagamento());
+
+        return "/metodoPag/adicionar";
+    }
+
+    @PostMapping("/salvarMetodo")
+    public String salvar(
+            @ModelAttribute MetodoPagamento metodoPagamento,
+            @RequestParam("arquivo") MultipartFile file,
+            Model model) throws IOException {
+
+        if (!file.isEmpty()) {
+            String titulo = file.getOriginalFilename();
+            Path caminho = Paths.get("src/main/resources/static/uploads/metodo_pag/" + titulo);
+            Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
+
+            metodoPagamento.setCaminho("metodo_pag/" + titulo);
+        }
+
+        if (metPagRepository.existsByTituloIgnoreCase(metodoPagamento.getTitulo())) {
+            model.addAttribute("erro", "Já existe um método com este nome");
+            return "metodoPag/adicionar";
+        }
+
+        try {
+            metPagService.salvar(metodoPagamento);
+            return "redirect:/usuarios/addMetodo";
+        } catch (Exception e) {
+            model.addAttribute("erro", "Ocorreu um erro do nosso lado, tente novamente mais tarde");
+            return "metodoPag/adicionar";
+        }
+    }
+
 }

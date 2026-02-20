@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/usuarios")
+@RequestMapping("/admin")
 public class AdminController {
     private final UsuarioService usuarioService;
     private final ModeradorService moderadorService;
@@ -22,6 +22,26 @@ public class AdminController {
         this.moderadorService = moderadorService;
     }
 
+    @GetMapping("/telaInicialAdm")
+    public String telaInicialAdm(HttpSession session, Model model) {
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        Usuario usuario = usuarioService.buscarPorId(idUsuario);
+
+        model.addAttribute("usuarioLogado", usuario);
+
+        model.addAttribute("contarUsuarios", usuarioService.contarAtivos());
+        model.addAttribute("contarModeradores", moderadorService.contarAtivos());
+        model.addAttribute("contarImoveis", usuarioService.contarTotal());
+        model.addAttribute("imovel", usuarioService.listar());
+
+        return "admin/telaAdmin";
+    }
 
     @GetMapping("/cadastroAdmin")
     public String novo(Model model) {
@@ -35,7 +55,7 @@ public class AdminController {
 
         session.setAttribute("usuarioLogado", usuarioLogado);
 
-        return "redirect:/usuarios/telaAdmin";
+        return "redirect:/admin/telaAdmin";
     }
 
     @GetMapping("/telaAdmin")

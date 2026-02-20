@@ -3,9 +3,11 @@ package com.bemystay.be_my_stay.controller;
 import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.Imovel;
 import com.bemystay.be_my_stay.model.TipoLugar;
+import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
 import com.bemystay.be_my_stay.service.ComodidadeService;
 import com.bemystay.be_my_stay.service.ImovelService;
+import com.bemystay.be_my_stay.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,13 +21,31 @@ public class AnfitriaoController {
     private final ImovelService imovelService;
     private final ImovelRepository imovelRepository;
     private final ComodidadeService comodidadeService;
+    private final UsuarioService usuarioService;
 
-    public AnfitriaoController(ImovelService imovelService, ImovelRepository imovelRepository, ComodidadeService comodidadeService) {
+    public AnfitriaoController(ImovelService imovelService, ImovelRepository imovelRepository, ComodidadeService comodidadeService, UsuarioService usuarioService) {
         this.imovelService = imovelService;
         this.imovelRepository = imovelRepository;
         this.comodidadeService = comodidadeService;
+        this.usuarioService = usuarioService;
     }
 
+    @GetMapping("/anfitriao")
+    public String anfitriao(HttpSession session, Model model) {
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        Usuario usuario = usuarioService.buscarPorId(idUsuario);
+        List<Imovel> imoveis = imovelRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
+        model.addAttribute("imoveis", imoveis);
+        model.addAttribute("usuarioLogado", usuario);
+
+        return "anfitriao/anfitriao";
+    }
 
     @GetMapping("/listarImoveis")
     public String listarImoveis(HttpSession session, Model model) {
