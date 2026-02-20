@@ -13,6 +13,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     @Query("""
     SELECT r FROM Reserva r
     WHERE r.imovel.id = :id_imovel
+    AND r.ativo = true
       AND (
             :checkin <= r.checkout
         AND :checkout >= r.checkin
