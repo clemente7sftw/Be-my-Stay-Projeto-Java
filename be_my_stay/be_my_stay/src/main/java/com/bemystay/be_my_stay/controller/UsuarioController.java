@@ -4,7 +4,6 @@ package com.bemystay.be_my_stay.controller;
 import com.bemystay.be_my_stay.model.*;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
 import com.bemystay.be_my_stay.repository.MetPagRepository;
-import com.bemystay.be_my_stay.repository.UsuarioRepository;
 import com.bemystay.be_my_stay.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -100,7 +99,7 @@ public class UsuarioController {
         model.addAttribute("imoveis", imoveis);
         model.addAttribute("usuarioLogado", usuario);
 
-        return "usuarios/anfitriao";
+        return "anfitriao/anfitriao";
     }
 
     @GetMapping("/telaInicialAdm")
@@ -121,7 +120,7 @@ public class UsuarioController {
         model.addAttribute("contarImoveis", imovelService.contarTotal());
         model.addAttribute("imovel", imovelService.listar());
 
-        return "usuarios/telaAdmin";
+        return "admin/telaAdmin";
     }
 
 
@@ -176,7 +175,7 @@ public class UsuarioController {
         model.addAttribute("ativas", service.contarAtivos());
         model.addAttribute("inativas", service.contarInativos());
 
-        return "usuarios/usuarios";
+        return "admin/usuarios";
     }
 
 
@@ -185,7 +184,7 @@ public class UsuarioController {
         Usuario u = service.buscarPorId(id);
         model.addAttribute("usuario", u);
 
-        return "usuarios/perfilAdminEdicao";
+        return "admin/perfilAdminEdicao";
 
     }
 
@@ -222,7 +221,7 @@ public class UsuarioController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("usuarios", service.listarInativas());
-        return "usuarios/restaurarUsuarios";
+        return "admin/restaurarUsuarios";
     }
 
     @GetMapping("/logout")
@@ -276,7 +275,7 @@ public class UsuarioController {
         model.addAttribute("usuario", usuario);
 
 
-        return "usuarios/perfilAdmin";
+        return "admin/perfilAdmin";
     }
 
     @PostMapping("/reservar/{id}/confirmar")
@@ -390,7 +389,7 @@ public class UsuarioController {
         }
         model.addAttribute("metodo", new MetodoPagamento());
 
-        return "/metodoPag/criar";
+        return "/metodoPag/adicionar";
     }
 
     @PostMapping("/salvarMetodo")
@@ -409,7 +408,7 @@ public class UsuarioController {
 
         if (metPagRepository.existsByTituloIgnoreCase(metodoPagamento.getTitulo())) {
             model.addAttribute("erro", "Já existe um método com este nome");
-            return "metodoPag/criar";
+            return "metodoPag/adicionar";
         }
 
         try {
@@ -417,7 +416,7 @@ public class UsuarioController {
             return "redirect:/usuarios/addMetodo";
         } catch (Exception e) {
             model.addAttribute("erro", "Ocorreu um erro do nosso lado, tente novamente mais tarde");
-            return "metodoPag/criar";
+            return "metodoPag/adicionar";
         }
     }
 

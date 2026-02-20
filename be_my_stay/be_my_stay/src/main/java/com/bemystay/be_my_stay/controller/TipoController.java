@@ -33,7 +33,7 @@ public class TipoController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("tipo_imovel", new TipoImovel());
-        return "tipos/addTipos";
+        return "/tipos/adicionar";
 
     }
 
@@ -51,7 +51,7 @@ public class TipoController {
         if  (tipoRepository.existsByNomeIgnoreCase(tipoImovel.getNome())) {
             model.addAttribute("erro", "Já existe um tipo de imóvel com este nome");
 
-            return "tipos/addTipos";
+            return "adicionar";
         }
 
         tipoService.salvar(tipoImovel);

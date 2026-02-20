@@ -34,7 +34,7 @@ public class ComodidadeController {
         }
 
         model.addAttribute("comodidade", new Comodidade());
-        return "comodidades/addComodidades";
+        return "comodidades/adicionar";
     }
 
     @PostMapping("/salvar")
@@ -54,7 +54,7 @@ public class ComodidadeController {
         if  (comodidadeRepository.existsByNomeIgnoreCase(comodidade.getNome())) {
             model.addAttribute("erro", "Já existe uma comodidade com este nome");
 
-            return "comodidades/addComodidades";
+            return "comodidades/adicionar";
         }
         try {
             service.salvar(comodidade);
@@ -62,11 +62,10 @@ public class ComodidadeController {
 
         } catch (Exception e) {
             model.addAttribute("erro", "Ocorreu um erro do nosso lado, tente novamente mais tarde");
-            return "comodidades/addComodidades";
+            return "comodidades/adicionar";
         }
 
     }
-
 
     @GetMapping("/listar")
     public String listar(HttpSession session,  Model model) {
@@ -78,9 +77,8 @@ public class ComodidadeController {
         model.addAttribute("contarTotal", service.contarTotal());
         model.addAttribute("ativas", service.contarAtivos());
         model.addAttribute("inativas", service.contarInativos());
-        return "comodidades/comodidades";
+        return "comodidades/listar";
     }
-
 
     @GetMapping("/listarInativas")
     public String listarInativas(HttpSession session,  Model model) {
@@ -89,7 +87,7 @@ public class ComodidadeController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("comodidades", service.listarInativas());
-        return "comodidades/restaurarComodidades";
+        return "comodidades/restaurar";
     }
     @PostMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {

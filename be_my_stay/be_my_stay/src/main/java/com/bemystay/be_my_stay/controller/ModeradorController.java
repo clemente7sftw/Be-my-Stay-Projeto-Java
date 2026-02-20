@@ -22,7 +22,7 @@ public class ModeradorController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("moderador", new Moderador());
-        return "moderadores/addModerador";
+        return "moderadores/adicionar";
 
     }
     @PostMapping("/salvar")
@@ -44,7 +44,7 @@ public class ModeradorController {
         model.addAttribute("inativos", moderadorService.contarInativos());
         model.addAttribute("ativos", moderadorService.contarAtivos());
 
-        return "moderadores/moderadores";
+        return "moderadores/listar";
     }
 
     @GetMapping("/editar/{id}")
@@ -72,7 +72,7 @@ public class ModeradorController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("moderador", moderadorService.listarInativas());
-        return "moderadores/restaurarModeradores";
+        return "moderadores/restaurar";
     }
     @PostMapping("/restaurar/{id}")
     public String restaurar(@PathVariable Long id){

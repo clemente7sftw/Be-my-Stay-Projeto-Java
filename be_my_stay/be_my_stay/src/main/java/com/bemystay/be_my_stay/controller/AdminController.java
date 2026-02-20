@@ -26,7 +26,7 @@ public class AdminController {
     @GetMapping("/cadastroAdmin")
     public String novo(Model model) {
         model.addAttribute("usuario", new Usuario());
-        return "usuarios/cadastroAdmin";
+        return "admin/cadastroAdmin";
     }
     @PostMapping("/cadastrarAdmin")
     public String cadastrarAdmin(@ModelAttribute Usuario usuario, HttpSession session) {
@@ -49,7 +49,7 @@ public class AdminController {
         Usuario usuario = usuarioService.buscarPorId(idUsuario);
         model.addAttribute("usuarioLogado", usuario);
 
-        return "usuarios/telaAdmin";
+        return "admin/telaAdmin";
     }
 
 

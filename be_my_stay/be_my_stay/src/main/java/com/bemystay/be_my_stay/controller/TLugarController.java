@@ -38,7 +38,7 @@ public class TLugarController {
         model.addAttribute("contarTotal", tLugarService.contarTotal());
         model.addAttribute("ativos", tLugarService.contarAtivos());
         model.addAttribute("inativos", tLugarService.contarInativos());
-        return "lugar/TLugar";
+        return "lugar/listar";
     }
 
     @GetMapping("/criar")
