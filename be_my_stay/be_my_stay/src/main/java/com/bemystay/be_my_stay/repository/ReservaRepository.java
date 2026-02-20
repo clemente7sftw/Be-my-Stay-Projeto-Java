@@ -1,5 +1,6 @@
 package com.bemystay.be_my_stay.repository;
 
+import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.Reserva;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,21 +31,13 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 """)
     List<Reserva> buscarReservasAtivas(@Param("id_imovel") Long id);
 
-    @Query("""
-    SELECT r FROM Reserva r
-    WHERE r.imovel.id = :idImovel
-      AND r.ativo = true
-      AND r.usuario.id = :idUsuario
-""")
-    List<Reserva> buscarReservasDoUsuario(
-            @Param("idImovel") Long idImovel,
-            @Param("idUsuario") Long idUsuario
-    );
-    @Query("""
-    SELECT r FROM Reserva r
-    WHERE r.usuario.id = :idUsuario
-      AND r.ativo = true
-""")
-    List<Reserva> buscarPorUsuario(@Param("idUsuario") Long idUsuario);
+    List<Reserva> findByUsuarioIdAndAtivoTrue(Long idUsuario);
+
+    @Query("SELECT r FROM Reserva r WHERE r.ativo = true")
+    List<Reserva> findAtivos();
+
+    @Query("SELECT r FROM Reserva r WHERE r.ativo = false")
+    List<Reserva> findInativos();
+
 
 }

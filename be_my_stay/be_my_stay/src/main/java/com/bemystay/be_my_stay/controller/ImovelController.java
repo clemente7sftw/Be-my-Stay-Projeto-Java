@@ -1,6 +1,7 @@
 package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.*;
+import com.bemystay.be_my_stay.repository.ReservaRepository;
 import com.bemystay.be_my_stay.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -29,14 +30,16 @@ public class ImovelController {
     private final TLugarService tLugarService;
     private final TipoService tipoService;
     private final ReservaService reservaService;
+    private final ReservaRepository reservaRepository;
 
 
-    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService) {
+    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService, ReservaRepository reservaRepository) {
         this.imovelService = imovelService;
         this.comodidadeService = comodidadeService;
         this.tLugarService = tLugarService;
         this.tipoService = tipoService;
         this.reservaService = reservaService;
+        this.reservaRepository = reservaRepository;
     }
 
     @ModelAttribute("imovel")
@@ -267,6 +270,26 @@ public class ImovelController {
         model.addAttribute("imagens", imovel.getImagens());
         return "imoveis/descricao";
     }
+    @GetMapping("/minhasReservas")
+    public String minhasReservas(HttpSession session, Model model) {
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        List<Reserva> reservas = reservaRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
+
+        if (reservas.isEmpty()) {
+            model.addAttribute("erro", "Você não possui nenhuma reserva");
+        } else {
+            model.addAttribute("reservas", reservas);
+        }
+
+
+        return "reservas/listar";
+    }
 
 
     @GetMapping("/listarAdmin")
@@ -311,44 +334,6 @@ public class ImovelController {
         return "imoveis/editar";
     }
 
-//    @GetMapping("/mostrarReservas/{id}")
-//    public String mostrarReservas(@PathVariable Long id,
-//                                  HttpSession session,
-//                                  Model model) {
-//        Long idUsuario = (Long) session.getAttribute("idUsuario");
-//
-//        if (idUsuario == null) {
-//            return "redirect:/usuarios/login";
-//        }
-//
-//        List<Reserva> reservas =
-//                reservaService.reservasDoUsuario(id, idUsuario);
-//
-//        Imovel imovel = imovelService.buscarPorId(id);
-//        model.addAttribute("reservas", reservas);
-//        model.addAttribute("imovel", imovel);
-//        model.addAttribute("comodidades", comodidadeService.listar() );
-//        return "reservas/minhasReservas";
-//    }
-
-    @GetMapping("/listarImoveisReserva")
-    public String listarImoveisReserva(@PathVariable Long id,
-                                       HttpSession session,
-                                       Model model) {
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-
-        List<Reserva> reservas =
-                reservaService.reservasDoUsuario(id, idUsuario);
-
-        model.addAttribute("reservas", reservas);
-        model.addAttribute("imoveis", imovelService.listar());
-
-
-        return "reservas/listar";
-    }
 
 
 }

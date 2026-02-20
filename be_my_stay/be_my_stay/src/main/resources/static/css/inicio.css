@@ -74,6 +74,13 @@ nav{
     gap: 20px;
 }
 
+
+.img {
+    width: 250px;
+    height: 200px;
+    border-radius: 10px;
+
+}
 main {
     display: grid;
     grid-template-columns: repeat(4, 250px);
@@ -82,13 +89,6 @@ main {
     justify-content: center;
     margin-top: 20px;
 
-
-    .img {
-        width: 250px;
-        height: 200px;
-        border-radius: 10px;
-
-    }
 
     a {
         text-decoration: none;
