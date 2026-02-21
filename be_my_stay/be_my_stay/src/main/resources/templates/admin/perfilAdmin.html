@@ -16,7 +16,7 @@
 
 <body>
 
-<div th:replace="usuarios/telaAdmin :: aside"></div>
+<div th:replace="admin/telaAdmin :: aside"></div>
 <main>
     <div class="topo">
         <img class="img" th:src="@{/uploads/{img}(img=${usuario.foto_perfil})}" alt="Ícone" width="40">
@@ -41,7 +41,7 @@
         <input type="text" name="" id=""  th:value="${usuario.cpf}" readonly>
     </form>
 
-    <a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}">
+    <a th:href="@{/admin/editar/{id}(id=${usuario.id})}">
         <button>Editar</button>
     </a>
 </main>

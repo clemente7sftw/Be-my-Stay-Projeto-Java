@@ -18,12 +18,12 @@
 </head>
 
 <body>
-<div th:replace="usuarios/telaAdmin :: aside"></div>
+<div th:replace="admin/telaAdmin :: aside"></div>
 <h2>Criar</h2>
 
 <main>
 
-    <form th:action="@{/usuarios/salvarMetodo}" method="post" enctype="multipart/form-data" th:object="${metodo}">
+    <form th:action="@{/metodo/salvar}" method="post" enctype="multipart/form-data" th:object="${metodo}">
         <label for="">Adicione o título do Método</label> <br>
         <input type="text" th:field="*{titulo}" placeholder="Nome" required> <br>
         <label for="">Adicione o Icone</label> <br>

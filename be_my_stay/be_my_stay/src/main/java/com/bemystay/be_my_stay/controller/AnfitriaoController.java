@@ -2,7 +2,6 @@ package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.Imovel;
-import com.bemystay.be_my_stay.model.TipoLugar;
 import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
 import com.bemystay.be_my_stay.service.ComodidadeService;
@@ -30,11 +29,9 @@ public class AnfitriaoController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/anfitriao")
+    @GetMapping("/inicio")
     public String anfitriao(HttpSession session, Model model) {
-
         Long idUsuario = (Long) session.getAttribute("idUsuario");
-
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
@@ -47,18 +44,7 @@ public class AnfitriaoController {
         return "anfitriao/anfitriao";
     }
 
-    @GetMapping("/listarImoveis")
-    public String listarImoveis(HttpSession session, Model model) {
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
 
-        List<Imovel> imoveis = imovelRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
-        model.addAttribute("imoveis", imoveis);
-
-        return "anfitriao/imoveis";
-    }
     @GetMapping("/listarInativas")
     public String listarInativas(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");

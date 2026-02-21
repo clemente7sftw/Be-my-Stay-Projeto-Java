@@ -47,6 +47,16 @@ public class ModeradorController {
         return "moderadores/listar";
     }
 
+    @GetMapping("/listarInativas")
+    public String listarInativas(HttpSession session,  Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("moderador", moderadorService.listarInativas());
+        return "moderadores/restaurar";
+    }
+
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model){
         Moderador m = moderadorService.buscarPorId(id);
@@ -60,20 +70,13 @@ public class ModeradorController {
         moderadorService.editar(id, moderador);
         return "redirect:/moderadores/listar";
     }
+
     @PostMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {
         moderadorService.desativar(id);
         return "redirect:/moderadores/listar";
     }
-    @GetMapping("/listarInativas")
-    public String listarInativas(HttpSession session,  Model model) {
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-        model.addAttribute("moderador", moderadorService.listarInativas());
-        return "moderadores/restaurar";
-    }
+
     @PostMapping("/restaurar/{id}")
     public String restaurar(@PathVariable Long id){
         moderadorService.ativar(id);

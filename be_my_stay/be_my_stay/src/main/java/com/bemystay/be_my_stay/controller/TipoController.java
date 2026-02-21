@@ -74,6 +74,7 @@ public class TipoController {
         return "tipos/tiposImoveis";
     }
 
+
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         TipoImovel t = tipoService.buscarPorId(id);
@@ -94,6 +95,12 @@ public class TipoController {
         return "redirect:/tiposImoveis/listar";
     }
 
+    @PostMapping("/restaurar/{id}")
+    public String restaurar(@PathVariable Long id) {
+        tipoService.ativar(id);
+        return "redirect:/tiposImoveis/listar";
+    }
+
     @GetMapping("/listarInativas")
     public String listarInativas(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -104,9 +111,4 @@ public class TipoController {
         return "tipos/restaurar";
     }
 
-    @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id) {
-        tipoService.ativar(id);
-        return "redirect:/tiposImoveis/listar";
-    }
 }

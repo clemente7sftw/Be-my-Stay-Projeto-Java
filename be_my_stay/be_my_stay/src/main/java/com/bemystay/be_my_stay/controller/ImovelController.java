@@ -1,6 +1,7 @@
 package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.*;
+import com.bemystay.be_my_stay.repository.ImovelRepository;
 import com.bemystay.be_my_stay.repository.ReservaRepository;
 import com.bemystay.be_my_stay.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -31,15 +32,17 @@ public class ImovelController {
     private final TipoService tipoService;
     private final ReservaService reservaService;
     private final ReservaRepository reservaRepository;
+    private final ImovelRepository imovelRepository;
 
 
-    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService, ReservaRepository reservaRepository) {
+    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService, ReservaRepository reservaRepository, ImovelRepository imovelRepository) {
         this.imovelService = imovelService;
         this.comodidadeService = comodidadeService;
         this.tLugarService = tLugarService;
         this.tipoService = tipoService;
         this.reservaService = reservaService;
         this.reservaRepository = reservaRepository;
+        this.imovelRepository = imovelRepository;
     }
 
     @ModelAttribute("imovel")
@@ -59,12 +62,11 @@ public class ImovelController {
         return "imoveis/addTipo";
     }
 
-    @PostMapping("/salvarImovel")
-    public String salvarImovel(@RequestParam Long idTipo,
+    @PostMapping("/salvarTipo")
+    public String salvarTipo(@RequestParam Long idTipo,
                                @ModelAttribute("imovel") Imovel imovel) {
         TipoImovel tipoImovel = tipoService.buscarPorId(idTipo);
         imovel.setTipoImovel(tipoImovel);
-
 
         return "redirect:/imovel/addLugar";
 
@@ -201,8 +203,8 @@ public class ImovelController {
         return imovelService.buscarCep(cep);
     }
 
-    @PostMapping("/salvarDescricao")
-    public String salvarDescricao(
+    @PostMapping("/salvarImovel")
+    public String salvarImovel(
             HttpSession session,
             @ModelAttribute("imovel") Imovel imovel,
             SessionStatus status, Model model
@@ -270,27 +272,6 @@ public class ImovelController {
         model.addAttribute("imagens", imovel.getImagens());
         return "imoveis/descricao";
     }
-    @GetMapping("/minhasReservas")
-    public String minhasReservas(HttpSession session, Model model) {
-
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-
-        List<Reserva> reservas = reservaRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
-
-        if (reservas.isEmpty()) {
-            model.addAttribute("erro", "Você não possui nenhuma reserva");
-        } else {
-            model.addAttribute("reservas", reservas);
-        }
-
-
-        return "reservas/listar";
-    }
-
 
     @GetMapping("/listarAdmin")
     public String listarAdmin(HttpSession session, Model model) {
@@ -332,6 +313,39 @@ public class ImovelController {
         Imovel i = imovelService.buscarPorId(id);
         model.addAttribute("imovel", i);
         return "imoveis/editar";
+    }
+
+    @GetMapping("/listarHospede")
+    public String listar(HttpSession session, Model model, @RequestParam(required = false) Long tipo) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        List<Imovel> imoveis;
+
+        if (tipo != null) {
+            imoveis = imovelService.listarAtivosPorTipo(tipo);
+        } else {
+            imoveis = imovelService.listar();
+        }
+
+        model.addAttribute("imoveis", imoveis);
+        model.addAttribute("tipo_imovel", tipoService.listar());
+
+        return "usuarios/inicio";
+    }
+
+    @GetMapping("/listarAnfitriao")
+    public String listar(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        List<Imovel> imoveis = imovelRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
+        model.addAttribute("imoveis", imoveis);
+
+        return "anfitriao/imoveis";
     }
 
 

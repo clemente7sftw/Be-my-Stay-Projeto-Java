@@ -27,20 +27,6 @@ public class TLugarController {
         this.tLugarRepository = tLugarRepository;
     }
 
-
-    @GetMapping("/listar")
-    public String listar(HttpSession session, Model model) {
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-        model.addAttribute("tipo_lugar", tLugarService.listar());
-        model.addAttribute("contarTotal", tLugarService.contarTotal());
-        model.addAttribute("ativos", tLugarService.contarAtivos());
-        model.addAttribute("inativos", tLugarService.contarInativos());
-        return "lugar/listar";
-    }
-
     @GetMapping("/criar")
     public String criar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -76,6 +62,19 @@ public class TLugarController {
 
     }
 
+    @GetMapping("/listar")
+    public String listar(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("tipo_lugar", tLugarService.listar());
+        model.addAttribute("contarTotal", tLugarService.contarTotal());
+        model.addAttribute("ativos", tLugarService.contarAtivos());
+        model.addAttribute("inativos", tLugarService.contarInativos());
+        return "lugar/listar";
+    }
+
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         TipoLugar l = tLugarService.buscarPorId(id);
@@ -96,6 +95,12 @@ public class TLugarController {
         return "redirect:/tipolugar/listar";
     }
 
+    @PostMapping("/restaurar/{id}")
+    public String restaurar(@PathVariable Long id) {
+        tLugarService.ativar(id);
+        return "redirect:/tipolugar/listar";
+    }
+
     @GetMapping("/listarInativas")
     public String listarInativas(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -106,10 +111,5 @@ public class TLugarController {
         return "lugar/restaurar";
     }
 
-    @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id) {
-        tLugarService.ativar(id);
-        return "redirect:/tipolugar/listar";
-    }
 
 }

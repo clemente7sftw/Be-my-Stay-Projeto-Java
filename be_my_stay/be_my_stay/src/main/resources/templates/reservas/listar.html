@@ -44,7 +44,7 @@
     <p><strong>Método de pagamento:</strong>
       <span th:text="${reserva.metodoPagamento.titulo}"></span>
     </p>
-    <form th:action="@{/reserva/deletar/{id}(id=${reserva.id})}" method="post">
+    <form th:action="@{/reservas/deletar/{id}(id=${reserva.id})}" method="post">
       <button type="submit">
         <img th:src="@{/assets/file-remove.png}" alt="Excluir">
       </button>

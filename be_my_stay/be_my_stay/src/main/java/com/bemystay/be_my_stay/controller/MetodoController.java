@@ -27,55 +27,8 @@ public class MetodoController {
         this.metPagRepository = metPagRepository;
     }
 
-    @PostMapping("/deletar/{id}")
-    public String deletar(@PathVariable Long id) {
-        metPagService.desativar(id);
-        return "redirect:/usuarios/listarMet";
-    }
-    @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id){
-        metPagService.ativar(id);
-        return "redirect:/usuarios/listarMet";
-    }
-    @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model) {
-        MetodoPagamento m = metPagService.buscarPorId(id);
-        model.addAttribute("método", m);
-        return "metodoPag/editar";
-    }
-
-    @PostMapping("/salvarEdicao/{id}")
-    public String salvarEdicao(@PathVariable Long id,@ModelAttribute MetodoPagamento metodoPagamento ) {
-
-        metPagService.editar(id, metodoPagamento);
-        return "redirect:/usuarios/listarMet";
-    }
-    @GetMapping("/listarMet")
-    public String listarMet(HttpSession session, Model model) {
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-        model.addAttribute("método", metPagService.listar()  );
-
-        return "/metodoPag/listar";
-
-    }
-
-    @GetMapping("/listarInaMet")
-    public String listarInaMet(HttpSession session, Model model) {
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-        model.addAttribute("método", metPagService.listarInativos()  );
-
-        return "/metodoPag/restaurar";
-
-    }
-
-    @GetMapping("/addMetodo")
-    public String addMetodo(HttpSession session, Model model) {
+    @GetMapping("/criar")
+    public String criar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -85,7 +38,7 @@ public class MetodoController {
         return "/metodoPag/adicionar";
     }
 
-    @PostMapping("/salvarMetodo")
+    @PostMapping("/salvar")
     public String salvar(
             @ModelAttribute MetodoPagamento metodoPagamento,
             @RequestParam("arquivo") MultipartFile file,
@@ -111,6 +64,55 @@ public class MetodoController {
             model.addAttribute("erro", "Ocorreu um erro do nosso lado, tente novamente mais tarde");
             return "metodoPag/adicionar";
         }
+    }
+
+    @GetMapping("/listar")
+    public String listar(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("método", metPagService.listar()  );
+
+        return "/metodoPag/listar";
+
+    }
+
+    @GetMapping("/listarInativos")
+    public String listarInativos(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("método", metPagService.listarInativos()  );
+
+        return "/metodoPag/restaurar";
+
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        MetodoPagamento m = metPagService.buscarPorId(id);
+        model.addAttribute("método", m);
+        return "metodoPag/editar";
+    }
+
+    @PostMapping("/salvarEdicao/{id}")
+    public String salvarEdicao(@PathVariable Long id,@ModelAttribute MetodoPagamento metodoPagamento ) {
+
+        metPagService.editar(id, metodoPagamento);
+        return "redirect:/usuarios/listarMet";
+    }
+
+    @PostMapping("/deletar/{id}")
+    public String deletar(@PathVariable Long id) {
+        metPagService.desativar(id);
+        return "redirect:/usuarios/listarMet";
+    }
+    @PostMapping("/restaurar/{id}")
+    public String restaurar(@PathVariable Long id){
+        metPagService.ativar(id);
+        return "redirect:/usuarios/listarMet";
     }
 
 }

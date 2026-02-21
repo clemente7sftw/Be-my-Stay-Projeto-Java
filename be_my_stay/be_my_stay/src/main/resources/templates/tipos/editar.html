@@ -18,7 +18,7 @@
 
 <body>
 
-<div th:replace="usuarios/telaAdmin :: aside"></div>
+<div th:replace="admin/telaAdmin :: aside"></div>
 <h2>Editar</h2>
 <main>
     <form th:action="@{/tiposImoveis/salvarEdicao/{id}(id=${tipo_imovel.id})}" th:object="${tipo_imovel}"

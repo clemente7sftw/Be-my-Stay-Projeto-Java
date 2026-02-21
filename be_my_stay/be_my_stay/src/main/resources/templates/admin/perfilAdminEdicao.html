@@ -16,7 +16,7 @@
 
 <body>
 
-<div th:replace="usuarios/telaAdmin :: aside"></div>
+<div th:replace="admin/telaAdmin :: aside"></div>
 <main>
     <div class="topo">
         <img img th:src="@{/uploads/{img}(img=${usuario.foto_perfil})}" alt="Ícone" width="40">
@@ -28,7 +28,7 @@
     </div>
 
 
-    <form th:action="@{/usuarios/salvarEdicao/{id}(id=${usuario.id})}" th:object="${usuarios}" enctype="multipart/form-data"
+    <form th:action="@{/admin/salvarEdicao/{id}(id=${usuario.id})}" th:object="${usuarios}" enctype="multipart/form-data"
           method="post">
         <label for="">Adicione a imagem de Perfil</label> <br>
         <input type="file" name="arquivo" required> <br>

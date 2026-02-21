@@ -24,13 +24,13 @@
         <span>Be my stay</span>
 
         <div class="menu_dropdown" id="menuDropdown">
-            <a th:if="${temImovel}" href="/anfitriao/anfitriao">
+            <a th:if="${temImovel}" href="/anfitriao/inicio">
                 Sua conta de anfitrião
             </a>
             <a th:unless="${temImovel}" href="/imovel/criar">
                 Seja anfitrião
             </a>
-            <a th:href="@{/imovel/minhasReservas}">Ver reservas</a>
+            <a href="/reservas/listarHospede">Ver reservas</a>
 
             <a href="/usuarios/logout">Sair</a>
         </div>
@@ -41,7 +41,7 @@
 <nav>
     <div class="filtro">
 
-        <a class="tipos" th:each="t : ${tipo_imovel}" th:href="@{/usuarios/listarImoveis(tipo=${t.id})}">
+        <a class="tipos" th:each="t : ${tipo_imovel}" th:href="@{/imovel/listarHospede(tipo=${t.id})}">
 
             <img th:src="@{/uploads/{img}(img=${t.icone})}" width="40">
             <span th:text="${t.nome}"></span>
