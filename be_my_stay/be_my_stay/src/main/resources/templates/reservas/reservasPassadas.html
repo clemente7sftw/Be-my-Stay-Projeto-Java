@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Minhas Reservas</title>
+  <link rel="stylesheet" th:href="@{/css/inicio.css}">
+</head>
+<body>
+
+<h2>Minhas Reservas</h2>
+
+<p th:if="${erro}" th:text="${erro}" ></p>
+
+<div class="container-reservas">
+
+  <div class="card-reserva" th:each="reserva : ${reservas}">
+
+    <h3 th:text="${reserva.imovel.titulo}"></h3>
+    <div class="carrosel">
+
+      <div class="slides">
+        <img class="img"
+             th:if="${#lists.size(reserva.imovel.imagens) > 0}"
+             th:src="@{/uploads/{path}(path=${reserva.imovel.imagens[0].caminho})}">
+      </div>
+
+
+    </div>
+
+    <p><strong>Check-in:</strong>
+      <span th:text="${reserva.checkin}"></span>
+    </p>
+
+    <p><strong>Check-out:</strong>
+      <span th:text="${reserva.checkout}"></span>
+    </p>
+
+    <p><strong>Hóspedes:</strong>
+      <span th:text="${reserva.qtdHospedes}"></span>
+    </p>
+
+    <p><strong>Total:</strong> R$
+      <span th:text="${reserva.total}"></span>
+    </p>
+    <p><strong>Método de pagamento:</strong>
+      <span th:text="${reserva.metodoPagamento.titulo}"></span>
+    </p>
+    <form th:action="@{/reservas/deletar/{id}(id=${reserva.id})}" method="post">
+      <button type="submit">
+        <img th:src="@{/assets/file-remove.png}" alt="Excluir">
+      </button>
+    </form>
+
+  </div>
+
+
+</div>
+
+</body>
+</html>

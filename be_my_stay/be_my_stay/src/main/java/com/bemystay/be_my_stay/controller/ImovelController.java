@@ -265,7 +265,7 @@ public class ImovelController {
                 data = data.plusDays(1);
             }
         }
-
+        model.addAttribute("hoje", LocalDate.now());
         model.addAttribute("datasBloqueadas", datasBloqueadas);
         model.addAttribute("imovel", imovel);
         model.addAttribute("comodidades", comodidadeService.listar());

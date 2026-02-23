@@ -64,8 +64,16 @@
 
                     <label>Check-in</label>
                     <p th:text="${ 'R$' + imovel.precoDiaria + ' /Diária'}"></p>
-                    <input type="date" name="checkin" id="checkin" th:attr="min=${imovel.disponibilidadeInicio},
-                    max=${imovel.disponibilidadeFim}" required>
+                    <input type="date" name="checkin"
+                           th:attr="min=${#temporals.format(
+                    imovel.disponibilidadeInicio != null
+                        ? (hoje.isAfter(imovel.disponibilidadeInicio) ? hoje : imovel.disponibilidadeInicio)
+                        : hoje,
+                    'yyyy-MM-dd')},
+                max=${imovel.disponibilidadeFim != null
+                        ? #temporals.format(imovel.disponibilidadeFim, 'yyyy-MM-dd')
+                        : null}"
+                           required>
 
                     <label>Check-out</label>
                     <input type="date" name="checkout" id="checkout" th:attr="min=${imovel.disponibilidadeInicio},
