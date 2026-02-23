@@ -125,15 +125,35 @@ public class ReservaController {
             return "redirect:/usuarios/login";
         }
 
-        List<Reserva> reservas = reservaRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
+        LocalDate hoje = LocalDate.now();
 
-        if (reservas.isEmpty()) {
-            model.addAttribute("erro", "Você não possui nenhuma reserva");
-        } else {
-            model.addAttribute("reservas", reservas);
-        }
+        List<Reserva> reservas =
+                reservaRepository
+                        .findByUsuarioIdAndAtivoTrueAndCheckoutGreaterThanEqual(idUsuario, hoje);
+
+        model.addAttribute("reservas", reservas);
 
         return "reservas/listar";
+    }
+
+    @GetMapping("/listarPassadas")
+    public String listarPassadas(HttpSession session, Model model) {
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        LocalDate hoje = LocalDate.now();
+
+        List<Reserva> reservas =
+                reservaRepository
+                        .findByUsuarioIdAndAtivoTrueAndCheckoutLessThan(idUsuario, hoje);
+
+        model.addAttribute("reservas", reservas);
+
+        return "reservas/reservasPassadas";
     }
 
 

@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h2>Minhas Reservas</h2>
+<h2>Minhas Reservas Concluídas </h2>
 
 <p th:if="${erro}" th:text="${erro}" ></p>
 
@@ -15,16 +15,18 @@
   <div class="card-reserva" th:each="reserva : ${reservas}">
 
     <h3 th:text="${reserva.imovel.titulo}"></h3>
-    <div class="carrosel">
 
-      <div class="slides">
-        <img class="img"
-             th:if="${#lists.size(reserva.imovel.imagens) > 0}"
-             th:src="@{/uploads/{path}(path=${reserva.imovel.imagens[0].caminho})}">
+      <div class="carrosel">
+
+        <div class="slides">
+          <img class="img"
+               th:if="${#lists.size(reserva.imovel.imagens) > 0}"
+               th:src="@{/uploads/{path}(path=${reserva.imovel.imagens[0].caminho})}">
+        </div>
+
+
       </div>
 
-
-    </div>
 
     <p><strong>Check-in:</strong>
       <span th:text="${reserva.checkin}"></span>
@@ -44,11 +46,6 @@
     <p><strong>Método de pagamento:</strong>
       <span th:text="${reserva.metodoPagamento.titulo}"></span>
     </p>
-    <form th:action="@{/reservas/deletar/{id}(id=${reserva.id})}" method="post">
-      <button type="submit">
-        <img th:src="@{/assets/file-remove.png}" alt="Excluir">
-      </button>
-    </form>
 
   </div>
 

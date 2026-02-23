@@ -81,6 +81,11 @@ nav{
     border-radius: 10px;
 
 }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
 main {
     display: grid;
     grid-template-columns: repeat(4, 250px);
@@ -89,11 +94,6 @@ main {
     justify-content: center;
     margin-top: 20px;
 
-
-    a {
-        text-decoration: none;
-        color: black;
-    }
 
     .titulo {
         font-weight: bold;
@@ -195,4 +195,14 @@ main {
 
 .menu_dropdown a:hover {
     background-color: #f5f5f5;
+}
+
+button{
+    width: 230px;
+    height: 40px;
+    border-radius: 5px;
+    border-style: none;
+    background-color: #0088FF;
+    color: white;
+    cursor: pointer;
 }

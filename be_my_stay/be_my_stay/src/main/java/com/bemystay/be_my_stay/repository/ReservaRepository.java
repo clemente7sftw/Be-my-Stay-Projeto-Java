@@ -40,5 +40,15 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     @Query("SELECT r FROM Reserva r WHERE r.ativo = false")
     List<Reserva> findInativos();
 
+    List<Reserva> findByUsuarioIdAndAtivoTrueAndCheckoutGreaterThanEqual(
+            Long usuarioId,
+            LocalDate dataAtual
+    );
+
+    List<Reserva> findByUsuarioIdAndAtivoTrueAndCheckoutLessThan(
+            Long usuarioId,
+            LocalDate dataAtual
+    );
+
 
 }
