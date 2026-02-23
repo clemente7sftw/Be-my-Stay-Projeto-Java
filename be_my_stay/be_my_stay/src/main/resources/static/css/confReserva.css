@@ -1,0 +1,51 @@
+* {
+    font-family: "Poppins", sans-serif;
+
+}
+
+body {
+    background-color: #ffffff;
+
+}
+
+.lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 30px;
+}
+
+
+.lista label {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.lista input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.lista label:has(input:checked) {
+    border: 2px solid #000;
+    background: #fff;
+}
+
+.lista span {
+    font-size: 15px;
+    color: #333;
+}
+button{
+    width: 230px;
+    height: 40px;
+    border-radius: 5px;
+    border-style: none;
+    background-color: #0088FF;
+    color: white;
+    cursor: pointer;
+}

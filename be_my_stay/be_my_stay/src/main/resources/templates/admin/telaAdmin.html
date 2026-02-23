@@ -70,6 +70,11 @@
         <span>Métodos de Pagamento</span>
     </a>
 
+    <a href="/admin/perfilAdmin">
+        <img th:src="@{/assets/user_icon.png}">
+        <span>Perfil</span>
+    </a>
+
     <a href="/usuarios/logout">
         <img th:src="@{/assets/logout-01.png}">
         <span>Sair</span>
@@ -80,14 +85,6 @@
     <div class="header_esquerda">
         <p class="p1">Olá</p>
         <p class="p2" th:text="${usuarioLogado.nome}">Nome</p>
-    </div>
-
-    <div class="header_direita">
-        <a href="/admin/perfilAdmin">
-            <button>
-                <img th:src="@{/assets/avatar.png}"> Seu Perfil
-            </button>
-        </a>
     </div>
 </header>
 

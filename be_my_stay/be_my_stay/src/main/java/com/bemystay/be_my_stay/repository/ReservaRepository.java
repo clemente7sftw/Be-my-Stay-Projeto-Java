@@ -32,7 +32,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 """)
     List<Reserva> buscarReservasAtivas(@Param("id_imovel") Long id);
 
-    List<Reserva> findByUsuarioIdAndAtivoTrue(Long idUsuario);
 
     @Query("SELECT r FROM Reserva r WHERE r.ativo = true")
     List<Reserva> findAtivos();
@@ -49,6 +48,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
             Long usuarioId,
             LocalDate dataAtual
     );
+
 
 
 }

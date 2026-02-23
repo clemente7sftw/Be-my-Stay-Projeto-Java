@@ -69,13 +69,13 @@
       <td th:text="${i.dataCadastro}"></td>
 
       <td>
-        <a th:href="@{/anfitriao/editar/{id}(id=${i.id})}">
+        <a th:href="@{/imovel/editarAnfitriao/{id}(id=${i.id})}">
           <img th:src="@{/assets/file-edit.png}" alt="Editar">
         </a>
       </td>
 
       <td>
-        <form th:action="@{/anfitriao/deletar/{id}(id=${i.id})}" method="post">
+        <form th:action="@{/imovel/deletarAnfitriao/{id}(id=${i.id})}" method="post">
           <button type="submit">
             <img th:src="@{/assets/file-remove.png}" alt="Excluir">
           </button>

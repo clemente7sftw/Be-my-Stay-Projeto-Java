@@ -54,8 +54,15 @@
 
     </div>
 
-
 </nav>
+<form  class="pesquisa"  th:action="@{/imovel/buscar}" method="get">
+    <input type="text"
+           name="cidade"
+           placeholder="Digite cidade"
+           required>
+
+    <button class="btn_pesquisar" type="submit">Buscar</button>
+</form>
 <main>
     <label th:each=" i : ${imoveis}">
 

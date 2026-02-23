@@ -1,6 +1,5 @@
 package com.bemystay.be_my_stay.service;
 
-import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.Reserva;
 import com.bemystay.be_my_stay.repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,8 @@ public class ReservaService {
                 .buscarConflitos(imovelId, checkin, checkout)
                 .isEmpty();
     }
+
+
     public void salvar(Reserva reserva) {
 
         reservaRepository.save(reserva);
@@ -44,5 +45,7 @@ public class ReservaService {
         reservaRepository.save(r);
     }
     public List<Reserva> listar() { return reservaRepository.findAtivos(); }
+
+
 
 }

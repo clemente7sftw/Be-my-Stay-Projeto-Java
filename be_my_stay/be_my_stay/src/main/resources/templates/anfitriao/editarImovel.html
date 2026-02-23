@@ -22,7 +22,7 @@
 
 <h2>Editar</h2>
 <main>
-  <form th:action="@{/anfitriao/salvarEdicao/{id}(id=${imovel.id})}"
+  <form th:action="@{/imovel/salvarEdicaoAnfitriao/{id}(id=${imovel.id})}"
         th:object="${imovel}"
         method="post">
     <label>Coloque o Título</label> <br>

@@ -1,8 +1,6 @@
 package com.bemystay.be_my_stay.service;
 
-import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.Imovel;
-import com.bemystay.be_my_stay.model.TipoLugar;
 import com.bemystay.be_my_stay.repository.ComodidadeRepository;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
 import jakarta.transaction.Transactional;
@@ -13,11 +11,9 @@ import java.util.List;
 @Service
 public class ImovelService {
     private final ImovelRepository imovelRepository;
-    private final ComodidadeRepository comodidadeRepository;
 
-    public ImovelService(ImovelRepository imovelRepository, ComodidadeRepository comodidadeRepository) {
+    public ImovelService(ImovelRepository imovelRepository) {
         this.imovelRepository = imovelRepository;
-        this.comodidadeRepository = comodidadeRepository;
     }
     public List<Imovel> listar() { return imovelRepository.findByAtivos(); }
     public List<Imovel> listarInativas() {
@@ -88,9 +84,6 @@ public class ImovelService {
 
     public List<Imovel> listarAtivosPorTipo(Long tipoId) {
         return imovelRepository.findByTipoImovelIdAndAtivoTrue(tipoId);
-    }
-    public List<Imovel> buscarPorAnfitriao(Long id) {
-        return imovelRepository.findByUsuarioIdAndAtivoTrue(id);
     }
 
     public void editar(Long id, Imovel dados) {

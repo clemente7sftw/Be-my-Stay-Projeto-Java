@@ -251,28 +251,6 @@ public class ImovelController {
         }
     }
 
-    @GetMapping("/mostrarDescricao/{id}")
-    public String mostrarDescricao(@PathVariable Long id, Model model) {
-        Imovel imovel = imovelService.buscarPorId(id);
-        List<Reserva> reservas = reservaService.buscarAtivasPorImovel(id);
-
-        List<String> datasBloqueadas = new ArrayList<>();
-
-        for (Reserva r : reservas) {
-            LocalDate data = r.getCheckin();
-            while (!data.isAfter(r.getCheckout().minusDays(1))) {
-                datasBloqueadas.add(data.toString());
-                data = data.plusDays(1);
-            }
-        }
-        model.addAttribute("hoje", LocalDate.now());
-        model.addAttribute("datasBloqueadas", datasBloqueadas);
-        model.addAttribute("imovel", imovel);
-        model.addAttribute("comodidades", comodidadeService.listar());
-        model.addAttribute("imagens", imovel.getImagens());
-        return "imoveis/descricao";
-    }
-
     @GetMapping("/listarAdmin")
     public String listarAdmin(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -315,6 +293,31 @@ public class ImovelController {
         return "imoveis/editar";
     }
 
+    //hospedes
+
+
+    @GetMapping("/mostrarDescricao/{id}")
+    public String mostrarDescricao(@PathVariable Long id, Model model) {
+        Imovel imovel = imovelService.buscarPorId(id);
+        List<Reserva> reservas = reservaService.buscarAtivasPorImovel(id);
+
+        List<String> datasBloqueadas = new ArrayList<>();
+
+        for (Reserva r : reservas) {
+            LocalDate data = r.getCheckin();
+            while (!data.isAfter(r.getCheckout().minusDays(1))) {
+                datasBloqueadas.add(data.toString());
+                data = data.plusDays(1);
+            }
+        }
+        model.addAttribute("hoje", LocalDate.now());
+        model.addAttribute("datasBloqueadas", datasBloqueadas);
+        model.addAttribute("imovel", imovel);
+        model.addAttribute("comodidades", comodidadeService.listar());
+        model.addAttribute("imagens", imovel.getImagens());
+        return "imoveis/descricao";
+    }
+
     @GetMapping("/listarHospede")
     public String listar(HttpSession session, Model model, @RequestParam(required = false) Long tipo) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -335,6 +338,59 @@ public class ImovelController {
         return "usuarios/inicio";
     }
 
+
+    @GetMapping("/buscar")
+    public String buscar(@RequestParam("cidade") String cidade, Model model) {
+
+        List<Imovel> imoveis =
+                imovelRepository.findByEndereco_CidadeContainingIgnoreCaseAndAtivoTrue(cidade);
+
+
+        if (imoveis.isEmpty()) {
+            model.addAttribute("erro", "Nenhum imóvel encontrado para esse local.");
+        }
+
+        model.addAttribute("imoveis", imoveis);
+        model.addAttribute("localPesquisado", cidade);
+
+        return "usuarios/inicio";
+    }
+
+    //anfitriao
+    @GetMapping("/listarInativasAnfitriao")
+    public String listarInativasAnfitriao(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("imovel", imovelService.listarInativas());
+        return "anfitriao/restaurarImoveis";
+    }
+    @PostMapping("/deletarAnfitriao/{id}")
+    public String deletarAnfitriao(@PathVariable Long id) {
+        imovelService.desativar(id);
+        return "redirect:/imovel/listarAnfitriao";
+    }
+
+    @PostMapping("/restaurarAnfitriao/{id}")
+    public String restaurarAnfitriao(@PathVariable Long id) {
+        imovelService.ativar(id);
+        return "redirect:/imovel/listarAnfitriao";
+    }
+    @GetMapping("/editarAnfitriao/{id}")
+    public String editarAnfitriao(@PathVariable Long id, Model model) {
+        Imovel i = imovelService.buscarPorId(id);
+        List<Comodidade> comodidades= comodidadeService.listar();
+        model.addAttribute("imovel", i);
+        model.addAttribute("comodidades", comodidades);
+        return "anfitriao/editarImovel";
+    }
+    @PostMapping("/salvarEdicaoAnfitriao/{id}")
+    public String salvarEdicaoAnfitriao(@PathVariable Long id, @ModelAttribute Imovel imovel) {
+        imovelService.editar(id, imovel);
+        return "redirect:/imovel/listarAnfitriao";
+
+    }
     @GetMapping("/listarAnfitriao")
     public String listar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -347,7 +403,5 @@ public class ImovelController {
 
         return "anfitriao/imoveis";
     }
-
-
 
 }

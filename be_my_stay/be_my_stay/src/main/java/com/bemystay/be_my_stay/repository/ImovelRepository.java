@@ -26,7 +26,8 @@ public interface ImovelRepository extends JpaRepository <Imovel, Long> {
 
     List<Imovel> findByUsuarioIdAndAtivoFalse(Long idUsuario);
 
-    boolean existsByIdAndAtivoTrue(Long Id);
+    List<Imovel> findByEndereco_CidadeContainingIgnoreCaseAndAtivoTrue(String cidade);
+
 
 
 }

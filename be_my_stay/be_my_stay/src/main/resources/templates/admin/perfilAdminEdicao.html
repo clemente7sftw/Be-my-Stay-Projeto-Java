@@ -31,17 +31,17 @@
     <form th:action="@{/admin/salvarEdicao/{id}(id=${usuario.id})}" th:object="${usuarios}" enctype="multipart/form-data"
           method="post">
         <label for="">Adicione a imagem de Perfil</label> <br>
-        <input type="file" name="arquivo" required> <br>
+        <input type="file" name="arquivo" > <br>
         <label for="">Nome completo</label>
         <input type="text" name="" id="" th:field="${usuario.nome}" >
         <label for="">Username</label>
-        <input type="text" name="" id="" th:field="${usuario.userName}" >
+        <input type="text" name="" id="" th:field="${usuario.userName}" readonly >
         <label for="">Email</label>
         <input type="text" name="" id="" th:field="${usuario.email}" readonly>
         <label for="">Telefone</label>
         <input type="text" name="" id="" th:field="${usuario.telefone}" >
         <label for="">Cpf</label>
-        <input type="text" name="" id=""  th:field="${usuario.cpf}" >
+        <input type="text" name="" id=""  th:field="${usuario.cpf}"  >
 
         <Button>Salvar</Button>
     </form>

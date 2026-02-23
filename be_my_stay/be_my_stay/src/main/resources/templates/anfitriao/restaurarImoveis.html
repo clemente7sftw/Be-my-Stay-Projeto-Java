@@ -39,7 +39,7 @@
     <td th:text="${i.dataCadastro}"></td>
 
     <td>
-      <form th:action="@{/anfitriao/restaurar/{id}(id=${i.id})}" method="post">
+      <form th:action="@{/imovel/restaurarAnfitriao/{id}(id=${i.id})}" method="post">
         <button type="submit" class="btn-icon">
           <img th:src="@{/assets/restore-bin.png}" alt="Restaurar">
         </button>

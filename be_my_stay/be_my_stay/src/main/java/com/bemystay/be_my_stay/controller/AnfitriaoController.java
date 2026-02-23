@@ -70,19 +70,6 @@ public class AnfitriaoController {
         return "redirect:/anfitriao/listarImoveis";
     }
 
-    @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model) {
-        Imovel i = imovelService.buscarPorId(id);
-        List<Comodidade> comodidades= comodidadeService.listar();
-        model.addAttribute("imovel", i);
-        model.addAttribute("comodidades", comodidades);
-        return "anfitriao/editarImovel";
-    }
-    @PostMapping("/salvarEdicao/{id}")
-    public String salvarEdicao(@PathVariable Long id, @ModelAttribute Imovel imovel) {
-        imovelService.editar(id, imovel);
-        return "redirect:/anfitriao/listarImoveis";
 
-    }
 
 }
