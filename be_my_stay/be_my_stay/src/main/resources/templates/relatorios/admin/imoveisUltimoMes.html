@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Relatório - Imóveis Mais Lucrativos</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #000000;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .ranking {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Relatório de Imóveis Cadastrados</h1>
+
+<div class="box">
+    <p>
+        Período:
+        <span th:text="${#temporals.format(inicio, 'dd/MM/yyyy')}"></span>
+        até
+        <span th:text="${#temporals.format(fim, 'dd/MM/yyyy')}"></span>
+    </p>
+
+    <p>
+        Total de imóveis cadastrados no último mês:
+        <strong th:text="${quantidade}"></strong>
+    </p>
+</div>
+
+<table>
+    <tr>
+        <th>Título</th>
+        <th>Data Cadastro</th>
+        <th>Preço Diária</th>
+    </tr>
+
+    <tr th:each="i : ${imoveis}">
+        <td th:text="${i.titulo}"></td>
+        <td th:text="${#temporals.format(i.dataCadastro, 'dd/MM/yyyy HH:mm')}"></td>
+        <td th:text="${'R$ ' + i.precoDiaria}"></td>
+    </tr>
+</table>
+</body>
+</html>

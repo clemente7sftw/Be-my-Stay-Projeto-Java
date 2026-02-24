@@ -61,4 +61,14 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
        """)
     List<Object[]> buscarImoveisMaisLucrativos(@Param("hoje") LocalDate hoje);
 
+    @Query("""
+   SELECT r.usuario.email,
+          COUNT(r)
+   FROM Reserva r
+   WHERE r.ativo = true
+   GROUP BY r.usuario.email
+   ORDER BY COUNT(r) DESC
+   """)
+    List<Object[]> usuariosComMaisReservas();
+
 }
