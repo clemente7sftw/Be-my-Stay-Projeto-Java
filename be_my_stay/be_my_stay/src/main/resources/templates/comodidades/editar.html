@@ -18,7 +18,7 @@
 </head>
 <body>
 
-    <div th:replace="admin/telaAdmin :: aside"></div>
+    <div th:replace="admin/inicio :: aside"></div>
     <h2>Editar</h2>
     <main>
         <form th:action="@{/comodidades/salvarEdicao/{id}(id=${comodidade.id})}"

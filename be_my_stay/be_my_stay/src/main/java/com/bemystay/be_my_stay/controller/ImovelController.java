@@ -261,7 +261,7 @@ public class ImovelController {
         model.addAttribute("contarTotal", imovelService.contarTotal());
         model.addAttribute("ativas", imovelService.contarAtivos());
         model.addAttribute("inativas", imovelService.contarInativos());
-        return "imoveis/imoveis";
+        return "admin/imoveis";
     }
 
     @GetMapping("/listarInativas")

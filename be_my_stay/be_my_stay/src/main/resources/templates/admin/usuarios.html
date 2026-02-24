@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tela Inicial | Be my Stay Administradores</title>
+    <title>Usuários | Be my Stay Administradores</title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
     <link rel="stylesheet" th:href="@{/css/listagem.css}">
@@ -16,7 +16,7 @@
 
 <body>
 
-<div th:replace="admin/telaAdmin :: aside"></div>
+<div th:replace="admin/inicio :: aside"></div>
 
 <nav>
     <h2>Usuários</h2>
@@ -45,7 +45,6 @@
 <main>
     <a class="aux" href="/usuarios/listarInativas">Restaurar <img th:src="@{/assets/restore-bin.png}"></a>
 
-
     <table class="tabela">
         <thead>
         <tr>
@@ -64,7 +63,6 @@
             <td th:text="${u.nome}"></td>
 
             <td th:text="${u.email}"></td>
-
 
             <td>
                 <form th:action="@{/usuarios/deletar/{id}(id=${u.id})}" method="post">

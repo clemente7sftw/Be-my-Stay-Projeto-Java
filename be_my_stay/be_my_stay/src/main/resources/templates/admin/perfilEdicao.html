@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tela Inicial | Be my Stay Administradores</title>
+    <title>Perfil | Be my Stay Administradores</title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
     <link rel="stylesheet" th:href="@{/css/perfil.css}">
@@ -16,34 +16,35 @@
 
 <body>
 
-<div th:replace="admin/telaAdmin :: aside"></div>
+<div th:replace="admin/inicio :: aside"></div>
 <main>
     <div class="topo">
-        <img class="img" th:src="@{/uploads/{img}(img=${usuario.foto_perfil})}" alt="Ícone" width="40">
+        <img img th:src="@{/uploads/{img}(img=${usuario.foto_perfil})}" alt="Ícone" width="40">
+
         <div class="info">
             <p class="nome" th:text="${usuario.nome}"></p>
             <p class="email" th:text="${usuario.email}">email</p>
         </div>
     </div>
 
-
-    <form >
-
+    <form th:action="@{/admin/salvarEdicao/{id}(id=${usuario.id})}" th:object="${usuarios}"
+          enctype="multipart/form-data"
+          method="post">
+        <label for="">Adicione a imagem de Perfil</label> <br>
+        <input type="file" name="arquivo"> <br>
         <label for="">Nome completo</label>
-        <input type="text" name="" id="" th:value="${usuario.nome}" readonly>
+        <input type="text" name="" id="" th:field="${usuario.nome}">
         <label for="">Username</label>
-        <input type="text" name="" id="" th:value="${usuario.userName}" readonly>
+        <input type="text" name="" id="" th:field="${usuario.userName}" readonly>
         <label for="">Email</label>
-        <input type="text" name="" id="" th:value="${usuario.email}" readonly>
+        <input type="text" name="" id="" th:field="${usuario.email}" readonly>
         <label for="">Telefone</label>
-        <input type="text" name="" id="" th:value="${usuario.telefone}" readonly>
+        <input type="text" name="" id="" th:field="${usuario.telefone}">
         <label for="">Cpf</label>
-        <input type="text" name="" id=""  th:value="${usuario.cpf}" readonly>
-    </form>
+        <input type="text" name="" id="" th:field="${usuario.cpf}">
 
-    <a th:href="@{/admin/editar/{id}(id=${usuario.id})}">
-        <button>Editar</button>
-    </a>
+        <Button>Salvar</Button>
+    </form>
 </main>
 
 </body>

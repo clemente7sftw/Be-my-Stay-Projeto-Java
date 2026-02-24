@@ -1,6 +1,7 @@
 package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.Usuario;
+import com.bemystay.be_my_stay.service.ImovelService;
 import com.bemystay.be_my_stay.service.ModeradorService;
 import com.bemystay.be_my_stay.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
@@ -20,35 +21,18 @@ import java.nio.file.StandardCopyOption;
 public class AdminController {
     private final UsuarioService usuarioService;
     private final ModeradorService moderadorService;
+    private final ImovelService imovelService;
 
-    public AdminController(UsuarioService usuarioService, ModeradorService moderadorService) {
+    public AdminController(UsuarioService usuarioService, ModeradorService moderadorService, ImovelService imovelService) {
         this.usuarioService = usuarioService;
         this.moderadorService = moderadorService;
-    }
-
-    @GetMapping("/telaInicialAdm")
-    public String telaInicialAdm(HttpSession session, Model model) {
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-
-        Usuario usuario = usuarioService.buscarPorId(idUsuario);
-
-        model.addAttribute("usuarioLogado", usuario);
-
-        model.addAttribute("contarUsuarios", usuarioService.contarAtivos());
-        model.addAttribute("contarModeradores", moderadorService.contarAtivos());
-        model.addAttribute("contarImoveis", usuarioService.contarTotal());
-        model.addAttribute("imovel", usuarioService.listar());
-
-        return "admin/telaAdmin";
+        this.imovelService = imovelService;
     }
 
     @GetMapping("/cadastroAdmin")
     public String novo(Model model) {
         model.addAttribute("usuario", new Usuario());
-        return "admin/cadastroAdmin";
+        return "admin/cadastro";
     }
     @PostMapping("/cadastrarAdmin")
     public String cadastrarAdmin(@ModelAttribute Usuario usuario, HttpSession session) {
@@ -59,20 +43,27 @@ public class AdminController {
 
         return "redirect:/admin/telaAdmin";
     }
-
-    @GetMapping("/telaAdmin")
-    public String telaAdmin(HttpSession session, Model model) {
+    @GetMapping("/telaInicialAdm")
+    public String telaInicialAdm(HttpSession session, Model model) {
 
         Long idUsuario = (Long) session.getAttribute("idUsuario");
+
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
 
         Usuario usuario = usuarioService.buscarPorId(idUsuario);
+
         model.addAttribute("usuarioLogado", usuario);
 
-        return "admin/telaAdmin";
+        model.addAttribute("contarUsuarios", usuarioService.contarAtivos());
+        model.addAttribute("contarModeradores", moderadorService.contarAtivos());
+        model.addAttribute("contarImoveis", imovelService.contarTotal());
+        model.addAttribute("imovel", imovelService.listar());
+
+        return "admin/inicio";
     }
+
     @GetMapping("/perfilAdmin")
     public String perfilAdmin(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
@@ -85,7 +76,7 @@ public class AdminController {
         model.addAttribute("usuario", usuario);
 
 
-        return "admin/perfilAdmin";
+        return "admin/perfil";
     }
 
     @GetMapping("/editar/{id}")
@@ -93,7 +84,7 @@ public class AdminController {
         Usuario u = usuarioService.buscarPorId(id);
         model.addAttribute("usuario", u);
 
-        return "admin/perfilAdminEdicao";
+        return "admin/perfilEdicao";
 
     }
     @PostMapping("/salvarEdicao/{id}")
@@ -119,12 +110,8 @@ public class AdminController {
 
         usuarioService.editar(id, usuario);
 
-        return "redirect:/admin/perfilAdmin";
+        return "redirect:/admin/perfil";
     }
-
-
-
-
 
 
 }

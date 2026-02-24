@@ -86,28 +86,6 @@ public class UsuarioController {
     }
 
 
-    @GetMapping("/telaInicialAdm")
-    public String telaInicialAdm(HttpSession session, Model model) {
-
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
-
-        Usuario usuario = service.buscarPorId(idUsuario);
-
-        model.addAttribute("usuarioLogado", usuario);
-
-        model.addAttribute("contarUsuarios", service.contarAtivos());
-        model.addAttribute("contarModeradores", moderadorService.contarAtivos());
-        model.addAttribute("contarImoveis", imovelService.contarTotal());
-        model.addAttribute("imovel", imovelService.listar());
-
-        return "admin/telaAdmin";
-    }
-
-
     @GetMapping("/login")
     public String loginForm() {
         return "usuarios/login";
@@ -141,7 +119,7 @@ public class UsuarioController {
         session.setAttribute("cargo", cargo);
 
         if ("admin".equals(cargo)) {
-            return "redirect:/usuarios/telaInicialAdm";
+            return "redirect:/admin/telaInicialAdm";
 
         }
 
