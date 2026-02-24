@@ -49,6 +49,16 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
             LocalDate dataAtual
     );
 
-
+    @Query("""
+       SELECT r.imovel.titulo,
+              COUNT(r),
+              SUM(r.total)
+       FROM Reserva r
+       WHERE r.checkout < :hoje
+       AND r.ativo = true
+       GROUP BY r.imovel.titulo
+       ORDER BY SUM(r.total) DESC
+       """)
+    List<Object[]> buscarImoveisMaisLucrativos(@Param("hoje") LocalDate hoje);
 
 }
