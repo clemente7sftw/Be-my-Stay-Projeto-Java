@@ -7,7 +7,7 @@
     <title>Criar | Be my Stay Administradores</title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
-    <link rel="stylesheet" th:href="@{/css/imovelDescricao.css}">
+    <link rel="stylesheet" th:href="@{/css/descricao.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -46,49 +46,72 @@
         </p>
 
 
-        <p th:text="${imovel.descricaoCompleta}" ></p>
+        <p th:text="${imovel.descricaoCompleta}"></p>
 
     </div>
     <h4>Horário Check In:</h4>
-    <p th:text="${imovel.checkIn}"> </p>
+    <p th:text="${imovel.checkIn}"></p>
     <h4>Horário Check Out:</h4>
-    <p th:text="${imovel.checkOut}"> </p>
+    <p th:text="${imovel.checkOut}"></p>
     <p class="titulo"> O que esse lugar oferece </p>
-    <div class="lista">
-        <label th:each="c : ${imovel.comodidade}">
-            <img th:src="@{/uploads/{img}(img=${c.icone })}" alt="Ícone" width="40">
-            <span th:text="${c.nome}"></span>
-        </label>
-    </div>
-    <div>
-        <form th:action="@{/reservas/reservar/{id}/confirmar(id=${imovel.id})}" method="post">
+    <div class="secao_inferior">
 
-            <div class="card_reserva">
-                <div class="card_conteudo">
+        <div class="lista">
+            <label th:each="c : ${imovel.comodidade}">
+                <img th:src="@{/uploads/{img}(img=${c.icone })}" alt="Ícone" width="40">
+                <span th:text="${c.nome}"></span>
+            </label>
+        </div>
 
-                    <input type="date"
-                           name="checkin"
-                           id="checkin"
-                           th:attr="min=${hoje},
-                max=${imovel.disponibilidadeFim}"
-                           required>
+        <div class="reserva_lateral">
+            <form th:action="@{/reservas/reservar/{id}/confirmar(id=${imovel.id})}" method="post">
+                <div class="card_reserva">
+                    <div class="card_conteudo">
 
-                    <label>Check-out</label>
-                    <input type="date" name="checkout" id="checkout" th:attr="min=${hoje},
-                    max=${imovel.disponibilidadeFim}" required>
+                        <p class="diaria_texto"
+                           th:text="${'R$ ' + imovel.precoDiaria + ' / Diária'}"></p>
 
-                    <label>Hóspedes</label>
-                    <input type="number" name="qtdHospede" th:attr="max=${imovel.qtdHospede}, min=1" required>
-                    <p th:if="${erro}" th:text="${erro}" style="color:red"></p>
-                    <button type="submit">Reservar</button>
+                        <div class="linha_datas">
+                            <div class="campo">
+                                <label>Check-In</label>
+                                <input type="date"
+                                       name="checkin"
+                                       id="checkin"
+                                       th:attr="min=${hoje}, max=${imovel.disponibilidadeFim}"
+                                       required>
+                            </div>
 
+                            <div class="campo">
+                                <label>Check-out</label>
+                                <input type="date"
+                                       name="checkout"
+                                       id="checkout"
+                                       th:attr="min=${hoje}, max=${imovel.disponibilidadeFim}"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="campo">
+                            <input placeholder="Hóspedes"
+                                   type="number"
+                                   name="qtdHospede"
+                                   th:attr="max=${imovel.qtdHospede}, min=1"
+                                   required>
+                        </div>
+
+                        <p th:if="${erro}" th:text="${erro}" class="erro"></p>
+
+                        <button type="submit" class="btn_reservar">
+                            Reservar
+                        </button>
+
+                    </div>
                 </div>
-            </div>
-        </form>
-
+            </form>
+        </div>
 
     </div>
-    
+
 </main>
 </body>
 
