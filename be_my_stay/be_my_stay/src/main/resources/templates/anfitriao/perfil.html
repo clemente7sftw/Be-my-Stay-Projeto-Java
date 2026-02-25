@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil | Be my Stay</title>
+
+    <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
+    <link rel="stylesheet" th:href="@{/css/perfil.css}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div th:replace="anfitriao/anfitriao :: aside"></div>
+
+<main>
+
+    <div class="topo">
+        <img class="img" th:src="@{/uploads/{img}(img=${usuario.foto_perfil})}" alt="Ícone" width="40">
+        <div class="info">
+            <p class="nome" th:text="${usuario.nome}"></p>
+            <p class="email" th:text="${usuario.email}">email</p>
+        </div>
+    </div>
+
+    <form>
+
+        <label for="">Nome completo</label>
+        <input type="text" name="" id="" th:value="${usuario.nome}" readonly>
+        <label for="">Username</label>
+        <input type="text" name="" id="" th:value="${usuario.userName}" readonly>
+        <label for="">Email</label>
+        <input type="text" name="" id="" th:value="${usuario.email}" readonly>
+        <label for="">Telefone</label>
+        <input type="text" name="" id="" th:value="${usuario.telefone}" readonly>
+        <label for="">Cpf</label>
+        <input type="text" name="" id="" th:value="${usuario.cpf}" readonly>
+    </form>
+
+    <a th:href="@{/anfitriao/editar/{id}(id=${usuario.id})}">
+        <button>Editar</button>
+    </a>
+</main>
+
+</body>
+
+</html>
