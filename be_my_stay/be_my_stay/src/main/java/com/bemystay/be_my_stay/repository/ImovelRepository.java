@@ -41,4 +41,5 @@ public interface ImovelRepository extends JpaRepository <Imovel, Long> {
             @Param("inicio") LocalDateTime inicio,
             @Param("fim") LocalDateTime fim);
 
+
 }

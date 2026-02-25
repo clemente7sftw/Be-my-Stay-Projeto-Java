@@ -1,19 +1,27 @@
 package com.bemystay.be_my_stay.service;
 
+import com.bemystay.be_my_stay.config.reservaException;
 import com.bemystay.be_my_stay.model.Imovel;
+import com.bemystay.be_my_stay.model.Reserva;
 import com.bemystay.be_my_stay.repository.ComodidadeRepository;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
+import com.bemystay.be_my_stay.repository.ReservaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.List;
 @Service
 public class ImovelService {
     private final ImovelRepository imovelRepository;
+    private final ReservaRepository reservaRepository;
+    private final ReservaService reservaService;
 
-    public ImovelService(ImovelRepository imovelRepository) {
+    public ImovelService(ImovelRepository imovelRepository, ReservaRepository reservaRepository, ReservaService reservaService) {
         this.imovelRepository = imovelRepository;
+        this.reservaRepository = reservaRepository;
+        this.reservaService = reservaService;
     }
     public List<Imovel> listar() { return imovelRepository.findByAtivos(); }
     public List<Imovel> listarInativas() {
@@ -35,15 +43,18 @@ public class ImovelService {
         return imovelRepository.findById(id).orElseThrow(() -> new RuntimeException("Não encontrada"));
     }
     public void desativar(Long id) {
-        Imovel i = imovelRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("mensagem"));
 
-        i.setAtivo(false);
-        imovelRepository.save(i);
+        reservaService.verificarExcluir(id);
+
+        Imovel imovel = imovelRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Imóvel não encontrado"));
+
+        imovel.setAtivo(false);
+        imovelRepository.save(imovel);
     }
     public void ativar(Long id) {
         Imovel i = imovelRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("mensagem"));
+                .orElseThrow(() -> new RuntimeException("não encontrado"));
 
         i.setAtivo(true);
         imovelRepository.save(i);
@@ -101,6 +112,5 @@ public class ImovelService {
         i.setComodidade(dados.getComodidade());
         imovelRepository.save(i);
     }
-
 
 }

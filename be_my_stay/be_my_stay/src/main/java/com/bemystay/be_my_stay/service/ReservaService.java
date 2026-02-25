@@ -54,7 +54,7 @@ public class ReservaService {
         return reservaRepository.findAtivos();
     }
 
-    public void verificarDisponibilidade(Long imovelId,
+    public void verificarDisponibilidade(Long id,
                                          LocalDate checkin,
                                          LocalDate checkout) {
 
@@ -63,10 +63,24 @@ public class ReservaService {
         }
 
         boolean existe = reservaRepository
-                .existeReservaConflitante(imovelId, checkin, checkout);
+                .existeReservaConflitante(id, checkin, checkout);
 
         if (existe) {
             throw new reservaException("Data Indisponível");
+        }
+    }
+
+    public void verificarExcluir(Long imovelId) {
+
+        LocalDate hoje = LocalDate.now();
+
+        boolean existe = reservaRepository
+                .existeReservaFutura(imovelId, hoje);
+
+        if (existe) {
+            throw new reservaException(
+                    "O imóvel não pode ser excluído pois possui reservas futuras."
+            );
         }
     }
 

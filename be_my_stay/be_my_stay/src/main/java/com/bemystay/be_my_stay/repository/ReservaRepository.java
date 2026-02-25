@@ -84,4 +84,13 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
             LocalDate checkout
     );
 
+    @Query("""
+       SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END
+       FROM Reserva r
+       WHERE r.imovel.id = :imovelId
+       AND r.ativo = true
+       AND r.checkout >= :hoje
+       """)
+    boolean existeReservaFutura(@Param("imovelId") Long imovelId,
+                                @Param("hoje") LocalDate hoje);
 }

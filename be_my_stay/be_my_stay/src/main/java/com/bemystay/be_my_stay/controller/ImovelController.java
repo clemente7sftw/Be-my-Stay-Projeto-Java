@@ -1,5 +1,6 @@
 package com.bemystay.be_my_stay.controller;
 
+import com.bemystay.be_my_stay.config.reservaException;
 import com.bemystay.be_my_stay.model.*;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
 import com.bemystay.be_my_stay.repository.ReservaRepository;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -366,9 +368,18 @@ public class ImovelController {
         model.addAttribute("imovel", imovelService.listarInativas());
         return "anfitriao/restaurarImoveis";
     }
+
     @PostMapping("/deletarAnfitriao/{id}")
-    public String deletarAnfitriao(@PathVariable Long id) {
-        imovelService.desativar(id);
+    public String deletarAnfitriao(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            imovelService.desativar(id);
+
+        } catch (reservaException e) {
+
+            redirectAttributes.addFlashAttribute("erro", e.getMessage());
+            return "redirect:/imovel/listarAnfitriao";
+
+        }
         return "redirect:/imovel/listarAnfitriao";
     }
 
