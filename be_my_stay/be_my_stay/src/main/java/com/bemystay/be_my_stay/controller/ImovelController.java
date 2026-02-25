@@ -400,6 +400,9 @@ public class ImovelController {
 
         List<Imovel> imoveis = imovelRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
         model.addAttribute("imoveis", imoveis);
+        model.addAttribute("contarTotal", imovelService.contarTotal());
+        model.addAttribute("contarAtivos", imovelService.contarAtivos());
+        model.addAttribute("contarInativos", imovelService.contarInativos());
 
         return "anfitriao/imoveis";
     }

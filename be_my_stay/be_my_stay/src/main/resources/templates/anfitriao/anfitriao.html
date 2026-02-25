@@ -37,11 +37,6 @@
     </a>
 
     <a href="">
-        <img th:src="@{/assets/chart-line-data-01.png}">
-        <span>Relatórios</span>
-    </a>
-
-    <a href="">
         <img th:src="@{/assets/user_icon.png}">
         <span>Perfil</span>
     </a>
@@ -65,21 +60,21 @@
 
     <div class="containers">
         <div class="container">
-            <h4></h4>
+            <h4>Imóveis</h4>
             <hr>
-            <p></p>
+            <p th:text="${contarTotal}"></p>
         </div>
 
         <div class="container">
-            <h4></h4>
+            <h4>Imóveis Ativos</h4>
             <hr>
-            <p></p>
+            <p th:text="${contarAtivos}"></p>
         </div>
 
         <div class="container">
-            <h4></h4>
+            <h4>Imóveis Inativos</h4>
             <hr>
-            <p></p>
+            <p th:text="${contarInativos}"></p>
         </div>
     </div>
 </nav>
@@ -91,7 +86,6 @@
         <tr>
             <th>ID Imóvel</th>
             <th>Título</th>
-            <th>Reservas</th>
         </tr>
         </thead>
 
@@ -101,8 +95,6 @@
             <td th:text="${i.id}"></td>
 
             <td th:text="${i.titulo}"></td>
-
-            <td th:text="${reservas}" ></td>
 
         </tr>
         </tbody>

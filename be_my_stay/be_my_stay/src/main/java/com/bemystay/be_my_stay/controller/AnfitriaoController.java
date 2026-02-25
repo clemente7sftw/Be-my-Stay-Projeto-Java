@@ -40,6 +40,9 @@ public class AnfitriaoController {
         List<Imovel> imoveis = imovelRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
         model.addAttribute("imoveis", imoveis);
         model.addAttribute("usuarioLogado", usuario);
+        model.addAttribute("contarTotal", imovelService.contarTotal());
+        model.addAttribute("contarAtivos", imovelService.contarAtivos());
+        model.addAttribute("contarInativos", imovelService.contarInativos());
 
         return "anfitriao/anfitriao";
     }
