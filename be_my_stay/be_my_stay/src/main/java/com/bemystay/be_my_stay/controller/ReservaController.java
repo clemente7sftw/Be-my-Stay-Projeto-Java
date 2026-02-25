@@ -1,5 +1,6 @@
 package com.bemystay.be_my_stay.controller;
 
+import com.bemystay.be_my_stay.config.reservaException;
 import com.bemystay.be_my_stay.model.Imovel;
 import com.bemystay.be_my_stay.model.MetodoPagamento;
 import com.bemystay.be_my_stay.model.Reserva;
@@ -44,14 +45,15 @@ public class ReservaController {
                                    HttpSession session,
                                    Model model) {
 
-        Long idUsuario = (Long) session.getAttribute("idUsuario");
-        if (idUsuario == null) {
-            return "redirect:/usuarios/login";
-        }
+        try {
+            reservaService.verificarDisponibilidade(id, checkin, checkout);
 
-        if (reservaService.existeConflito(id, checkin, checkout)) {
-            model.addAttribute("erro", "Esse imóvel já está reservado nesse período.");
+        } catch (reservaException e) {
+
+            model.addAttribute("erro", e.getMessage());
             model.addAttribute("imovel", imovelService.buscarPorId(id));
+            model.addAttribute("hoje", LocalDate.now());
+
             return "imoveis/descricao";
         }
 
@@ -71,8 +73,6 @@ public class ReservaController {
 
         return "reservas/confirmar";
     }
-
-
     @PostMapping("/reservar/{id}")
     public String reservar(@PathVariable Long id,
                            @RequestParam LocalDate checkin,

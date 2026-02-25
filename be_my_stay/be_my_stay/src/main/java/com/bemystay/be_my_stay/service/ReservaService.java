@@ -1,5 +1,6 @@
 package com.bemystay.be_my_stay.service;
 
+import com.bemystay.be_my_stay.config.reservaException;
 import com.bemystay.be_my_stay.model.Reserva;
 import com.bemystay.be_my_stay.repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class ReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
 
+
+
     public boolean existeConflito(Long imovelId, LocalDate checkin, LocalDate checkout) {
         return !reservaRepository
                 .buscarConflitos(imovelId, checkin, checkout)
@@ -26,6 +29,7 @@ public class ReservaService {
         reservaRepository.save(reserva);
     }
 
+
     public List<Reserva> buscarAtivasPorImovel(Long idImovel) {
         return reservaRepository.buscarReservasAtivas(idImovel);
     }
@@ -37,6 +41,7 @@ public class ReservaService {
         r.setAtivo(false);
         reservaRepository.save(r);
     }
+
     public void ativar(Long id) {
         Reserva r = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(" não encontrada"));
@@ -44,8 +49,25 @@ public class ReservaService {
         r.setAtivo(true);
         reservaRepository.save(r);
     }
-    public List<Reserva> listar() { return reservaRepository.findAtivos(); }
 
+    public List<Reserva> listar() {
+        return reservaRepository.findAtivos();
+    }
 
+    public void verificarDisponibilidade(Long imovelId,
+                                         LocalDate checkin,
+                                         LocalDate checkout) {
+
+        if (!checkout.isAfter(checkin)) {
+            throw new reservaException("Checkout deve ser após Checkin");
+        }
+
+        boolean existe = reservaRepository
+                .existeReservaConflitante(imovelId, checkin, checkout);
+
+        if (existe) {
+            throw new reservaException("Data Indisponível");
+        }
+    }
 
 }
