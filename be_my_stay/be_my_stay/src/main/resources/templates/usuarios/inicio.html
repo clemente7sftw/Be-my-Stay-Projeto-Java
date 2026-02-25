@@ -31,6 +31,9 @@
                 Seja anfitrião
             </a>
             <a href="/reservas/listarHospede">Ver reservas</a>
+            <a th:unless="${temImovel}" href="/hospedes/perfil">
+                Perfil
+            </a>
 
             <a href="/usuarios/logout">Sair</a>
         </div>
