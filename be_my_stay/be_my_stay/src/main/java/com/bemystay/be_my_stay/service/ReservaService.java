@@ -12,9 +12,12 @@ import java.util.List;
 @Service
 public class ReservaService {
 
-    @Autowired
-    private ReservaRepository reservaRepository;
 
+    private final ReservaRepository reservaRepository;
+
+    public ReservaService(ReservaRepository reservaRepository) {
+        this.reservaRepository = reservaRepository;
+    }
 
 
     public boolean existeConflito(Long imovelId, LocalDate checkin, LocalDate checkout) {

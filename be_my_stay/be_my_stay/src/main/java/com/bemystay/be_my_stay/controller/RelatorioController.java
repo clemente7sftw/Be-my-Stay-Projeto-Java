@@ -24,13 +24,14 @@ import java.util.List;
 @RequestMapping ("/relatorios")
 
 public class RelatorioController {
-    @Autowired
-    private SpringTemplateEngine templateEngine;
+
+    private final SpringTemplateEngine templateEngine;
 
         private final ReservaRepository reservaRepository;
         private final ImovelRepository imovelRepository;
 
-    public RelatorioController(ReservaRepository reservaRepository, ImovelRepository imovelRepository) {
+    public RelatorioController(SpringTemplateEngine templateEngine, ReservaRepository reservaRepository, ImovelRepository imovelRepository) {
+        this.templateEngine = templateEngine;
         this.reservaRepository = reservaRepository;
         this.imovelRepository = imovelRepository;
     }
