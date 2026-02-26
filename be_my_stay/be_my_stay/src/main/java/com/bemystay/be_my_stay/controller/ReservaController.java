@@ -2,7 +2,9 @@ package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.config.reservaException;
 import com.bemystay.be_my_stay.model.*;
+import com.bemystay.be_my_stay.repository.AvaliacaoRepository;
 import com.bemystay.be_my_stay.repository.ReservaRepository;
+import com.bemystay.be_my_stay.repository.UsuarioRepository;
 import com.bemystay.be_my_stay.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -25,8 +27,10 @@ public class ReservaController {
     private final ReservaRepository reservaRepository;
     private final ComodidadeService comodidadeService;
     private final AvaliacaoService avaliacaoService;
+    private final AvaliacaoRepository avaliacaoRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public ReservaController(ReservaService reservaService, ImovelService imovelService, MetPagService metPagService, UsuarioService usuarioService, ReservaRepository reservaRepository, ComodidadeService comodidadeService, AvaliacaoService avaliacaoService) {
+    public ReservaController(ReservaService reservaService, ImovelService imovelService, MetPagService metPagService, UsuarioService usuarioService, ReservaRepository reservaRepository, ComodidadeService comodidadeService, AvaliacaoService avaliacaoService, AvaliacaoRepository avaliacaoRepository, UsuarioRepository usuarioRepository) {
         this.reservaService = reservaService;
         this.imovelService = imovelService;
         this.metPagService = metPagService;
@@ -34,6 +38,8 @@ public class ReservaController {
         this.reservaRepository = reservaRepository;
         this.comodidadeService = comodidadeService;
         this.avaliacaoService = avaliacaoService;
+        this.avaliacaoRepository = avaliacaoRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @PostMapping("/reservar/{id}/confirmar")
@@ -150,8 +156,12 @@ public class ReservaController {
         List<Reserva> reservas =
                 reservaRepository
                         .findByUsuarioIdAndAtivoTrueAndCheckoutLessThan(idUsuario, hoje);
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        boolean temAvaliacao = avaliacaoRepository.existsByUsuario(usuario);
         model.addAttribute("reservas", reservas);
+        model.addAttribute("temAvaliacao", temAvaliacao);
 
         return "reservas/reservasPassadas";
     }
@@ -184,25 +194,34 @@ public class ReservaController {
         model.addAttribute("imagens", imovel.getImagens());
         return "reservas/avaliar";
     }
+
     @PostMapping("/salvarAvaliacao")
     public String salvarAvaliacao(
             @RequestParam Long imovelId,
             @RequestParam Integer nota,
-            @RequestParam String comentario) {
+            @RequestParam String comentario,
+            HttpSession session) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
 
         Imovel imovel = imovelService.buscarPorId(imovelId);
-
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setImovel(imovel);
         avaliacao.setNota(nota);
         avaliacao.setComentario(comentario);
-
+        avaliacao.setUsuario(usuario);
         avaliacaoService.salvar(avaliacao);
 
         return "reservas/sucessoAvaliacao";
     }
+
     @GetMapping("/redirecionarAvaliacao")
-    public String redirecionar( HttpSession session, Model model) {
+    public String redirecionar(HttpSession session, Model model) {
 
         Long idUsuario = (Long) session.getAttribute("idUsuario");
 

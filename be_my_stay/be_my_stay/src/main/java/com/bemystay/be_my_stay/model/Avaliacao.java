@@ -13,6 +13,18 @@ public class Avaliacao {
 
     private String comentario;
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
+
     @ManyToOne
     private Imovel imovel;
 
