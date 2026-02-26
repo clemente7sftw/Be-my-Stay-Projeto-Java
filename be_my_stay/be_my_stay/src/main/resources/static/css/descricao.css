@@ -121,3 +121,43 @@ body {
 .erro {
     color: red;
 }
+.card-avaliacao {
+    width: 400px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: white;
+}
+
+.estrelas {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.estrelas input {
+    display: none;
+}
+
+.estrelas label {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.estrelas input:checked ~ label {
+    color: gold;
+}
+
+.estrelas label:hover,
+.estrelas label:hover ~ label {
+    color: gold;
+}
+
+textarea {
+    width: 100%;
+    margin-top: 15px;
+    padding: 8px;
+    border-radius: 8px;
+}

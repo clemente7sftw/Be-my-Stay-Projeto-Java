@@ -101,12 +101,12 @@ public class UsuarioController {
         Usuario usuario = service.buscarPorEmail(email);
 
         if (usuario == null) {
-            model.addAttribute("erro", "Email não cadastrado");
+            model.addAttribute("erro", "Dados incorretos");
             return "usuarios/login";
         }
 
         if (!usuario.getSenhaHash().equals(senhaHash)) {
-            model.addAttribute("erro", "Senha incorreta");
+            model.addAttribute("erro", "Dados incorretos");
             return "usuarios/login";
         }
 

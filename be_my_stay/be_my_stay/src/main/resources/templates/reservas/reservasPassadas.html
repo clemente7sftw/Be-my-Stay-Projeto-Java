@@ -1,53 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Minhas Reservas</title>
-  <link rel="stylesheet" th:href="@{/css/inicio.css}">
+    <title>Minhas Reservas</title>
+    <link rel="stylesheet" th:href="@{/css/inicio.css}">
 </head>
 <body>
 
 <h2>Minhas Reservas Concluídas </h2>
 
-<p th:if="${erro}" th:text="${erro}" ></p>
+<p th:if="${erro}" th:text="${erro}"></p>
 
 <div class="container-reservas">
 
-  <div class="card-reserva" th:each="reserva : ${reservas}">
+    <div class="card-reserva" th:each="reserva : ${reservas}">
 
-    <h3 th:text="${reserva.imovel.titulo}"></h3>
+        <h3 th:text="${reserva.imovel.titulo}"></h3>
 
-      <div class="carrosel">
+        <div class="carrosel">
 
-        <div class="slides">
-          <img class="img"
-               th:if="${#lists.size(reserva.imovel.imagens) > 0}"
-               th:src="@{/uploads/{path}(path=${reserva.imovel.imagens[0].caminho})}">
+            <div class="slides">
+                <img class="img"
+                     th:if="${#lists.size(reserva.imovel.imagens) > 0}"
+                     th:src="@{/uploads/{path}(path=${reserva.imovel.imagens[0].caminho})}">
+            </div>
+
+
         </div>
 
 
-      </div>
+        <p><strong>Check-in:</strong>
+            <span th:text="${reserva.checkin}"></span>
+        </p>
 
+        <p><strong>Check-out:</strong>
+            <span th:text="${reserva.checkout}"></span>
+        </p>
 
-    <p><strong>Check-in:</strong>
-      <span th:text="${reserva.checkin}"></span>
-    </p>
+        <p><strong>Hóspedes:</strong>
+            <span th:text="${reserva.qtdHospedes}"></span>
+        </p>
 
-    <p><strong>Check-out:</strong>
-      <span th:text="${reserva.checkout}"></span>
-    </p>
-
-    <p><strong>Hóspedes:</strong>
-      <span th:text="${reserva.qtdHospedes}"></span>
-    </p>
-
-    <p><strong>Total:</strong> R$
-      <span th:text="${reserva.total}"></span>
-    </p>
-    <p><strong>Método de pagamento:</strong>
-      <span th:text="${reserva.metodoPagamento.titulo}"></span>
-    </p>
-
-  </div>
+        <p><strong>Total:</strong> R$
+            <span th:text="${reserva.total}"></span>
+        </p>
+        <p><strong>Método de pagamento:</strong>
+            <span th:text="${reserva.metodoPagamento.titulo}"></span>
+        </p>
+        <a th:href="@{/reservas/avaliar/{id}(id=${reserva.imovel.id})}">
+            <strong>Avaliar</strong>
+        </a>
+    </div>
 
 
 </div>

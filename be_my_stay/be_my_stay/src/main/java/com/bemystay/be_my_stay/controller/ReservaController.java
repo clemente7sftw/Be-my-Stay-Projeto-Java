@@ -1,15 +1,9 @@
 package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.config.reservaException;
-import com.bemystay.be_my_stay.model.Imovel;
-import com.bemystay.be_my_stay.model.MetodoPagamento;
-import com.bemystay.be_my_stay.model.Reserva;
-import com.bemystay.be_my_stay.model.Usuario;
+import com.bemystay.be_my_stay.model.*;
 import com.bemystay.be_my_stay.repository.ReservaRepository;
-import com.bemystay.be_my_stay.service.ImovelService;
-import com.bemystay.be_my_stay.service.MetPagService;
-import com.bemystay.be_my_stay.service.ReservaService;
-import com.bemystay.be_my_stay.service.UsuarioService;
+import com.bemystay.be_my_stay.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,13 +23,17 @@ public class ReservaController {
     private final MetPagService metPagService;
     private final UsuarioService usuarioService;
     private final ReservaRepository reservaRepository;
+    private final ComodidadeService comodidadeService;
+    private final AvaliacaoService avaliacaoService;
 
-    public ReservaController(ReservaService reservaService, ImovelService imovelService, MetPagService metPagService, UsuarioService usuarioService, ReservaRepository reservaRepository) {
+    public ReservaController(ReservaService reservaService, ImovelService imovelService, MetPagService metPagService, UsuarioService usuarioService, ReservaRepository reservaRepository, ComodidadeService comodidadeService, AvaliacaoService avaliacaoService) {
         this.reservaService = reservaService;
         this.imovelService = imovelService;
         this.metPagService = metPagService;
         this.usuarioService = usuarioService;
         this.reservaRepository = reservaRepository;
+        this.comodidadeService = comodidadeService;
+        this.avaliacaoService = avaliacaoService;
     }
 
     @PostMapping("/reservar/{id}/confirmar")
@@ -73,12 +72,13 @@ public class ReservaController {
 
         return "reservas/confirmar";
     }
+
     @PostMapping("/reservar/{id}")
     public String reservar(@PathVariable Long id,
                            @RequestParam LocalDate checkin,
                            @RequestParam LocalDate checkout,
                            @RequestParam Integer qtdHospede,
-                           @RequestParam ("ids") Long idMetPag,
+                           @RequestParam("ids") Long idMetPag,
                            HttpSession session,
                            Model model) {
 
@@ -162,9 +162,55 @@ public class ReservaController {
         reservaService.desativar(id);
         return "redirect:/reservas/listarHospede";
     }
+
     @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id){
+    public String restaurar(@PathVariable Long id) {
         reservaService.ativar(id);
         return "redirect:/comodidades/listar";
     }
+
+    @GetMapping("/avaliar/{id}")
+    public String avaliar(@PathVariable Long id, HttpSession session, Model model) {
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        Imovel imovel = imovelService.buscarPorId(id);
+
+        model.addAttribute("imovel", imovel);
+        model.addAttribute("comodidades", comodidadeService.listar());
+        model.addAttribute("imagens", imovel.getImagens());
+        return "reservas/avaliar";
+    }
+    @PostMapping("/salvarAvaliacao")
+    public String salvarAvaliacao(
+            @RequestParam Long imovelId,
+            @RequestParam Integer nota,
+            @RequestParam String comentario) {
+
+        Imovel imovel = imovelService.buscarPorId(imovelId);
+
+        Avaliacao avaliacao = new Avaliacao();
+        avaliacao.setImovel(imovel);
+        avaliacao.setNota(nota);
+        avaliacao.setComentario(comentario);
+
+        avaliacaoService.salvar(avaliacao);
+
+        return "reservas/sucessoAvaliacao";
+    }
+    @GetMapping("/redirecionarAvaliacao")
+    public String redirecionar( HttpSession session, Model model) {
+
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+
+        return "redirect:/reservas/listarPassadas";
+    }
+
 }
