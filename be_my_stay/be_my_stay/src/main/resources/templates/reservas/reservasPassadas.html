@@ -46,13 +46,7 @@
         <p><strong>Método de pagamento:</strong>
             <span th:text="${reserva.metodoPagamento.titulo}"></span>
         </p>
-        <a th:if="${temAvaliacao}" th:href="@{/reservas/avaliar/{id}(id=${reserva.imovel.id})}">
-            <strong>Ver sua Avaliação</strong>
-        </a>
 
-        <a th:unless="${temAvaliacao}" th:href="@{/reservas/avaliar/{id}(id=${reserva.imovel.id})}">
-            <strong>Avaliar</strong>
-        </a>
 
 
     </div>
