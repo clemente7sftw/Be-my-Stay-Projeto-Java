@@ -2,7 +2,7 @@ package com.bemystay.be_my_stay.controller;
 
 import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.service.ImovelService;
-import com.bemystay.be_my_stay.service.ModeradorService;
+import com.bemystay.be_my_stay.service.CheckInService;
 import com.bemystay.be_my_stay.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -20,12 +20,12 @@ import java.nio.file.StandardCopyOption;
 @RequestMapping("/admin")
 public class AdminController {
     private final UsuarioService usuarioService;
-    private final ModeradorService moderadorService;
+    private final CheckInService checkInService;
     private final ImovelService imovelService;
 
-    public AdminController(UsuarioService usuarioService, ModeradorService moderadorService, ImovelService imovelService) {
+    public AdminController(UsuarioService usuarioService, CheckInService checkInService, ImovelService imovelService) {
         this.usuarioService = usuarioService;
-        this.moderadorService = moderadorService;
+        this.checkInService = checkInService;
         this.imovelService = imovelService;
     }
 
@@ -57,7 +57,7 @@ public class AdminController {
         model.addAttribute("usuarioLogado", usuario);
 
         model.addAttribute("contarUsuarios", usuarioService.contarAtivos());
-        model.addAttribute("contarModeradores", moderadorService.contarAtivos());
+        model.addAttribute("contarModeradores", checkInService.contarAtivos());
         model.addAttribute("contarImoveis", imovelService.contarTotal());
         model.addAttribute("imovel", imovelService.listar());
 

@@ -22,13 +22,13 @@
 
 <main>
 
-    <form th:action="@{/moderadores/salvar}" method="post" enctype="multipart/form-data" th:object="${moderador}">
-        <label for="">Adicione o nome </label> <br>
-        <input type="text" th:field="*{nome}" placeholder="Nome" required> <br>
-        <label for="">Adicione o email</label> <br>
-        <input type="text" th:field="*{email}" placeholder="Nome" required> <br>
-        <label for="">Adicione o telefone </label> <br>
-        <input type="text" th:field="*{telefone}" placeholder="Nome" required> <br>
+    <form th:action="@{/checkin/salvar}" method="post" enctype="multipart/form-data" th:object="${checkin}">
+        <label for="">Adicione o Título </label> <br>
+        <input type="text" th:field="*{titulo}" placeholder="Nome" required> <br>
+        <label for="">Adicione a Descrição</label> <br>
+        <input type="text" th:field="*{descricao}" placeholder="Descrição" required> <br>
+        <label for="">Adicione a imagem do Método</label> <br>
+        <input type="file" name="arquivo" required> <br>
         <button type="submit">Salvar</button>
     </form>
 

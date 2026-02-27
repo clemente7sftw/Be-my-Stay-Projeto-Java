@@ -9,24 +9,13 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
     private final UsuarioService service;
-    private final ModeradorService moderadorService;
+    private final CheckInService checkInService;
     private final ImovelService imovelService;
     private final ImovelRepository imovelRepository;
     private final ReservaService reservaService;
@@ -37,9 +26,9 @@ public class UsuarioController {
 
 
 
-    public UsuarioController(UsuarioService service, ModeradorService moderadorService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, MetPagRepository metPagRepository, TipoService tipoService, MetPagService metPagService) {
+    public UsuarioController(UsuarioService service, CheckInService checkInService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, MetPagRepository metPagRepository, TipoService tipoService, MetPagService metPagService) {
         this.service = service;
-        this.moderadorService = moderadorService;
+        this.checkInService = checkInService;
         this.imovelService = imovelService;
         this.imovelRepository = imovelRepository;
         this.reservaService = reservaService;

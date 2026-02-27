@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Moderadores | Be my Stay Administradores</title>
+  <title>Check-In | Be my Stay Administradores</title>
 
   <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
   <link rel="stylesheet" th:href="@{/css/listagem.css}">
@@ -19,62 +19,64 @@
 <div th:replace="admin/inicio :: aside"></div>
 
 <nav>
-  <h2>Moderadores</h2>
+  <h2>Check-In</h2>
 
   <div class="containers">
     <div class="container">
       <h4>Moderadores</h4>
       <hr>
-      <p th:text="${contarTotal}"></p>
     </div>
 
     <div class="container">
       <h4>Moderadores Ativos</h4>
       <hr>
-      <p th:text="${ativos}"></p>
     </div>
 
     <div class="container">
       <h4>Moderadores Inativos</h4>
       <hr>
-      <p th:text="${inativos}"></p>
     </div>
   </div>
 </nav>
 
 <main>
-  <a class="aux" href="/moderadores/criar">Criar <img th:src="@{/assets/add.png}"></a> <br>
-  <a class="aux" href="/moderadores/listarInativas">Restaurar <img th:src="@{/assets/restore-bin.png}"></a>
+  <a class="aux" href="/checkin/criar">Criar <img th:src="@{/assets/add.png}"></a> <br>
+  <a class="aux" href="/checkin/listarInativas">Restaurar <img th:src="@{/assets/restore-bin.png}"></a>
 
 
   <table class="tabela">
     <thead>
     <tr>
       <th>ID</th>
-      <th>Nome</th>
-      <th>Email</th>
+      <th>Ícone</th>
+      <th>Título</th>
+      <th>Descrição</th>
       <th>Editar</th>
       <th>Desativar</th>
     </tr>
     </thead>
 
     <tbody>
-    <tr th:each="m : ${moderadores}">
+    <tr th:each="c : ${checkin}">
 
-      <td th:text="${m.id}"></td>
+      <td th:text="${c.id}"></td>
+      <td>
+        <img th:src="@{/uploads/{img}(img=${c.icone})}" alt="Ícone" width="40">
+      </td>
 
-      <td th:text="${m.nome}"></td>
+      <td th:text="${c.titulo}"></td>
 
-      <td th:text="${m.email}"></td>
+      <td th:text="${c.descricao}"></td>
+
 
       <td>
-        <a th:href="@{/moderadores/editar/{id}(id=${m.id})}">
+        <a th:href="@{/checkin/editar/{id}(id=${c.id})}">
           <img th:src="@{/assets/file-edit.png}" alt="Editar">
         </a>
       </td>
 
       <td>
-        <form th:action="@{/moderadores/deletar/{id}(id=${m.id})}" method="post">
+        <form th:action="@{/checkin/deletar/{id}(id=${c.id})}" method="post">
           <button type="submit">
             <img th:src="@{/assets/file-remove.png}" alt="Excluir">
           </button>

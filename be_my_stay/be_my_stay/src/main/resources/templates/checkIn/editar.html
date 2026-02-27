@@ -21,14 +21,14 @@
 
 <main>
 
-    <form th:action="@{/moderadores/salvarEdicao/{id}(id=${moderador.id})}" method="post"
-          enctype="multipart/form-data" th:object="${moderador}">
+    <form th:action="@{/checkin/salvarEdicao/{id}(id=${checkin.id})}" method="post"
+          enctype="multipart/form-data" th:object="${checkin}">
         <label for="">Adicione o nome </label> <br>
-        <input type="text" th:field="*{nome}" placeholder="Nome" required> <br>
+        <input type="text" th:field="*{titulo}" placeholder="Nome" required> <br>
         <label for="">Adicione o email</label> <br>
-        <input type="text" th:field="*{email}" placeholder="Nome" required> <br>
-        <label for="">Adicione o telefone </label> <br>
-        <input type="text" th:field="*{telefone}" placeholder="Nome" required> <br>
+        <input type="text" th:field="*{descricao}" placeholder="Nome" required> <br>
+        <label>Coloque o icone</label> <br>
+        <input type="text" th:field="*{icone}"> <br>
         <button type="submit">Salvar</button>
     </form>
 
