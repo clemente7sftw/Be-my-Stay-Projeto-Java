@@ -21,8 +21,8 @@
 
 <main>
 
-    <form th:action="@{/checkin/salvarEdicao/{id}(id=${checkin.id})}" method="post"
-          enctype="multipart/form-data" th:object="${checkin}">
+    <form th:action="@{/checkin/salvarEdicao/{id}(id=${chaves.id})}" method="post"
+          enctype="multipart/form-data" th:object="${chaves}">
         <label for="">Adicione o nome </label> <br>
         <input type="text" th:field="*{titulo}" placeholder="Nome" required> <br>
         <label for="">Adicione o email</label> <br>

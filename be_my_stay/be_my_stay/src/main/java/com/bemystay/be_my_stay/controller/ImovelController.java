@@ -35,9 +35,9 @@ public class ImovelController {
     private final ReservaService reservaService;
     private final ReservaRepository reservaRepository;
     private final ImovelRepository imovelRepository;
+    private final EntregaChavesService entregaChavesService;
 
-
-    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService, ReservaRepository reservaRepository, ImovelRepository imovelRepository) {
+    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService, ReservaRepository reservaRepository, ImovelRepository imovelRepository, EntregaChavesService entregaChavesService) {
         this.imovelService = imovelService;
         this.comodidadeService = comodidadeService;
         this.tLugarService = tLugarService;
@@ -45,6 +45,7 @@ public class ImovelController {
         this.reservaService = reservaService;
         this.reservaRepository = reservaRepository;
         this.imovelRepository = imovelRepository;
+        this.entregaChavesService = entregaChavesService;
     }
 
     @ModelAttribute("imovel")
@@ -187,7 +188,27 @@ public class ImovelController {
 
         session.setAttribute("fotosImovel", fotosTemp);
 
+        return "redirect:/imovel/entregaChaves";
+    }
+
+    @GetMapping("/entregaChaves")
+    public String entregaChaves(HttpSession session, Model model) {
+        Long idUsuario = (Long) session.getAttribute("idUsuario");
+        if (idUsuario == null) {
+            return "redirect:/usuarios/login";
+        }
+        model.addAttribute("chaves", entregaChavesService.listar());
+        return "imoveis/addCheckIn";
+    }
+
+    @PostMapping("/salvarEntregaChaves")
+    public String salvarEntregaChaves(@RequestParam Long id,
+                                      @ModelAttribute("imovel") Imovel imovel) {
+        EntregaChaves entregaChaves = entregaChavesService.buscarPorId(id);
+        imovel.setEntregaChaves(entregaChaves);
+
         return "redirect:/imovel/descricao";
+
     }
 
     @GetMapping("/descricao")
@@ -198,6 +219,7 @@ public class ImovelController {
         }
         return "imoveis/addDescricao";
     }
+
 
     @GetMapping("/cep/{cep}")
     @ResponseBody

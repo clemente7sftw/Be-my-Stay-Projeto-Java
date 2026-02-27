@@ -38,6 +38,26 @@ public class Imovel {
 
     private TipoLugar tipoLugar;
 
+    @ManyToOne
+    @JoinColumn(name = "id_entrega")
+    private EntregaChaves entregaChaves;
+
+    public LocalTime getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(LocalTime checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public EntregaChaves getEntregaChaves() {
+        return entregaChaves;
+    }
+
+    public void setEntregaChaves(EntregaChaves entregaChaves) {
+        this.entregaChaves = entregaChaves;
+    }
+
 
     @OneToMany(mappedBy = "imovel", cascade = CascadeType.ALL)
     private List<Imagem> imagens = new ArrayList<>();
@@ -110,13 +130,6 @@ public class Imovel {
     @Column(name = "data_cad")
     private LocalDateTime dataCadastro;
 
-    public LocalTime getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(LocalTime checkIn) {
-        this.checkIn = checkIn;
-    }
 
     public LocalTime getCheckOut() {
         return checkOut;
@@ -135,7 +148,8 @@ public class Imovel {
 
     private List<Comodidade> comodidade = new ArrayList<>();
 
-    @OneToOne(mappedBy = "imovel", cascade = CascadeType.ALL)
+    @OneToOne
+            (mappedBy = "imovel", cascade = CascadeType.ALL)
     private Endereco endereco;
 
 

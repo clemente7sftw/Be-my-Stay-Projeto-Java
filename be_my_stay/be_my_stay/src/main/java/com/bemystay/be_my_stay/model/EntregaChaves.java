@@ -2,11 +2,10 @@ package com.bemystay.be_my_stay.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-public class CheckIn {
+public class EntregaChaves {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

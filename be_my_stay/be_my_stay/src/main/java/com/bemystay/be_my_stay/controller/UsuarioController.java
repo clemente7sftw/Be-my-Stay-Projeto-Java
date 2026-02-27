@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/usuarios")
 public class UsuarioController {
     private final UsuarioService service;
-    private final CheckInService checkInService;
+    private final EntregaChavesService entregaChavesService;
     private final ImovelService imovelService;
     private final ImovelRepository imovelRepository;
     private final ReservaService reservaService;
@@ -26,9 +26,9 @@ public class UsuarioController {
 
 
 
-    public UsuarioController(UsuarioService service, CheckInService checkInService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, MetPagRepository metPagRepository, TipoService tipoService, MetPagService metPagService) {
+    public UsuarioController(UsuarioService service, EntregaChavesService entregaChavesService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, MetPagRepository metPagRepository, TipoService tipoService, MetPagService metPagService) {
         this.service = service;
-        this.checkInService = checkInService;
+        this.entregaChavesService = entregaChavesService;
         this.imovelService = imovelService;
         this.imovelRepository = imovelRepository;
         this.reservaService = reservaService;
