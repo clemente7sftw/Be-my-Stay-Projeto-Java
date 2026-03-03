@@ -110,7 +110,7 @@ public class AdminController {
 
         usuarioService.editar(id, usuario);
 
-        return "redirect:/admin/perfil";
+        return "redirect:/admin/perfilAdmin";
     }
 
 

@@ -9,7 +9,7 @@ body {
 
 aside {
     background-color: #242424;
-    height: 100vh;
+    min-height: auto;
     width: 300px;
 
     a {

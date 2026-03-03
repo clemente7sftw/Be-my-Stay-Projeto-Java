@@ -59,7 +59,7 @@ public class MetodoController {
 
         try {
             metPagService.salvar(metodoPagamento);
-            return "redirect:/usuarios/addMetodo";
+            return "redirect:/metodo/listar";
         } catch (Exception e) {
             model.addAttribute("erro", "Ocorreu um erro do nosso lado, tente novamente mais tarde");
             return "metodoPag/adicionar";

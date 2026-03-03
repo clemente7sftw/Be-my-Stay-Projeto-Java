@@ -82,16 +82,7 @@ form{
         cursor: pointer;
     }
 }
-.tabela {
-    width: 400px;
-    border-collapse: separate;
-    border-spacing: 0;
-    border: 1.5px solid #000;
-    border-radius: 12px;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
 
-}
 
 .tabela thead th {
     background: #fff;
@@ -100,11 +91,24 @@ form{
     padding: 10px;
     border-bottom: 1.5px solid #000;
 }
-
-.tabela td {
-    padding: 12px;
-    text-align: center;
+.tabela {
+    width: 800px;
+    max-width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1.5px solid #000;
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
 }
+
+.tabela th,
+.tabela td {
+    padding: 14px 20px;
+    text-align: center;
+    min-width: 150px;
+}
+
 
 .tabela tbody tr:not(:last-child) td {
     border-bottom: 1px solid #000;
@@ -129,3 +133,48 @@ form{
     border-bottom-right-radius: 12px;
 }
 
+.relatorio {
+    display: block;
+    width: 260px;
+    margin: 15px 0;
+    text-decoration: none;
+}
+
+.relatorio button {
+    width: 100%;
+    height: 55px;
+    background-color: #4a4a4a;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.relatorio button:hover {
+    background-color: #3a3a3a;
+}
+@media (max-width: 768px) {
+    body{
+        flex-direction: column;
+    }
+
+    aside{
+        width: 100%;
+        min-height: auto;
+    }
+
+    main{
+        margin-left: 0;
+        margin-top: 40px;
+    }
+
+    nav .containers{
+        margin-left: 0;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+}
