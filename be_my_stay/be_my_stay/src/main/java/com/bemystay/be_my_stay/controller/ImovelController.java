@@ -54,11 +54,12 @@ public class ImovelController {
     }
 
     @GetMapping("/criar")
-    public String criar(HttpSession session, Model model) {
+    public String criar(HttpSession session, Model model, SessionStatus status) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
+        status.setComplete();
         model.addAttribute("imovel", new Imovel());
         model.addAttribute("tipoimovel", tipoService.listar());
 
@@ -262,6 +263,9 @@ public class ImovelController {
 
 
         try {
+            if (imovel.getId() != null) {
+                imovel.setId(null);
+            }
             imovelService.salvar(imovel);
 
             status.setComplete();

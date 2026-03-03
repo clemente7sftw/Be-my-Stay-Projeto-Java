@@ -33,7 +33,7 @@ public class EntregaChavesController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("chaves", new EntregaChaves());
-        return "checkin/adicionar";
+        return "checkIn/adicionar";
 
     }
     @PostMapping("/salvar")

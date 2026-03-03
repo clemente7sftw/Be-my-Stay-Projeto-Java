@@ -22,7 +22,7 @@
 
 <main>
 
-    <form th:action="@{/checkin/salvar}" method="post" enctype="multipart/form-data" th:object="${checkin}">
+    <form th:action="@{/checkin/salvar}" method="post" enctype="multipart/form-data" th:object="${chaves}">
         <label for="">Adicione o Título </label> <br>
         <input type="text" th:field="*{titulo}" placeholder="Nome" required> <br>
         <label for="">Adicione a Descrição</label> <br>
