@@ -1,10 +1,10 @@
 package com.bemystay.be_my_stay.service;
 
 import com.bemystay.be_my_stay.model.Cargo;
-import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.repository.CargoRepository;
 import com.bemystay.be_my_stay.repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,22 +15,26 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final CargoRepository cargoRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository, PasswordEncoder passwordEncoder) {
+
+        this.usuarioRepository = usuarioRepository;
+        this.cargoRepository = cargoRepository;
+
+        this.passwordEncoder = passwordEncoder;
+    }
 
     private Usuario salvarComCargo(Usuario usuario, String nomeCargo) {
 
         Cargo cargo = cargoRepository.findByNome(nomeCargo).orElseThrow(() -> new RuntimeException("Cargo não encontrado"));
-
+        String senha = passwordEncoder.encode(usuario.getSenhaHash());
+        usuario.setSenhaHash(senha);
         usuario.getCargo().add(cargo);
 
         return usuarioRepository.save(usuario);
     }
 
-    public UsuarioService(UsuarioRepository usuarioRepository, CargoRepository cargoRepository) {
-
-        this.usuarioRepository = usuarioRepository;
-        this.cargoRepository = cargoRepository;
-
-    }
 
     public Usuario cadastrarHospede(Usuario usuario) {
         return salvarComCargo(usuario, "hóspede");

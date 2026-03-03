@@ -49,10 +49,16 @@
         <p th:text="${imovel.descricaoCompleta}"></p>
 
     </div>
+    <h4>Tipo de Lugar:</h4>
+    <p th:text="${imovel.tipoLugar.titulo}"></p>
+    <h4>Tipo de Imóvel:</h4>
+    <p th:text="${imovel.tipoImovel.nome}"></p>
     <h4>Horário Check In:</h4>
-    <p th:text="${imovel.entregaChaves}"></p>
+    <p th:text="${imovel.checkIn}"></p>
     <h4>Horário Check Out:</h4>
     <p th:text="${imovel.checkOut}"></p>
+    <h4>Método de Check In:</h4>
+<!--    <p th:text="${imovel.entregaChaves.titulo}"></p>-->
     <p class="titulo"> O que esse lugar oferece </p>
     <div class="secao_inferior">
 

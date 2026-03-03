@@ -41,7 +41,7 @@ public class AdminController {
 
         session.setAttribute("usuarioLogado", usuarioLogado);
 
-        return "redirect:/admin/telaAdmin";
+        return "redirect:/admin/telaInicialAdm";
     }
     @GetMapping("/telaInicialAdm")
     public String telaInicialAdm(HttpSession session, Model model) {

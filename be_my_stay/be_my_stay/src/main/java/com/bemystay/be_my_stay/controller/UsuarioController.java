@@ -6,6 +6,7 @@ import com.bemystay.be_my_stay.repository.ImovelRepository;
 import com.bemystay.be_my_stay.repository.MetPagRepository;
 import com.bemystay.be_my_stay.service.*;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +23,12 @@ public class UsuarioController {
     private final MetPagRepository metPagRepository;
     private final TipoService tipoService;
     private final MetPagService metPagService;
+    private final PasswordEncoder passwordEncoder;
 
 
 
 
-    public UsuarioController(UsuarioService service, EntregaChavesService entregaChavesService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, MetPagRepository metPagRepository, TipoService tipoService, MetPagService metPagService) {
+    public UsuarioController(UsuarioService service, EntregaChavesService entregaChavesService, ImovelService imovelService, ImovelRepository imovelRepository, ReservaService reservaService, MetPagRepository metPagRepository, TipoService tipoService, MetPagService metPagService, PasswordEncoder passwordEncoder) {
         this.service = service;
         this.entregaChavesService = entregaChavesService;
         this.imovelService = imovelService;
@@ -35,6 +37,7 @@ public class UsuarioController {
         this.metPagRepository = metPagRepository;
         this.tipoService = tipoService;
         this.metPagService = metPagService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -94,11 +97,10 @@ public class UsuarioController {
             return "usuarios/login";
         }
 
-        if (!usuario.getSenhaHash().equals(senhaHash)) {
+        if (!passwordEncoder.matches(senhaHash, usuario.getSenhaHash())) {
             model.addAttribute("erro", "Dados incorretos");
             return "usuarios/login";
         }
-
         String cargo = usuario.getCargo().stream()
                 .map(Cargo::getNome)
                 .findFirst()
