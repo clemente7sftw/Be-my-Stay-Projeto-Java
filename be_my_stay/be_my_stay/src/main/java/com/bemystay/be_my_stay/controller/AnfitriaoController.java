@@ -46,9 +46,22 @@ public class AnfitriaoController {
         List<Imovel> imoveis = imovelRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
         model.addAttribute("imoveis", imoveis);
         model.addAttribute("usuarioLogado", usuario);
-        model.addAttribute("contarTotal", imovelService.contarTotal());
-        model.addAttribute("contarAtivos", imovelService.contarAtivos());
-        model.addAttribute("contarInativos", imovelService.contarInativos());
+
+        model.addAttribute("usuarioLogado", usuario);
+
+        long quantidadeAtivos = imovelService
+                .contarAtivosPorUsuario(usuario.getId());
+
+        model.addAttribute("quantidadeAtivos", quantidadeAtivos);
+
+        long quantidadeInativos = imovelService
+                .contarInativosPorUsuario(usuario.getId());
+
+        model.addAttribute("quantidadeAtivos", quantidadeAtivos);
+        long quantidadeImoveis = imovelService.contarPorUsuario(usuario.getId());
+        model.addAttribute("contarTotal", quantidadeImoveis);
+        model.addAttribute("contarAtivos", quantidadeAtivos);
+        model.addAttribute("contarInativos", quantidadeInativos);
 
         return "anfitriao/anfitriao";
     }

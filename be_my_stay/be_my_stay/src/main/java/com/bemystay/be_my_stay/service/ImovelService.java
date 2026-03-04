@@ -82,7 +82,17 @@ public class ImovelService {
         return imovelRepository.findAllById(id);
     }
 
+    public long contarPorUsuario(Long usuarioId) {
+        return imovelRepository.countByUsuarioId(usuarioId);
+    }
 
+    public long contarAtivosPorUsuario(Long usuarioId) {
+        return imovelRepository.countByUsuarioIdAndAtivoTrue(usuarioId);
+    }
+
+    public long contarInativosPorUsuario(Long usuarioId) {
+        return imovelRepository.countByUsuarioIdAndAtivoFalse(usuarioId);
+    }
 
         public String buscarCep(String cep) {
             RestTemplate restTemplate = new RestTemplate();

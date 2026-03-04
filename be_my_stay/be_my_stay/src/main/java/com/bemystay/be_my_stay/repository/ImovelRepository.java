@@ -23,6 +23,12 @@ public interface ImovelRepository extends JpaRepository <Imovel, Long> {
 
     long countByAtivoFalse();
 
+    long countByUsuarioId(Long usuarioId);
+
+    long countByUsuarioIdAndAtivoTrue(Long usuarioId);
+
+    long countByUsuarioIdAndAtivoFalse(Long usuarioId);
+
     List<Imovel> findByTipoImovelIdAndAtivoTrue(Long id);
 
     List<Imovel> findByUsuarioIdAndAtivoTrue(Long id);
@@ -42,4 +48,5 @@ public interface ImovelRepository extends JpaRepository <Imovel, Long> {
             @Param("fim") LocalDateTime fim);
 
 
-}
+
+    }

@@ -36,8 +36,9 @@ public class ImovelController {
     private final ReservaRepository reservaRepository;
     private final ImovelRepository imovelRepository;
     private final EntregaChavesService entregaChavesService;
+    private final UsuarioService usuarioService;
 
-    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService, ReservaRepository reservaRepository, ImovelRepository imovelRepository, EntregaChavesService entregaChavesService) {
+    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService, ReservaRepository reservaRepository, ImovelRepository imovelRepository, EntregaChavesService entregaChavesService, UsuarioService usuarioService) {
         this.imovelService = imovelService;
         this.comodidadeService = comodidadeService;
         this.tLugarService = tLugarService;
@@ -46,6 +47,7 @@ public class ImovelController {
         this.reservaRepository = reservaRepository;
         this.imovelRepository = imovelRepository;
         this.entregaChavesService = entregaChavesService;
+        this.usuarioService = usuarioService;
     }
 
     @ModelAttribute("imovel")
@@ -437,9 +439,23 @@ public class ImovelController {
 
         List<Imovel> imoveis = imovelRepository.findByUsuarioIdAndAtivoTrue(idUsuario);
         model.addAttribute("imoveis", imoveis);
-        model.addAttribute("contarTotal", imovelService.contarTotal());
-        model.addAttribute("contarAtivos", imovelService.contarAtivos());
-        model.addAttribute("contarInativos", imovelService.contarInativos());
+
+        Usuario usuario = usuarioService.buscarPorId(idUsuario);
+        model.addAttribute("usuarioLogado", usuario);
+
+        long quantidadeAtivos = imovelService
+                .contarAtivosPorUsuario(usuario.getId());
+
+        model.addAttribute("quantidadeAtivos", quantidadeAtivos);
+
+        long quantidadeInativos = imovelService
+                .contarInativosPorUsuario(usuario.getId());
+
+        model.addAttribute("quantidadeAtivos", quantidadeAtivos);
+        long quantidadeImoveis = imovelService.contarPorUsuario(usuario.getId());
+        model.addAttribute("contarTotal", quantidadeImoveis);
+        model.addAttribute("contarAtivos", quantidadeAtivos);
+        model.addAttribute("contarInativos", quantidadeInativos);
 
         return "anfitriao/imoveis";
     }
