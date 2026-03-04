@@ -38,6 +38,23 @@
         </div>
     </div>
     <p class="titulo" th:text="${imovel.titulo}"></p>
+    <div class="anfitriao-box">
+
+        <div th:if="${imovel.usuario.foto_perfil != null}">
+            <img th:src="@{'/uploads/' + ${imovel.usuario.foto_perfil}}"
+                 class="foto-anfitriao">
+        </div>
+
+        <div class="info-anfitriao">
+            <h4 th:text="${imovel.usuario.nome}"></h4>
+
+            <p>
+                Anfitrião desde
+                <span th:text="${#temporals.format(imovel.usuario.dataCad, 'MMMM yyyy')}"></span>
+            </p>
+        </div>
+
+    </div>
     <div class="descricao">
 
         <p th:text="${imovel.qtdHospede == 1

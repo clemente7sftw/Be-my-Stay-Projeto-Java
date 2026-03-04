@@ -155,3 +155,20 @@ textarea {
     padding: 8px;
     border-radius: 8px;
 }
+.anfitriao-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.foto-anfitriao {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info-anfitriao h4 {
+    margin: 0;
+}

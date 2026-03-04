@@ -116,6 +116,8 @@ public class ImovelService {
         i.setPrecoDiaria(dados.getPrecoDiaria());
         i.setDisponibilidadeFim(dados.getDisponibilidadeFim());
         i.setDisponibilidadeInicio(dados.getDisponibilidadeInicio());
+        i.setCheckIn(dados.getCheckIn());
+        i.setCheckOut(dados.getCheckOut());
         i.setQtdHospede(dados.getQtdHospede());
         i.setQtdBanheiros(dados.getQtdBanheiros());
         i.setQtdCamas(dados.getQtdCamas());
