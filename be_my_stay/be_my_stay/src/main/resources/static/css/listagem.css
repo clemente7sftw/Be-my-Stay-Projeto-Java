@@ -156,6 +156,12 @@ form{
 .relatorio button:hover {
     background-color: #3a3a3a;
 }
+
+.conteudo {
+    filter: blur(5px);
+
+}
+
 @media (max-width: 768px) {
     body{
         flex-direction: column;

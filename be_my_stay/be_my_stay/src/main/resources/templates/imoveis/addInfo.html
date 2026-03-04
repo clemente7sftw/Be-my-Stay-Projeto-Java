@@ -65,7 +65,7 @@
     <label>CEP</label> <br>
     <div class="campo_cep">
       <input type="text" id="cep" maxlength="8" placeholder="Digite o CEP" th:field="*{endereco.cep}"
-             required>
+             >
       <button type="button" class="btn_cep" onclick="buscarCep()"><img th:src="@{/assets/pesquisar.png}" alt=""></button>
     </div>
 
@@ -82,7 +82,7 @@
     <input type="text" id="estado" th:field="*{endereco.estado}" readonly> <br>
 
     <label>Número</label> <br>
-    <input type="text"  th:field="*{endereco.numero}" required> <br>
+    <input type="text"  th:field="*{endereco.numero}" > <br>
 
     <button type="submit">Continuar</button>
     </form>
