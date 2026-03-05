@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar | Be my Stay Administradores</title>
+    <title>Descrição | Be my Stay </title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
     <link rel="stylesheet" th:href="@{/css/descricao.css}">
@@ -38,52 +38,52 @@
         </div>
     </div>
     <p class="titulo" th:text="${imovel.titulo}"></p>
-    <div class="anfitriao-box">
+    <div class="secao_inferior">
+        <div class="descricao">
 
-        <div th:if="${imovel.usuario.foto_perfil != null}">
-            <img th:src="@{'/uploads/' + ${imovel.usuario.foto_perfil}}"
-                 class="foto-anfitriao">
-        </div>
-
-        <div class="info-anfitriao">
-            <h4 th:text="${imovel.usuario.nome}"></h4>
-
-            <p>
-                Anfitrião desde
-                <span th:text="${#temporals.format(imovel.usuario.dataCad, 'MMMM yyyy')}"></span>
-            </p>
-        </div>
-
-    </div>
-    <div class="descricao">
-
-        <p th:text="${imovel.qtdHospede == 1
+            <p th:text="${imovel.qtdHospede == 1
     ? '1 hóspede • ' + imovel.qtdBanheiros + ' banheiros'
     : imovel.qtdHospede + ' hóspedes • ' + imovel.qtdBanheiros + ' banheiros'}">
-        </p>
+            </p>
 
 
-        <p th:text="${imovel.descricaoCompleta}"></p>
+            <p class="desc_textarea" th:text="${imovel.descricaoCompleta}"></p>
+            <p class="titulo"> O que esse lugar oferece </p>
+            <div class="lista">
+                <label th:each="c : ${imovel.comodidade}">
+                    <img th:src="@{/uploads/{img}(img=${c.icone })}" alt="Ícone" width="40">
+                    <span th:text="${c.nome}"></span>
+                </label>
+            </div>
+            <h4>Tipo de Lugar:</h4>
+            <p th:text="${imovel.tipoLugar.titulo}"></p>
+            <h4>Tipo de Imóvel:</h4>
+            <p th:text="${imovel.tipoImovel.nome}"></p>
+            <h4>Horário Check In:</h4>
+            <p th:text="${imovel.checkIn}"></p>
+            <h4>Horário Check Out:</h4>
+            <p th:text="${imovel.checkOut}"></p>
+            <h4>Método de Check In:</h4>
+            <p th:text="${imovel.entregaChaves.titulo}"></p>
 
-    </div>
-    <h4>Tipo de Lugar:</h4>
-    <p th:text="${imovel.tipoLugar.titulo}"></p>
-    <h4>Tipo de Imóvel:</h4>
-    <p th:text="${imovel.tipoImovel.nome}"></p>
-    <h4>Horário Check In:</h4>
-    <p th:text="${imovel.checkIn}"></p>
-    <h4>Horário Check Out:</h4>
-    <p th:text="${imovel.checkOut}"></p>
-    <h4>Método de Check In:</h4>
-        <p th:text="${imovel.entregaChaves.titulo}"></p>
-    <p class="titulo"> O que esse lugar oferece </p>
-    <div class="secao_inferior">
+                <div class="anfitriao-box">
 
-        <div class="lista">
-            <label th:each="c : ${imovel.comodidade}">
-                <img th:src="@{/uploads/{img}(img=${c.icone })}" alt="Ícone" width="40">
-                <span th:text="${c.nome}"></span>
-            </label>
+                    <div th:if="${imovel.usuario.foto_perfil != null}">
+                        <img th:src="@{'/uploads/' + ${imovel.usuario.foto_perfil}}"
+                             class="foto-anfitriao">
+                    </div>
+
+                    <div class="info-anfitriao">
+                        <h4 th:text="${imovel.usuario.nome}"></h4>
+
+                        <p>
+                            Anfitrião desde
+                            <span th:text="${#temporals.format(imovel.usuario.dataCad, 'MMMM yyyy')}"></span>
+                        </p>
+                    </div>
+
+                </div>
+
         </div>
 
         <div class="reserva_lateral">
