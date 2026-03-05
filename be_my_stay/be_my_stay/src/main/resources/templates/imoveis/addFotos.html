@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imóvel | Be my Stay Administradores</title>
+    <title>Imóvel | Be my Stay</title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
-    <link rel="stylesheet" th:href="@{/css/addInfo.css}">
+    <link rel="stylesheet" th:href="@{/css/addFoto.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -22,24 +21,34 @@
     <img th:src="@{/assets/logo.png}">
     <span>Be my stay</span>
 </header>
+
+
 <main>
-    <form th:action="@{/imovel/salvarFoto}"
-          method="post"
-          enctype="multipart/form-data"
-          th:object="${imovel}">
 
-        <input type="file"
-               name="imagens"
-               multiple
-               accept="image/*"
-               required>
-        <img th:src="@{/assets/add_fotos.png}">
-        <button type="submit">Salvar</button>
-    </form>
+    <p>Adicione Fotos do Imóvel</p>
 
+    <div class="conteudo">
+        <form th:action="@{/imovel/salvarFoto}"
+              method="post"
+              enctype="multipart/form-data"
+              th:object="${imovel}">
 
+            <label for="imagens">
+                <img th:src="@{/assets/add_fotos.png}" class="img-upload">
+            </label>
 
+            <input type="file"
+                   id="imagens"
+                   name="imagens"
+                   multiple
+                   accept="image/*"
+                   required>
+
+            <button type="submit">Próximo</button>
+        </form>
+    </div>
 </main>
+
 
 </body>
 </html>

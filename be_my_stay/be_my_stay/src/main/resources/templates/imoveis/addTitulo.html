@@ -23,17 +23,17 @@
     <span>Be my stay</span>
 </header>
 <main>
-    <p>Compartilhe mais informações básicas sobre seu imóvel</p>
+    <p>Adicione o Título do Imóvel</p>
 
     <form th:action="@{/imovel/salvarTitulo}"
           method="post"
           th:object="${imovel}">
 
     <label>Título do Imóvel</label> <br>
-        <input type="text" th:field="*{titulo}" required> <br>
+        <input class="inp_titulo" type="text" th:field="*{titulo}" required> <br>
 
 
-        <button type="submit">Continuar</button>
+        <button class="btn_cont" type="submit">Continuar</button>
 
 
     </form>

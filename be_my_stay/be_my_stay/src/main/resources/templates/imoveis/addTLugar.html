@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="pt" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar | Be my Stay Administradores</title>
+    <title>Imóvel | Be my Stay </title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
-    <link rel="stylesheet" th:href="@{/css/addImovel.css}">
+    <link rel="stylesheet" th:href="@{/css/addTipo.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -26,8 +25,8 @@
     <p>Que tipo de acomodação os hóspedes vão ter</p>
     <form th:action="@{/imovel/salvarLugar}" method="post">
 
-        <div class="lista">
-            <label th:each="l : ${tipolugar}">
+        <div class="listaLugar">
+            <label class="card" th:each="l : ${tipolugar}">
                 <input
                         type="radio"
                         name="idTLugar"
@@ -37,12 +36,12 @@
                      alt="Ícone"
                      width="40">
                 <div class="textos">
-                    <span th:text="${l.titulo}"></span>
+                    <span class="titulo" th:text="${l.titulo}"></span>
                     <span class="descricao" th:text="${l.descricao}"></span>
                 </div>
             </label>
         </div>
-        <button type="submit">Continuar</button>
+        <button type="submit">Próximo</button>
 
     </form>
 

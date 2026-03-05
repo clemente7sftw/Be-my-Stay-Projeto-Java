@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imóvel | Be my Stay Administradores</title>
+    <title>Imóvel | Be my Stay</title>
 
     <link rel="icon" type="image/png" th:href="@{/assets/Logo.png}">
     <link rel="stylesheet" th:href="@{/css/addTipo.css}">
@@ -23,7 +23,6 @@
     <span>Be my stay</span>
 </header>
 <main>
-    <h4>Comodidades</h4>
     <p>O que seu imóvel oferece para o hóspede</p>
 
     <form th:action="@{/imovel/salvarComodidade}" method="post">
@@ -38,7 +37,7 @@
                 <span th:text="${c.nome}"></span>
             </label>
         </div>
-        <button type="submit">Continuar</button>
+        <button type="submit">Próximo</button>
     </form>
 
 
