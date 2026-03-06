@@ -12,6 +12,8 @@ O **Be My Stay** é uma aplicação web desenvolvida com foco na gestão de hosp
 Além disso, o sistema possui funcionalidades administrativas para gerenciamento de usuários, imóveis e geração de relatórios.
 
 ---
+Prototipagem : https://www.figma.com/design/MNm099x54YvEx6oKe3hrin/Projeto-Java?node-id=0-1&t=A9KZ4q04AHxFb0Qo-1
+---
 
 # 🚀 Funcionalidades
 
