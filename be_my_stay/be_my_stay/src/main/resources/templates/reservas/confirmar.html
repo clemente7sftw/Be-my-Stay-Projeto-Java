@@ -18,8 +18,10 @@
 
 <body>
 <h2>Confirmar Reserva</h2>
-
-<p>Imóvel: <span th:text="${imovel.titulo}"></span></p>
+<img class="img"
+     th:if="${#lists.size(imovel.imagens) > 0}"
+     th:src="@{/uploads/{path}(path=${imovel.imagens[0].caminho})}">
+<p th:text="${imovel.titulo}" ></p>
 <p>Check-in: <span th:text="${checkin}"></span></p>
 <p>Check-out: <span th:text="${checkout}"></span></p>
 <p>Hóspedes: <span th:text="${qtdHospede}"></span></p>
@@ -31,7 +33,8 @@
     <input type="hidden" name="checkin" th:value="${checkin}">
     <input type="hidden" name="checkout" th:value="${checkout}">
     <input type="hidden" name="qtdHospede" th:value="${qtdHospede}">
-    <label th:each="m : ${método}">
+    <div class="lista">
+    <label  th:each="m : ${metodo}">
         <input type="radio"
                name="ids"
                th:value="${m.id}"
@@ -43,7 +46,7 @@
 
         <span th:text="${m.titulo}"></span>
     </label>
-
+    </div>
     <button type="submit">Confirmar Reserva</button>
 </form>
 

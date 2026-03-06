@@ -64,7 +64,7 @@ public class ReservaController {
         model.addAttribute("qtdHospede", qtdHospede);
         model.addAttribute("dias", dias);
         model.addAttribute("total", total);
-        model.addAttribute("método", metPagService.listar());
+        model.addAttribute("metodo", metPagService.listar());
 
         return "reservas/confirmar";
     }
