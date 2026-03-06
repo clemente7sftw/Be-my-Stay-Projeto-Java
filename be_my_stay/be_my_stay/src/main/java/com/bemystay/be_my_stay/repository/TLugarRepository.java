@@ -8,12 +8,6 @@ import java.util.List;
 
 public interface TLugarRepository extends JpaRepository <TipoLugar, Long> {
 
-    @Query("SELECT l FROM TipoLugar l WHERE l.ativo = true")
-    List<TipoLugar> findAtivos();
-
-    @Query("SELECT l FROM TipoLugar l WHERE l.ativo = false")
-    List<TipoLugar> findInativos();
-
     TipoLugar findByTitulo(String titulo);
 
     long countByAtivoTrue();
@@ -22,6 +16,11 @@ public interface TLugarRepository extends JpaRepository <TipoLugar, Long> {
 
     boolean existsByTituloIgnoreCase(String titulo);
 
+    @Query("SELECT l FROM TipoLugar l WHERE l.ativo = true")
+    List<TipoLugar> findAtivos();
+
+    @Query("SELECT l FROM TipoLugar l WHERE l.ativo = false")
+    List<TipoLugar> findInativos();
 
 
 }

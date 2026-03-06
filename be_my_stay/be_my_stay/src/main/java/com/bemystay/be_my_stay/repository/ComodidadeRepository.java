@@ -8,12 +8,17 @@ import java.util.List;
 
 public interface ComodidadeRepository extends JpaRepository <Comodidade, Long > {
     Comodidade findByNome(String nome);
+
     @Query("SELECT c FROM Comodidade c WHERE c.ativo = true")
     List<Comodidade> findAtivos();
+
     @Query("SELECT c FROM Comodidade c WHERE c.ativo = false")
     List<Comodidade> findInativos();
+
     long countByAtivoTrue();
+
     long countByAtivoFalse();
+
     boolean existsByNomeIgnoreCase(String nome);
 
 

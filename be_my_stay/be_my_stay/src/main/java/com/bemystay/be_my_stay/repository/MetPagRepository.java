@@ -8,11 +8,16 @@ import java.util.List;
 
 public interface MetPagRepository extends JpaRepository<MetodoPagamento, Long> {
     boolean existsByTituloIgnoreCase(String titulo);
+
     MetodoPagamento findByTitulo(String titulo);
+
     @Query("SELECT m FROM MetodoPagamento m WHERE m.ativo = true")
     List<MetodoPagamento> findAtivos();
+
     @Query("SELECT m FROM MetodoPagamento m WHERE m.ativo = false")
     List<MetodoPagamento> findInativos();
+
     long countByAtivoTrue();
+
     long countByAtivoFalse();
 }
