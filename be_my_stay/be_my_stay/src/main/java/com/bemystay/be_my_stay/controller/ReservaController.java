@@ -23,17 +23,13 @@ public class ReservaController {
     private final MetPagService metPagService;
     private final UsuarioService usuarioService;
     private final ReservaRepository reservaRepository;
-    private final ComodidadeService comodidadeService;
-    private final UsuarioRepository usuarioRepository;
 
-    public ReservaController(ReservaService reservaService, ImovelService imovelService, MetPagService metPagService, UsuarioService usuarioService, ReservaRepository reservaRepository, ComodidadeService comodidadeService,  UsuarioRepository usuarioRepository) {
+    public ReservaController(ReservaService reservaService, ImovelService imovelService, MetPagService metPagService, UsuarioService usuarioService, ReservaRepository reservaRepository) {
         this.reservaService = reservaService;
         this.imovelService = imovelService;
         this.metPagService = metPagService;
         this.usuarioService = usuarioService;
         this.reservaRepository = reservaRepository;
-        this.comodidadeService = comodidadeService;
-        this.usuarioRepository = usuarioRepository;
     }
 
     @PostMapping("/reservar/{id}/confirmar")

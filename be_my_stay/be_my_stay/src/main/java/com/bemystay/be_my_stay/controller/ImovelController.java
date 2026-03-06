@@ -33,18 +33,16 @@ public class ImovelController {
     private final TLugarService tLugarService;
     private final TipoService tipoService;
     private final ReservaService reservaService;
-    private final ReservaRepository reservaRepository;
     private final ImovelRepository imovelRepository;
     private final EntregaChavesService entregaChavesService;
     private final UsuarioService usuarioService;
 
-    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService, ReservaRepository reservaRepository, ImovelRepository imovelRepository, EntregaChavesService entregaChavesService, UsuarioService usuarioService) {
+    public ImovelController(ImovelService imovelService, ComodidadeService comodidadeService, TLugarService tLugarService, TipoService tipoService, ReservaService reservaService, ImovelRepository imovelRepository, EntregaChavesService entregaChavesService, UsuarioService usuarioService) {
         this.imovelService = imovelService;
         this.comodidadeService = comodidadeService;
         this.tLugarService = tLugarService;
         this.tipoService = tipoService;
         this.reservaService = reservaService;
-        this.reservaRepository = reservaRepository;
         this.imovelRepository = imovelRepository;
         this.entregaChavesService = entregaChavesService;
         this.usuarioService = usuarioService;
@@ -70,7 +68,7 @@ public class ImovelController {
 
     @PostMapping("/salvarTipo")
     public String salvarTipo(@RequestParam Long idTipo,
-                               @ModelAttribute("imovel") Imovel imovel) {
+                             @ModelAttribute("imovel") Imovel imovel) {
         TipoImovel tipoImovel = tipoService.buscarPorId(idTipo);
         imovel.setTipoImovel(tipoImovel);
 
@@ -416,20 +414,23 @@ public class ImovelController {
         imovelService.ativar(id);
         return "redirect:/imovel/listarAnfitriao";
     }
+
     @GetMapping("/editarAnfitriao/{id}")
     public String editarAnfitriao(@PathVariable Long id, Model model) {
         Imovel i = imovelService.buscarPorId(id);
-        List<Comodidade> comodidades= comodidadeService.listar();
+        List<Comodidade> comodidades = comodidadeService.listar();
         model.addAttribute("imovel", i);
         model.addAttribute("comodidades", comodidades);
         return "anfitriao/editarImovel";
     }
+
     @PostMapping("/salvarEdicaoAnfitriao/{id}")
     public String salvarEdicaoAnfitriao(@PathVariable Long id, @ModelAttribute Imovel imovel) {
         imovelService.editar(id, imovel);
         return "redirect:/imovel/listarAnfitriao";
 
     }
+
     @GetMapping("/listarAnfitriao")
     public String listar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");

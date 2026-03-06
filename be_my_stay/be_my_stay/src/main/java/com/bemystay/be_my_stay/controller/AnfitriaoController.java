@@ -1,10 +1,8 @@
 package com.bemystay.be_my_stay.controller;
 
-import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.Imovel;
 import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.repository.ImovelRepository;
-import com.bemystay.be_my_stay.service.ComodidadeService;
 import com.bemystay.be_my_stay.service.ImovelService;
 import com.bemystay.be_my_stay.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
@@ -25,13 +23,11 @@ import java.util.List;
 public class AnfitriaoController {
     private final ImovelService imovelService;
     private final ImovelRepository imovelRepository;
-    private final ComodidadeService comodidadeService;
     private final UsuarioService usuarioService;
 
-    public AnfitriaoController(ImovelService imovelService, ImovelRepository imovelRepository, ComodidadeService comodidadeService, UsuarioService usuarioService) {
+    public AnfitriaoController(ImovelService imovelService, ImovelRepository imovelRepository,  UsuarioService usuarioService) {
         this.imovelService = imovelService;
         this.imovelRepository = imovelRepository;
-        this.comodidadeService = comodidadeService;
         this.usuarioService = usuarioService;
     }
 
@@ -115,6 +111,7 @@ public class AnfitriaoController {
         return "anfitriao/perfilEdicao";
 
     }
+
     @PostMapping("/salvarEdicao/{id}")
     public String salvarEdicao(
             @PathVariable Long id,
@@ -140,8 +137,6 @@ public class AnfitriaoController {
 
         return "redirect:/anfitriao/perfil";
     }
-
-
 
 
 }

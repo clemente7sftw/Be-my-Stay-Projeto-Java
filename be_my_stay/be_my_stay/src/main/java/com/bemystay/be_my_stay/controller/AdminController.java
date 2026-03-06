@@ -34,6 +34,7 @@ public class AdminController {
         model.addAttribute("usuario", new Usuario());
         return "admin/cadastro";
     }
+
     @PostMapping("/cadastrarAdmin")
     public String cadastrarAdmin(@ModelAttribute Usuario usuario, HttpSession session) {
 
@@ -43,6 +44,7 @@ public class AdminController {
 
         return "redirect:/admin/telaInicialAdm";
     }
+
     @GetMapping("/telaInicialAdm")
     public String telaInicialAdm(HttpSession session, Model model) {
 
@@ -87,6 +89,7 @@ public class AdminController {
         return "admin/perfilEdicao";
 
     }
+
     @PostMapping("/salvarEdicao/{id}")
     public String salvarEdicao(
             @PathVariable Long id,

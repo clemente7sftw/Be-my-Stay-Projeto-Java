@@ -1,6 +1,5 @@
 package com.bemystay.be_my_stay.controller;
 
-import com.bemystay.be_my_stay.model.Comodidade;
 import com.bemystay.be_my_stay.model.MetodoPagamento;
 import com.bemystay.be_my_stay.repository.MetPagRepository;
 import com.bemystay.be_my_stay.service.MetPagService;
@@ -72,7 +71,7 @@ public class MetodoController {
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
-        model.addAttribute("método", metPagService.listar()  );
+        model.addAttribute("método", metPagService.listar());
 
         return "/metodoPag/listar";
 
@@ -84,7 +83,7 @@ public class MetodoController {
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
         }
-        model.addAttribute("método", metPagService.listarInativos()  );
+        model.addAttribute("método", metPagService.listarInativos());
 
         return "/metodoPag/restaurar";
 
@@ -98,7 +97,7 @@ public class MetodoController {
     }
 
     @PostMapping("/salvarEdicao/{id}")
-    public String salvarEdicao(@PathVariable Long id,@ModelAttribute MetodoPagamento metodoPagamento ) {
+    public String salvarEdicao(@PathVariable Long id, @ModelAttribute MetodoPagamento metodoPagamento) {
 
         metPagService.editar(id, metodoPagamento);
         return "redirect:/usuarios/listarMet";
@@ -109,8 +108,9 @@ public class MetodoController {
         metPagService.desativar(id);
         return "redirect:/usuarios/listarMet";
     }
+
     @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id){
+    public String restaurar(@PathVariable Long id) {
         metPagService.ativar(id);
         return "redirect:/usuarios/listarMet";
     }

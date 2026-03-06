@@ -48,7 +48,7 @@ public class TipoController {
             Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
             tipoImovel.setIcone("tipos_imoveis/" + nome);
         }
-        if  (tipoRepository.existsByNomeIgnoreCase(tipoImovel.getNome())) {
+        if (tipoRepository.existsByNomeIgnoreCase(tipoImovel.getNome())) {
             model.addAttribute("erro", "Já existe um tipo de imóvel com este nome");
 
             return "adicionar";

@@ -46,6 +46,7 @@ public class HospedeController {
         return "usuarios/perfilEdicao";
 
     }
+
     @PostMapping("/salvarEdicao/{id}")
     public String salvarEdicao(
             @PathVariable Long id,
@@ -71,7 +72,6 @@ public class HospedeController {
 
         return "redirect:/hospedes/perfil";
     }
-
 
 
 }

@@ -7,7 +7,6 @@ import com.bemystay.be_my_stay.repository.ReservaRepository;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +20,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-@RequestMapping ("/relatorios")
+@RequestMapping("/relatorios")
 
 public class RelatorioController {
 
     private final SpringTemplateEngine templateEngine;
 
-        private final ReservaRepository reservaRepository;
-        private final ImovelRepository imovelRepository;
+    private final ReservaRepository reservaRepository;
+    private final ImovelRepository imovelRepository;
 
     public RelatorioController(SpringTemplateEngine templateEngine, ReservaRepository reservaRepository, ImovelRepository imovelRepository) {
         this.templateEngine = templateEngine;

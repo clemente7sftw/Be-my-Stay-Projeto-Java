@@ -27,7 +27,7 @@ public class ComodidadeController {
     }
 
     @GetMapping("/criar")
-    public String criar(HttpSession session, Model model ) {
+    public String criar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -41,7 +41,7 @@ public class ComodidadeController {
     public String salvar(
             @ModelAttribute Comodidade comodidade,
             @RequestParam("arquivo") MultipartFile file
-    , Model model ) throws IOException {
+            , Model model) throws IOException {
 
         if (!file.isEmpty()) {
             String nome = file.getOriginalFilename();
@@ -51,7 +51,7 @@ public class ComodidadeController {
             Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
             comodidade.setIcone("comodidades/" + nome);
         }
-        if  (comodidadeRepository.existsByNomeIgnoreCase(comodidade.getNome())) {
+        if (comodidadeRepository.existsByNomeIgnoreCase(comodidade.getNome())) {
             model.addAttribute("erro", "Já existe uma comodidade com este nome");
 
             return "comodidades/adicionar";
@@ -68,7 +68,7 @@ public class ComodidadeController {
     }
 
     @GetMapping("/listar")
-    public String listar(HttpSession session,  Model model) {
+    public String listar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -81,7 +81,7 @@ public class ComodidadeController {
     }
 
     @GetMapping("/listarInativas")
-    public String listarInativas(HttpSession session,  Model model) {
+    public String listarInativas(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -89,16 +89,19 @@ public class ComodidadeController {
         model.addAttribute("comodidades", service.listarInativas());
         return "comodidades/restaurar";
     }
+
     @PostMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {
         service.desativar(id);
         return "redirect:/comodidades/listar";
     }
+
     @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id){
+    public String restaurar(@PathVariable Long id) {
         service.ativar(id);
         return "redirect:/comodidades/listar";
     }
+
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
         Comodidade c = service.buscarPorId(id);
@@ -107,12 +110,11 @@ public class ComodidadeController {
     }
 
     @PostMapping("/salvarEdicao/{id}")
-    public String salvarEdicao(@PathVariable Long id,@ModelAttribute Comodidade comodidade) {
+    public String salvarEdicao(@PathVariable Long id, @ModelAttribute Comodidade comodidade) {
 
         service.editar(id, comodidade);
         return "redirect:/comodidades/listar";
     }
-
 
 
 }

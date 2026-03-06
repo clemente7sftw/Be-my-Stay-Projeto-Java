@@ -26,8 +26,9 @@ public class EntregaChavesController {
         this.entregaChavesService = entregaChavesService;
         this.entregaChavesRepository = entregaChavesRepository;
     }
+
     @GetMapping("/criar")
-    public String criar(HttpSession session, Model model ) {
+    public String criar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -36,11 +37,12 @@ public class EntregaChavesController {
         return "checkIn/adicionar";
 
     }
+
     @PostMapping("/salvar")
     public String salvar(
             @ModelAttribute EntregaChaves entregaChaves,
             @RequestParam("arquivo") MultipartFile file
-            , Model model ) throws IOException {
+            , Model model) throws IOException {
 
         if (!file.isEmpty()) {
             String nome = file.getOriginalFilename();
@@ -50,7 +52,7 @@ public class EntregaChavesController {
             Files.copy(file.getInputStream(), caminho, StandardCopyOption.REPLACE_EXISTING);
             entregaChaves.setIcone("chaves/" + nome);
         }
-        if  (entregaChavesRepository.existsByTituloIgnoreCase(entregaChaves.getTitulo())) {
+        if (entregaChavesRepository.existsByTituloIgnoreCase(entregaChaves.getTitulo())) {
             model.addAttribute("erro", "Já existe um método com este nome");
 
             return "checkin/adicionar";
@@ -65,8 +67,9 @@ public class EntregaChavesController {
         }
 
     }
+
     @GetMapping("/listar")
-    public String listar(HttpSession session,  Model model) {
+    public String listar(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -80,7 +83,7 @@ public class EntregaChavesController {
     }
 
     @GetMapping("/listarInativas")
-    public String listarInativas(HttpSession session,  Model model) {
+    public String listarInativas(HttpSession session, Model model) {
         Long idUsuario = (Long) session.getAttribute("idUsuario");
         if (idUsuario == null) {
             return "redirect:/usuarios/login";
@@ -90,7 +93,7 @@ public class EntregaChavesController {
     }
 
     @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model){
+    public String editar(@PathVariable Long id, Model model) {
         EntregaChaves c = entregaChavesService.buscarPorId(id);
         model.addAttribute("chaves", c);
         return "checkin/editar";
@@ -98,7 +101,7 @@ public class EntregaChavesController {
     }
 
     @PostMapping("/salvarEdicao/{id}")
-    public String salvarEdicao(@PathVariable Long id,@ModelAttribute EntregaChaves entregaChaves){
+    public String salvarEdicao(@PathVariable Long id, @ModelAttribute EntregaChaves entregaChaves) {
         entregaChavesService.editar(id, entregaChaves);
         return "redirect:/checkin/listar";
     }
@@ -110,7 +113,7 @@ public class EntregaChavesController {
     }
 
     @PostMapping("/restaurar/{id}")
-    public String restaurar(@PathVariable Long id){
+    public String restaurar(@PathVariable Long id) {
         entregaChavesService.ativar(id);
         return "redirect:/checkin/listar";
     }
