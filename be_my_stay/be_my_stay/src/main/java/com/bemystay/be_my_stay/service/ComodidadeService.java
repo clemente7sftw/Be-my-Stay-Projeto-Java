@@ -13,6 +13,7 @@ public class ComodidadeService {
     public ComodidadeService(ComodidadeRepository repository) {
         this.repository = repository;
     }
+
     public void salvar(Comodidade comodidade) {
         if (repository.findByNome(comodidade.getNome()) != null) {
             throw new RuntimeException("Já existe uma comodidade com esse nome");
@@ -20,7 +21,9 @@ public class ComodidadeService {
         repository.save(comodidade);
     }
 
-    public List<Comodidade> listar() { return repository.findAtivos(); }
+    public List<Comodidade> listar() {
+        return repository.findAtivos();
+    }
 
     public List<Comodidade> listarInativas() {
         return repository.findInativos();
@@ -41,22 +44,25 @@ public class ComodidadeService {
 
     public void desativar(Long id) {
         Comodidade c = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));
+                .orElseThrow(() -> new RuntimeException("não encontrado"));
 
         c.setAtivo(false);
         repository.save(c);
     }
-    public void ativar(Long id){
+
+    public void ativar(Long id) {
         Comodidade c = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));
+                .orElseThrow(() -> new RuntimeException("não encontrado"));
 
         c.setAtivo(true);
         repository.save(c);
     }
+
     public Comodidade buscarPorId(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não encontrada"));
     }
+
     public List<Comodidade> buscarPorIds(List<Long> ids) {
         return repository.findAllById(ids);
     }

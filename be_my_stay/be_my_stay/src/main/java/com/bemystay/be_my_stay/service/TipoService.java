@@ -14,7 +14,9 @@ public class TipoService {
         this.tipoRepository = tipoRepository;
     }
 
-    public List<TipoImovel> listar() { return tipoRepository.findAtivos(); }
+    public List<TipoImovel> listar() {
+        return tipoRepository.findAtivos();
+    }
 
 
     public long contarTotal() {
@@ -39,11 +41,12 @@ public class TipoService {
         }
         tipoRepository.save(tipoImovel);
     }
+
     public TipoImovel buscarPorId(Long id) {
         return tipoRepository.findById(id).orElse(null);
     }
 
-    public void editar (Long id, TipoImovel dados ){
+    public void editar(Long id, TipoImovel dados) {
         TipoImovel t = tipoRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
 
         t.setNome(dados.getNome());
@@ -52,15 +55,15 @@ public class TipoService {
         tipoRepository.save(t);
     }
 
-    public void desativar(Long id){
-        TipoImovel t = tipoRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
+    public void desativar(Long id) {
+        TipoImovel t = tipoRepository.findById(id).orElseThrow(() -> new RuntimeException("não encontrado"));
 
         t.setAtivo(false);
         tipoRepository.save(t);
     }
 
-    public void ativar(Long id){
-        TipoImovel t = tipoRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
+    public void ativar(Long id) {
+        TipoImovel t = tipoRepository.findById(id).orElseThrow(() -> new RuntimeException("não encontrado"));
 
         t.setAtivo(true);
         tipoRepository.save(t);

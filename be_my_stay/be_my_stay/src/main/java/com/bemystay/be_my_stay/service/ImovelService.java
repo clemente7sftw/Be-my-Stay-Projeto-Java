@@ -12,21 +12,25 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
+
 @Service
 public class ImovelService {
     private final ImovelRepository imovelRepository;
-    private final ReservaRepository reservaRepository;
     private final ReservaService reservaService;
 
-    public ImovelService(ImovelRepository imovelRepository, ReservaRepository reservaRepository, ReservaService reservaService) {
+    public ImovelService(ImovelRepository imovelRepository, ReservaService reservaService) {
         this.imovelRepository = imovelRepository;
-        this.reservaRepository = reservaRepository;
         this.reservaService = reservaService;
     }
-    public List<Imovel> listar() { return imovelRepository.findByAtivos(); }
+
+    public List<Imovel> listar() {
+        return imovelRepository.findByAtivos();
+    }
+
     public List<Imovel> listarInativas() {
         return imovelRepository.findByInativos();
     }
+
     public long contarTotal() {
         return imovelRepository.count();
     }
@@ -42,6 +46,7 @@ public class ImovelService {
     public Imovel buscarPorId(Long id) {
         return imovelRepository.findById(id).orElseThrow(() -> new RuntimeException("Não encontrada"));
     }
+
     public void desativar(Long id) {
 
         reservaService.verificarExcluir(id);
@@ -52,6 +57,7 @@ public class ImovelService {
         imovel.setAtivo(false);
         imovelRepository.save(imovel);
     }
+
     public void ativar(Long id) {
         Imovel i = imovelRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("não encontrado"));
@@ -62,7 +68,7 @@ public class ImovelService {
 
     @Transactional
 
-    public Imovel salvar(Imovel imovel){
+    public Imovel salvar(Imovel imovel) {
         if (imovel.getEndereco() != null) {
             imovel.getEndereco().setImovel(imovel);
         }
@@ -78,6 +84,7 @@ public class ImovelService {
 
         return imovelRepository.save(imovel);
     }
+
     public List<Imovel> buscarPorId(List<Long> id) {
         return imovelRepository.findAllById(id);
     }
@@ -94,13 +101,12 @@ public class ImovelService {
         return imovelRepository.countByUsuarioIdAndAtivoFalse(usuarioId);
     }
 
-        public String buscarCep(String cep) {
-            RestTemplate restTemplate = new RestTemplate();
-            String url = "https://viacep.com.br/ws/" + cep + "/json/";
-            return restTemplate.getForObject(url, String.class);
+    public String buscarCep(String cep) {
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://viacep.com.br/ws/" + cep + "/json/";
+        return restTemplate.getForObject(url, String.class);
 
     }
-
 
 
     public List<Imovel> listarAtivosPorTipo(Long tipoId) {

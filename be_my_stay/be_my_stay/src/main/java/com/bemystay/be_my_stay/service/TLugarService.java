@@ -1,8 +1,6 @@
 package com.bemystay.be_my_stay.service;
 
-import com.bemystay.be_my_stay.model.TipoImovel;
 import com.bemystay.be_my_stay.model.TipoLugar;
-import com.bemystay.be_my_stay.model.Usuario;
 import com.bemystay.be_my_stay.repository.TLugarRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +10,9 @@ import java.util.List;
 public class TLugarService {
     private final TLugarRepository tLugarRepository;
 
-    public List<TipoLugar> listar() {return tLugarRepository.findAtivos();}
+    public List<TipoLugar> listar() {
+        return tLugarRepository.findAtivos();
+    }
 
     public TLugarService(TLugarRepository tLugarRepository) {
         this.tLugarRepository = tLugarRepository;
@@ -24,9 +24,11 @@ public class TLugarService {
         }
         tLugarRepository.save(tipoLugar);
     }
+
     public TipoLugar buscarPorId(Long id) {
         return tLugarRepository.findById(id).orElse(null);
     }
+
     public void editar(Long id, TipoLugar dados) {
 
         TipoLugar l = tLugarRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
@@ -36,22 +38,25 @@ public class TLugarService {
 
         tLugarRepository.save(l);
     }
-    public void desativar(Long id){
-        TipoLugar l = tLugarRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
+
+    public void desativar(Long id) {
+        TipoLugar l = tLugarRepository.findById(id).orElseThrow(() -> new RuntimeException("não encontrado"));
 
         l.setAtivo(false);
         tLugarRepository.save(l);
     }
 
-    public void ativar(Long id){
-        TipoLugar l= tLugarRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
+    public void ativar(Long id) {
+        TipoLugar l = tLugarRepository.findById(id).orElseThrow(() -> new RuntimeException("não encontrado"));
 
         l.setAtivo(true);
         tLugarRepository.save(l);
     }
+
     public List<TipoLugar> listarInativas() {
         return tLugarRepository.findInativos();
     }
+
     public long contarAtivos() {
         return tLugarRepository.countByAtivoTrue();
     }
@@ -60,6 +65,7 @@ public class TLugarService {
 
         return tLugarRepository.countByAtivoFalse();
     }
+
     public long contarTotal() {
         return tLugarRepository.count();
     }

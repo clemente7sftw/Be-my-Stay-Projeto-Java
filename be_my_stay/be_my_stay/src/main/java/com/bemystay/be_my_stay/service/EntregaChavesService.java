@@ -13,6 +13,7 @@ public class EntregaChavesService {
     public EntregaChavesService(EntregaChavesRepository entregaChavesRepository) {
         this.entregaChavesRepository = entregaChavesRepository;
     }
+
     public void salvar(EntregaChaves entregaChaves) {
         if (entregaChavesRepository.findByTitulo(entregaChaves.getTitulo()) != null) {
             throw new RuntimeException("");
@@ -20,7 +21,9 @@ public class EntregaChavesService {
         entregaChavesRepository.save(entregaChaves);
     }
 
-    public List<EntregaChaves> listar() { return entregaChavesRepository.findByAtivos(); }
+    public List<EntregaChaves> listar() {
+        return entregaChavesRepository.findByAtivos();
+    }
 
     public List<EntregaChaves> listarInativas() {
         return entregaChavesRepository.findByInativos();
@@ -41,22 +44,25 @@ public class EntregaChavesService {
 
     public void desativar(Long id) {
         EntregaChaves c = entregaChavesRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(""));
+                .orElseThrow(() -> new RuntimeException("não encontrado"));
 
         c.setAtivo(false);
         entregaChavesRepository.save(c);
     }
-    public void ativar(Long id){
-        EntregaChaves c  = entregaChavesRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(""));
+
+    public void ativar(Long id) {
+        EntregaChaves c = entregaChavesRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("não encontrado"));
 
         c.setAtivo(true);
         entregaChavesRepository.save(c);
     }
+
     public EntregaChaves buscarPorId(Long id) {
         return entregaChavesRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Não encontrada"));
     }
+
     public void editar(Long id, EntregaChaves dados) {
 
         EntregaChaves c = entregaChavesRepository.findById(id)

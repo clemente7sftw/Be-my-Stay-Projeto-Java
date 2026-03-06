@@ -51,9 +51,14 @@ public class UsuarioService {
     public Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email).orElse(null);
     }
-    public List<Usuario> listar(){ return usuarioRepository.findByAtivos(); }
 
-    public List<Usuario> listarInativas(){ return usuarioRepository.findInativos();}
+    public List<Usuario> listar() {
+        return usuarioRepository.findByAtivos();
+    }
+
+    public List<Usuario> listarInativas() {
+        return usuarioRepository.findInativos();
+    }
 
     public long contarTotal() {
         return usuarioRepository.count();
@@ -85,14 +90,16 @@ public class UsuarioService {
 
 
     }
+
     public void desativar(Long id) {
-        Usuario u = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));
+        Usuario u = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("não encontrado"));
 
         u.setAtivo(false);
         usuarioRepository.save(u);
     }
-    public void ativar(Long id){
-        Usuario u = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Comodidade não encontrada"));
+
+    public void ativar(Long id) {
+        Usuario u = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("não encontrado"));
 
         u.setAtivo(true);
         usuarioRepository.save(u);
