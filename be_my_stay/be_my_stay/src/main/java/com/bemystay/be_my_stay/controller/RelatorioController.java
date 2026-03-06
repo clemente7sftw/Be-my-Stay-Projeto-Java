@@ -141,7 +141,7 @@ public class RelatorioController {
         String html = templateEngine.process("relatorios/admin/usuariosReservas", context);
 
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "inline; filename=relatorioUsuarios_bemystay.pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=relatorioUsuarios_bemystay.pdf");
 
         OutputStream out = response.getOutputStream();
 

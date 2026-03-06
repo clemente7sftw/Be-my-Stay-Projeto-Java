@@ -72,12 +72,13 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     List<Object[]> usuariosComMaisReservas();
 
     @Query("""
-       SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END
-       FROM Reserva r
-       WHERE r.imovel.id = :imovelId
-       AND :checkin < r.checkout
-       AND :checkout > r.checkin
-       """)
+   SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END
+   FROM Reserva r
+   WHERE r.imovel.id = :imovelId
+   AND r.ativo = true
+   AND :checkin < r.checkout
+   AND :checkout > r.checkin
+""")
     boolean existeReservaConflitante(
             Long imovelId,
             LocalDate checkin,

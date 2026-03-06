@@ -37,13 +37,12 @@
                  alt="Imagem do imóvel">
         </div>
     </div>
-    <p class="titulo" th:text="${imovel.titulo}"></p>
     <div class="secao_inferior">
         <div class="descricao">
+            <p class="titulo" th:text="${imovel.titulo}"></p>
 
-            <p th:text="${imovel.qtdHospede == 1
-    ? '1 hóspede • ' + imovel.qtdBanheiros + ' banheiros'
-    : imovel.qtdHospede + ' hóspedes • ' + imovel.qtdBanheiros + ' banheiros'}">
+            <p th:text="${imovel.qtdHospede == 1 ? '1 hóspede • ' + imovel.qtdBanheiros + ' banheiro'
+             : imovel.qtdHospede + ' hóspedes • ' + imovel.qtdBanheiros + ' banheiros' + ' • ' + imovel.qtdCamas + ' camas ' + ' • '  + imovel.vagasGaragem + ' • '  + 'vagas de garagem'}">
             </p>
 
 
@@ -55,10 +54,8 @@
                     <span th:text="${c.nome}"></span>
                 </label>
             </div>
-            <h4>Tipo de Lugar:</h4>
-            <p th:text="${imovel.tipoLugar.titulo}"></p>
-            <h4>Tipo de Imóvel:</h4>
-            <p th:text="${imovel.tipoImovel.nome}"></p>
+            <p th:text="${imovel.tipoLugar.titulo + ' • '+ imovel.tipoImovel.nome}"></p>
+
             <h4>Horário Check In:</h4>
             <p th:text="${imovel.checkIn}"></p>
             <h4>Horário Check Out:</h4>
@@ -66,23 +63,23 @@
             <h4>Método de Check In:</h4>
             <p th:text="${imovel.entregaChaves.titulo}"></p>
 
-                <div class="anfitriao-box">
+            <div class="anfitriao-box">
 
-                    <div th:if="${imovel.usuario.foto_perfil != null}">
-                        <img th:src="@{'/uploads/' + ${imovel.usuario.foto_perfil}}"
-                             class="foto-anfitriao">
-                    </div>
-
-                    <div class="info-anfitriao">
-                        <h4 th:text="${imovel.usuario.nome}"></h4>
-
-                        <p>
-                            Anfitrião desde
-                            <span th:text="${#temporals.format(imovel.usuario.dataCad, 'MMMM yyyy')}"></span>
-                        </p>
-                    </div>
-
+                <div th:if="${imovel.usuario.foto_perfil != null}">
+                    <img th:src="@{'/uploads/' + ${imovel.usuario.foto_perfil}}"
+                         class="foto-anfitriao">
                 </div>
+
+                <div class="info-anfitriao">
+                    <h4 th:text="${imovel.usuario.nome}"></h4>
+
+                    <p>
+                        Anfitrião desde
+                        <span th:text="${#temporals.format(imovel.usuario.dataCad, 'MMMM yyyy')}"></span>
+                    </p>
+                </div>
+
+            </div>
 
         </div>
 

@@ -6,31 +6,11 @@
     <title>Relatório - Imóveis Mais Lucrativos</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid #000000;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
+        body { font-family: Arial; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #000; padding: 8px; }
+        th { background-color: #f2f2f2; }
         .ranking {
             font-weight: bold;
         }
@@ -38,7 +18,14 @@
 </head>
 
 <body>
+
+<h1>Be My Stay</h1>
+<hr/>
+
 <h1>Relatório de Imóveis Cadastrados</h1>
+<hr/>
+
+
 
 <div class="box">
     <p>
@@ -56,12 +43,14 @@
 
 <table>
     <tr>
+        <th>ID</th>
         <th>Título</th>
         <th>Data Cadastro</th>
         <th>Preço Diária</th>
     </tr>
 
     <tr th:each="i : ${imoveis}">
+        <td th:text="${i.id}"></td>
         <td th:text="${i.titulo}"></td>
         <td th:text="${#temporals.format(i.dataCadastro, 'dd/MM/yyyy HH:mm')}"></td>
         <td th:text="${'R$ ' + i.precoDiaria}"></td>
