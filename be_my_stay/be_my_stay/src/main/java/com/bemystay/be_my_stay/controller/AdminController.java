@@ -59,7 +59,7 @@ public class AdminController {
         model.addAttribute("usuarioLogado", usuario);
 
         model.addAttribute("contarUsuarios", usuarioService.contarAtivos());
-        model.addAttribute("contarModeradores", entregaChavesService.contarAtivos());
+        model.addAttribute("contarMetodos", entregaChavesService.contarAtivos());
         model.addAttribute("contarImoveis", imovelService.contarTotal());
         model.addAttribute("imovel", imovelService.listar());
 

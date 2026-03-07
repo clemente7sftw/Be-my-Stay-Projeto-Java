@@ -79,7 +79,7 @@ public class EntregaChavesController {
         model.addAttribute("inativos", entregaChavesService.contarInativos());
         model.addAttribute("ativos", entregaChavesService.contarAtivos());
 
-        return "checkin/listar";
+        return "checkIn/listar";
     }
 
     @GetMapping("/listarInativas")

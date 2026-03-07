@@ -26,6 +26,18 @@ public class MetPagService {
         return metPagRepository.findAtivos();
     }
 
+    public long contarTotal() {
+        return metPagRepository.count();
+    }
+
+    public long contarAtivos() {
+        return metPagRepository.countByAtivoTrue();
+    }
+
+    public long contarInativos() {
+        return metPagRepository.countByAtivoFalse();
+    }
+
     public List<MetodoPagamento> listarInativos() {
         return metPagRepository.findInativos();
     }

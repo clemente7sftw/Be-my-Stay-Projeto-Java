@@ -72,6 +72,9 @@ public class MetodoController {
             return "redirect:/usuarios/login";
         }
         model.addAttribute("método", metPagService.listar());
+        model.addAttribute("contarTotal", metPagService.contarTotal());
+        model.addAttribute("ativas", metPagService.contarAtivos());
+        model.addAttribute("inativas", metPagService.contarInativos());
 
         return "/metodoPag/listar";
 
