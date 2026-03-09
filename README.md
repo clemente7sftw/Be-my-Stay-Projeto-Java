@@ -13,6 +13,8 @@ Além disso, o sistema possui funcionalidades administrativas para gerenciamento
 
 ---
 Prototipagem : https://www.figma.com/design/MNm099x54YvEx6oKe3hrin/Projeto-Java?node-id=0-1&t=A9KZ4q04AHxFb0Qo-1
+
+Slides: https://www.canva.com/design/DAHDCAOytX8/63c_hQuYabv4EuNAs4lcIw/edit?utm_content=DAHDCAOytX8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 ---
 
 # 🚀 Funcionalidades
